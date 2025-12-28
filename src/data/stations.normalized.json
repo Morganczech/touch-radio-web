@@ -6,7 +6,8 @@
     "country": "Germany",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "https://mangoradio.de/"
+    "homepage": "https://mangoradio.de/",
+    "favicon": "https://mangoradio.de/wp-content/uploads/cropped-Logo-192x192.webp"
   },
   {
     "id": "962cc6df-0601-11e8-ae97-52543be04c81",
@@ -15,7 +16,8 @@
     "country": "Hungary",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "https://dancewave.online/"
+    "homepage": "https://dancewave.online/",
+    "favicon": "https://dancewave.online/dw_logo.png"
   },
   {
     "id": "f592bcd7-c052-11e9-8502-52543be04c81",
@@ -24,7 +26,8 @@
     "country": "",
     "codec": "MP3",
     "bitrate": 192,
-    "homepage": "https://www.reyfm.de/"
+    "homepage": "https://www.reyfm.de/",
+    "favicon": "https://www.reyfm.de/icon.png"
   },
   {
     "id": "9617a958-0601-11e8-ae97-52543be04c81",
@@ -33,7 +36,8 @@
     "country": "The United States Of America",
     "codec": "AAC",
     "bitrate": 320,
-    "homepage": "https://radioparadise.com/"
+    "homepage": "https://radioparadise.com/",
+    "favicon": "https://radioparadise.com/apple-touch-icon.png"
   },
   {
     "id": "d1a54d2e-623e-4970-ab11-35f7b56c5ec3",
@@ -42,7 +46,8 @@
     "country": "The United States Of America",
     "codec": "MP3",
     "bitrate": 320,
-    "homepage": "https://walmradio.com/classic"
+    "homepage": "https://walmradio.com/classic",
+    "favicon": "https://icecast.walmradio.com:8443/classic.jpg"
   },
   {
     "id": "ea8059be-d119-4de3-b27b-0d9bd6aedb17",
@@ -51,7 +56,8 @@
     "country": "The United States Of America",
     "codec": "MP3",
     "bitrate": 320,
-    "homepage": "https://walmradio.com/jazz"
+    "homepage": "https://walmradio.com/jazz",
+    "favicon": "https://icecast.walmradio.com:8443/jazz.jpg"
   },
   {
     "id": "6eff3484-4ab4-4d36-bf27-9172c5aac15c",
@@ -60,7 +66,8 @@
     "country": "The United States Of America",
     "codec": "MP3",
     "bitrate": 320,
-    "homepage": "https://walmradio.com/christmas"
+    "homepage": "https://walmradio.com/christmas",
+    "favicon": "https://icecast.walmradio.com:8443/christmas.png"
   },
   {
     "id": "98adecf7-2683-4408-9be7-02d3f9098eb8",
@@ -69,7 +76,8 @@
     "country": "The United Kingdom Of Great Britain And Northern Ireland",
     "codec": "MP3",
     "bitrate": 56,
-    "homepage": "https://www.bbc.co.uk/programmes/w172xzjgf6lxp7y"
+    "homepage": "https://www.bbc.co.uk/programmes/w172xzjgf6lxp7y",
+    "favicon": "http://cdn-profiles.tunein.com/s24948/images/logoq.jpg?t=1"
   },
   {
     "id": "348dfc58-ce8c-413b-b264-0384f816344b",
@@ -78,7 +86,8 @@
     "country": "The United States Of America",
     "codec": "MP3",
     "bitrate": 320,
-    "homepage": "https://walmradio.com/walm"
+    "homepage": "https://walmradio.com/walm",
+    "favicon": "https://icecast.walmradio.com:8443/walm.jpg"
   },
   {
     "id": "c3357cf1-5108-11ea-b877-52543be04c81",
@@ -87,7 +96,8 @@
     "country": "",
     "codec": "MP3",
     "bitrate": 0,
-    "homepage": "https://iranintl.com/"
+    "homepage": "https://iranintl.com/",
+    "favicon": ""
   },
   {
     "id": "313046e3-b203-4b9d-bc3e-393da7d97126",
@@ -96,7 +106,8 @@
     "country": "The United States Of America",
     "codec": "MP3",
     "bitrate": 64,
-    "homepage": "https://walmradio.com/otr"
+    "homepage": "https://walmradio.com/otr",
+    "favicon": "https://icecast.walmradio.com:8443/otr.jpg"
   },
   {
     "id": "ba2ff014-f77e-4983-b37f-9b61383cfd65",
@@ -105,7 +116,8 @@
     "country": "The Netherlands",
     "codec": "MP3",
     "bitrate": 256,
-    "homepage": "https://www.italo.nu/"
+    "homepage": "https://www.italo.nu/",
+    "favicon": "https://italo.nu/fantasy-logo.png"
   },
   {
     "id": "96494925-0601-11e8-ae97-52543be04c81",
@@ -114,7 +126,8 @@
     "country": "Czechia",
     "codec": "MP3",
     "bitrate": 0,
-    "homepage": "http://www.radiofarda.com/"
+    "homepage": "http://www.radiofarda.com/",
+    "favicon": "http://www.radiofarda.com//Content/responsive/RFE/img/webApp/favicon.ico"
   },
   {
     "id": "5c6c092b-2b8b-4ac1-a8d0-090f87037fd9",
@@ -123,7 +136,8 @@
     "country": "Islamic Republic Of Iran",
     "codec": "MP3",
     "bitrate": 0,
-    "homepage": "https://iranintl.com/"
+    "homepage": "https://iranintl.com/",
+    "favicon": "https://iranintl.com/favicon.ico"
   },
   {
     "id": "1cfb151d-a341-11e9-a787-52543be04c81",
@@ -132,7 +146,8 @@
     "country": "France",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "https://www.francetvinfo.fr/"
+    "homepage": "https://www.francetvinfo.fr/",
+    "favicon": "https://www.francetvinfo.fr/assets/common/images/pwa/ios/120-5487caf3.png"
   },
   {
     "id": "d28420a4-eccf-47a2-ace1-088c7e7cb7e0",
@@ -141,7 +156,8 @@
     "country": "The United States Of America",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "http://101smoothjazz.com/"
+    "homepage": "http://101smoothjazz.com/",
+    "favicon": "http://101smoothjazz.com/favicon.ico"
   },
   {
     "id": "64bb1467-2585-4454-a96f-34cfbc864d41",
@@ -150,7 +166,8 @@
     "country": "The United States Of America",
     "codec": "MP3",
     "bitrate": 320,
-    "homepage": "https://walmradio.com/walm2"
+    "homepage": "https://walmradio.com/walm2",
+    "favicon": "https://icecast.walmradio.com:8443/walm.jpg"
   },
   {
     "id": "960c2914-0601-11e8-ae97-52543be04c81",
@@ -159,7 +176,8 @@
     "country": "France",
     "codec": "MP3",
     "bitrate": 64,
-    "homepage": "http://www.rfi.fr/"
+    "homepage": "http://www.rfi.fr/",
+    "favicon": "http://www.rfi.fr/apple-touch-icon.png"
   },
   {
     "id": "9616a843-0601-11e8-ae97-52543be04c81",
@@ -168,7 +186,8 @@
     "country": "Tunisia",
     "codec": "MP3",
     "bitrate": 90,
-    "homepage": "http://www.mosaiquefm.net/ar/"
+    "homepage": "http://www.mosaiquefm.net/ar/",
+    "favicon": ""
   },
   {
     "id": "96156a3e-0601-11e8-ae97-52543be04c81",
@@ -177,7 +196,8 @@
     "country": "The United States Of America",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "http://www.deephouselounge.com/"
+    "homepage": "http://www.deephouselounge.com/",
+    "favicon": "http://www.deephouselounge.com/wp-content/themes/maronpro/images/favicon.ico"
   },
   {
     "id": "7a3a3989-8f26-44f7-9ae5-fa91e5cf4f9d",
@@ -186,7 +206,8 @@
     "country": "France",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "https://rmc.bfmtv.com/"
+    "homepage": "https://rmc.bfmtv.com/",
+    "favicon": "https://i1.wp.com/www.mediasportif.fr/wp-content/uploads/2014/05/Radio-RMC.jpg"
   },
   {
     "id": "dcb4d366-5b06-4f4d-a5cb-0b81d1c09521",
@@ -195,7 +216,8 @@
     "country": "Islamic Republic Of Iran",
     "codec": "MP3",
     "bitrate": 64,
-    "homepage": "http://radio.sarcheshmeh.us/parsa.html"
+    "homepage": "http://radio.sarcheshmeh.us/parsa.html",
+    "favicon": "https://lh5.googleusercontent.com/proxy/25PMsUBa3Z6So8cdvAyZT7_93NyV26cJNuTTDY4xk6aJU1lcKPByf2C7o2HbrGrv-QxPvbI3dio2D39zYlgi1v6nLg"
   },
   {
     "id": "b6eedfc6-4a4b-4899-852f-03dd833f1f1b",
@@ -204,7 +226,8 @@
     "country": "Islamic Republic Of Iran",
     "codec": "MP3",
     "bitrate": 0,
-    "homepage": "https://www.radiofarda.com/"
+    "homepage": "https://www.radiofarda.com/",
+    "favicon": "https://www.radiofarda.com/content/responsive/rfe/img/webapp/ico-128x128.png"
   },
   {
     "id": "96102c22-0601-11e8-ae97-52543be04c81",
@@ -213,7 +236,8 @@
     "country": "France",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "http://www.jazzradio.fr/radio/webradio/3/blues"
+    "homepage": "http://www.jazzradio.fr/radio/webradio/3/blues",
+    "favicon": "https://www.jazzradio.fr/apple-touch-icon-120x120.png"
   },
   {
     "id": "d2bbffaf-5d67-4a65-9772-097d8c0269d3",
@@ -222,7 +246,8 @@
     "country": "France",
     "codec": "AAC",
     "bitrate": 192,
-    "homepage": "https://www.franceinter.fr/"
+    "homepage": "https://www.franceinter.fr/",
+    "favicon": "https://www.franceinter.fr/favicon.ico"
   },
   {
     "id": "399b7c2a-6680-11e8-b15b-52543be04c81",
@@ -231,7 +256,8 @@
     "country": "Poland",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "https://www.rmf.fm/"
+    "homepage": "https://www.rmf.fm/",
+    "favicon": "https://www.rmf.fm/assets/images/favicon/apple-icon-120x120.png?3"
   },
   {
     "id": "9622cd46-0601-11e8-ae97-52543be04c81",
@@ -240,7 +266,8 @@
     "country": "The Russian Federation",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "http://www.europaplus.ru/"
+    "homepage": "http://www.europaplus.ru/",
+    "favicon": "http://liveam.tv/img/2494.jpg"
   },
   {
     "id": "70647d8f-bf45-4034-a747-0561ecfa769e",
@@ -249,7 +276,8 @@
     "country": "The United States Of America",
     "codec": "OGG",
     "bitrate": 32,
-    "homepage": "https://walmradio.com/otr"
+    "homepage": "https://walmradio.com/otr",
+    "favicon": "https://icecast.walmradio.com:8443/otr.jpg"
   },
   {
     "id": "961949f3-0601-11e8-ae97-52543be04c81",
@@ -258,7 +286,8 @@
     "country": "Ukraine",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "http://www.hitfm.ua/"
+    "homepage": "http://www.hitfm.ua/",
+    "favicon": "https://www.hitfm.ua/static/img/fav-icon/apple-icon-120x120.png"
   },
   {
     "id": "ccac6135-cd73-4786-8e69-666df05a5881",
@@ -267,7 +296,8 @@
     "country": "Tunisia",
     "codec": "MP3",
     "bitrate": 0,
-    "homepage": "https://www.ifm.tn/"
+    "homepage": "https://www.ifm.tn/",
+    "favicon": ""
   },
   {
     "id": "2ce23ee2-95c5-407d-9df8-54c3cdde2825",
@@ -276,7 +306,8 @@
     "country": "The United States Of America",
     "codec": "OGG",
     "bitrate": 192,
-    "homepage": "https://walmradio.com/jazz"
+    "homepage": "https://walmradio.com/jazz",
+    "favicon": "https://icecast.walmradio.com:8443/jazz.jpg"
   },
   {
     "id": "961c96ef-0601-11e8-ae97-52543be04c81",
@@ -285,7 +316,8 @@
     "country": "The Russian Federation",
     "codec": "MP3",
     "bitrate": 0,
-    "homepage": "http://www.rockfm.ru/"
+    "homepage": "http://www.rockfm.ru/",
+    "favicon": "https://lh3.googleusercontent.com/D3taObR7tfyhwDFY40VS8DIVri7iif5RuzI9C-mXxRwF41vGZ_dO_n6MWM57P-mZczFC=w300"
   },
   {
     "id": "31074f8a-e6f4-11e9-a96c-52543be04c81",
@@ -294,7 +326,8 @@
     "country": "France",
     "codec": "AAC",
     "bitrate": 192,
-    "homepage": "https://www.francetvinfo.fr/en-direct/radio.html"
+    "homepage": "https://www.francetvinfo.fr/en-direct/radio.html",
+    "favicon": "https://www.francetvinfo.fr/assets/common/images/pwa/ios/120-0cfbd6d4.png"
   },
   {
     "id": "960c68f8-0601-11e8-ae97-52543be04c81",
@@ -303,7 +336,8 @@
     "country": "France",
     "codec": "MP3",
     "bitrate": 64,
-    "homepage": "http://www.rfi.fr/"
+    "homepage": "http://www.rfi.fr/",
+    "favicon": "http://www.rfi.fr/apple-touch-icon.png"
   },
   {
     "id": "c93f9c76-2ad4-464d-bff4-7f46e95f2601",
@@ -312,7 +346,8 @@
     "country": "The United States Of America",
     "codec": "AAC",
     "bitrate": 0,
-    "homepage": "http://classichits.radio/"
+    "homepage": "http://classichits.radio/",
+    "favicon": ""
   },
   {
     "id": "63688c44-e90b-11e8-a471-52543be04c81",
@@ -321,7 +356,8 @@
     "country": "The Russian Federation",
     "codec": "AAC+",
     "bitrate": 64,
-    "homepage": "http://www.radiovanya.ru/"
+    "homepage": "http://www.radiovanya.ru/",
+    "favicon": ""
   },
   {
     "id": "964be8b7-0601-11e8-ae97-52543be04c81",
@@ -330,7 +366,8 @@
     "country": "Hungary",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "https://retro.dacemwave.online/"
+    "homepage": "https://retro.dacemwave.online/",
+    "favicon": "https://dancewave.online/dwr_logo.png"
   },
   {
     "id": "b96225b2-8536-4b9b-8add-03582fd2e6a2",
@@ -339,7 +376,8 @@
     "country": "The United States Of America",
     "codec": "OGG",
     "bitrate": 192,
-    "homepage": "https://walmradio.com/walm2"
+    "homepage": "https://walmradio.com/walm2",
+    "favicon": "https://icecast.walmradio.com:8443/walm.jpg"
   },
   {
     "id": "96063f25-0601-11e8-ae97-52543be04c81",
@@ -348,7 +386,8 @@
     "country": "The United Kingdom Of Great Britain And Northern Ireland",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "http://www.classicfm.com/"
+    "homepage": "http://www.classicfm.com/",
+    "favicon": "http://www.classicfm.com/assets_v4r/classic/img/favicon-196x196.png"
   },
   {
     "id": "961b7325-0601-11e8-ae97-52543be04c81",
@@ -357,7 +396,8 @@
     "country": "The United States Of America",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "http://www.977music.com/"
+    "homepage": "http://www.977music.com/",
+    "favicon": ""
   },
   {
     "id": "9627ddc0-0601-11e8-ae97-52543be04c81",
@@ -366,7 +406,8 @@
     "country": "The United States Of America",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "http://www.181.fm/"
+    "homepage": "http://www.181.fm/",
+    "favicon": "http://www.181.fm/favicon.ico"
   },
   {
     "id": "960ac54b-0601-11e8-ae97-52543be04c81",
@@ -375,16 +416,8 @@
     "country": "The United States Of America",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "http://www.yourclassical.org/"
-  },
-  {
-    "id": "961d9b63-0601-11e8-ae97-52543be04c81",
-    "name": ".977 Country",
-    "streamUrl": "http://playerservices.streamtheworld.com/pls/977_COUNTRY.pls",
-    "country": "The United States Of America",
-    "codec": "MP3",
-    "bitrate": 128,
-    "homepage": "http://www.977music.com/"
+    "homepage": "http://www.yourclassical.org/",
+    "favicon": "http://www.yourclassical.org/apple-touch-icon.png"
   },
   {
     "id": "6a1440b2-e6f0-11e9-a96c-52543be04c81",
@@ -393,7 +426,18 @@
     "country": "France",
     "codec": "AAC",
     "bitrate": 192,
-    "homepage": "https://www.franceculture.fr/"
+    "homepage": "https://www.franceculture.fr/",
+    "favicon": "https://upload.wikimedia.org/wikipedia/fr/thumb/c/c9/France_Culture_-_2008.svg/1024px-France_Culture_-_2008.svg.png"
+  },
+  {
+    "id": "961d9b63-0601-11e8-ae97-52543be04c81",
+    "name": ".977 Country",
+    "streamUrl": "http://playerservices.streamtheworld.com/pls/977_COUNTRY.pls",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://www.977music.com/",
+    "favicon": ""
   },
   {
     "id": "9606c2cd-0601-11e8-ae97-52543be04c81",
@@ -402,7 +446,8 @@
     "country": "France",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "http://www.rtl.fr/"
+    "homepage": "http://www.rtl.fr/",
+    "favicon": ""
   },
   {
     "id": "563f5559-105c-11e9-a80b-52543be04c81",
@@ -411,7 +456,8 @@
     "country": "The Russian Federation",
     "codec": "AAC+",
     "bitrate": 96,
-    "homepage": "https://dfm.ru/"
+    "homepage": "https://dfm.ru/",
+    "favicon": "https://dfm.ru/uploads/favicon.ico"
   },
   {
     "id": "c2698fb7-f7ec-401d-904f-ef4284501bd9",
@@ -420,7 +466,8 @@
     "country": "France",
     "codec": "MP3",
     "bitrate": 96,
-    "homepage": "http://www.rfi.fr/fr/"
+    "homepage": "http://www.rfi.fr/fr/",
+    "favicon": ""
   },
   {
     "id": "d9fc29b8-b152-11e8-afe1-52543be04c81",
@@ -429,7 +476,8 @@
     "country": "France",
     "codec": "MP3",
     "bitrate": 128,
-    "homepage": "https://www.franceinter.fr/"
+    "homepage": "https://www.franceinter.fr/",
+    "favicon": ""
   },
   {
     "id": "0a364b59-56b6-11e9-aa33-52543be04c81",
@@ -438,7 +486,8 @@
     "country": "The Russian Federation",
     "codec": "MP3",
     "bitrate": 320,
-    "homepage": "https://dorognoe.ru/?region=piter"
+    "homepage": "https://dorognoe.ru/?region=piter",
+    "favicon": "https://dorognoe.ru/assets/default/i/fav_114x114.png"
   },
   {
     "id": "165eab56-4a14-11e9-a4d7-52543be04c81",
@@ -447,6 +496,7 @@
     "country": "The Russian Federation",
     "codec": "AAC+",
     "bitrate": 96,
-    "homepage": "https://dfm.ru/"
+    "homepage": "https://dfm.ru/",
+    "favicon": ""
   }
 ]

@@ -20,7 +20,8 @@ async function normalizeStations() {
             country: station.country,
             codec: station.codec,
             bitrate: station.bitrate,
-            homepage: station.homepage
+            homepage: station.homepage,
+            favicon: station.favicon
         }));
 
         await fs.writeFile(OUTPUT_FILE, JSON.stringify(normalizedStations, null, 2), 'utf-8');

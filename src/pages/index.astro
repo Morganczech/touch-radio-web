@@ -11,9 +11,11 @@ import StationList from "../components/StationList.astro";
 	<main data-stations={JSON.stringify(stations)}>
 		<section>
 			<h2>Available Stations</h2>
-			<button id="export-btn">Export selected (JSON)</button>
-			<button id="export-m3u-btn">Export selected (M3U)</button>
-			<button id="export-pls-btn">Export selected (PLS)</button>
+			<p>Select stations and export a playlist</p>
+			<p>Selected: <span id="selection-count">0</span></p>
+			<button id="export-btn" disabled>Export selected (JSON)</button>
+			<button id="export-m3u-btn" disabled>Export selected (M3U)</button>
+			<button id="export-pls-btn" disabled>Export selected (PLS)</button>
 			<StationList stations={stations} />
 		</section>
 	</main>
@@ -44,9 +46,36 @@ import StationList from "../components/StationList.astro";
 						} else {
 							selectedIds.delete(id);
 						}
+						updateUI();
 					}
 				});
 			});
+
+			// Initial UI update
+			const countSpan = document.getElementById("selection-count");
+			const buttons = [
+				document.getElementById("export-btn"),
+				document.getElementById("export-m3u-btn"),
+				document.getElementById("export-pls-btn"),
+			];
+
+			function updateUI() {
+				const count = selectedIds.size;
+				if (countSpan) {
+					countSpan.textContent = count.toString();
+				}
+
+				const isDisabled = count === 0;
+				buttons.forEach((btn) => {
+					if (btn) {
+						if (isDisabled) {
+							btn.setAttribute("disabled", "true");
+						} else {
+							btn.removeAttribute("disabled");
+						}
+					}
+				});
+			}
 
 			if (exportBtn) {
 				exportBtn.addEventListener("click", () => {

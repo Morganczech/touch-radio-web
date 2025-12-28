@@ -48,8 +48,11 @@ const flag = getFlag(countryCode);
     data-tags={station.tags ? station.tags.join(",") : ""}
     class="station-item"
 >
+    <!-- Card Container -->
     <label class="station-card">
         <input type="checkbox" data-id={station.id} class="station-checkbox" />
+
+        <!-- Content Structure -->
         <div class="card-content">
             <div class="card-header">
                 <img
@@ -77,6 +80,8 @@ const flag = getFlag(countryCode);
                 </div>
             </div>
         </div>
+
+        <!-- PLAY BUTTON OVERLAY (Must be direct child of station-card) -->
         <button
             class="play-btn"
             data-stream={station.streamUrl}
@@ -113,10 +118,10 @@ const flag = getFlag(countryCode);
         display: block;
         height: 100%;
         cursor: pointer;
-        position: relative;
+        position: relative; /* Essential for overlay positioning */
     }
 
-    /* Hide the actual checkbox but keep it accessible/functional */
+    /* checkbox hidden but accessible */
     .station-checkbox {
         position: absolute;
         opacity: 0;
@@ -145,56 +150,100 @@ const flag = getFlag(countryCode);
     /* Selected state */
     .station-checkbox:checked + .card-content {
         border-color: var(--accent);
-        background-color: rgba(0, 0, 0, 0.02); /* Slight tint */
+        background-color: rgba(0, 0, 0, 0.02);
     }
 
     [data-theme="dark"] .station-checkbox:checked + .card-content {
         background-color: rgba(255, 255, 255, 0.05);
     }
 
-    /* Playing state visual updates */
+    /* Playing/Error visual updates */
     :global(.station-item.is-playing) .card-content {
-        /* No glow on card container as per requirement */
-        border-color: #2ecc71; /* Green border for playing */
+        border-color: #2ecc71;
     }
-
-    /* Error state */
     :global(.station-item.is-error) .card-content {
         border-color: #e74c3c;
     }
 
-    /* Play/Pause Icon Logic */
+    /* =========================================
+       PLAY BUTTON OVERLAY - CENTERED
+       ========================================= */
+    .play-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0; /* Reset margins */
+        line-height: 0;
+        border-radius: 50%;
+        color: var(--muted);
+
+        /* Flex centering for the SVG icon inside */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+
+        /* Absolute positioning overlay */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        pointer-events: auto;
+
+        transition:
+            transform 0.2s ease,
+            filter 0.2s ease;
+    }
+
+    [data-theme="dark"] .play-btn {
+        color: #fff;
+    }
+
+    .play-btn:hover {
+        /* Scale on hover, maintain center position */
+        transform: translate(-50%, -50%) scale(1.1);
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+        color: var(--accent);
+    }
+
+    /* No glow on button when playing */
+    :global(.station-item.is-playing) .play-btn:hover {
+        filter: none;
+    }
+
+    /* Play/Pause Icon SVG Logic */
     .play-icon-container {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 24px; /* Slightly larger container for SVG */
+        width: 24px;
         height: 24px;
     }
-
     .svg-icon {
         width: 100%;
         height: 100%;
         fill: currentColor;
     }
-
     .icon-pause {
         display: none;
     }
 
-    /* Switch icons based on parent card state */
+    /* Toggle icons based on parent class */
     :global(.station-card.is-playing) .icon-play {
         display: none;
     }
-
     :global(.station-card.is-playing) .icon-pause {
         display: block;
     }
 
+    /* Header Layout */
     .card-header {
         display: flex;
         justify-content: space-between;
-        align-items: center; /* Centered alignment */
+        align-items: center;
         position: relative;
     }
 
@@ -206,41 +255,34 @@ const flag = getFlag(countryCode);
         background: rgba(128, 128, 128, 0.1);
     }
 
-    /* EQUALIZER STYLES */
+    /* EQUALIZER */
     .equalizer {
         display: flex;
         align-items: flex-end;
         gap: 2px;
         height: 16px;
         width: 16px;
-
-        /* KRITICKÉ */
-        position: static; /* nebo to úplně smaž */
-
+        position: static;
         z-index: 2;
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.2s ease;
     }
-
     .bar {
         width: 3px;
         background-color: #2ecc71;
         border-radius: 1px;
-        height: 3px; /* Start height */
+        height: 3px;
     }
 
-    /* Show equalizer when playing or error */
     :global(.station-card.is-playing) .equalizer,
     :global(.station-card.is-error) .equalizer {
         opacity: 1;
     }
 
-    /* Animation for playing state */
     :global(.station-card.is-playing) .bar {
         animation: equalizer 0.5s infinite ease-in-out alternate;
     }
-
     :global(.station-card.is-playing) .bar:nth-child(1) {
         animation-delay: 0s;
     }
@@ -251,10 +293,9 @@ const flag = getFlag(countryCode);
         animation-delay: 0.3s;
     }
 
-    /* Error state: Red bars, no animation */
     :global(.station-card.is-error) .bar {
         background-color: #e74c3c;
-        height: 10px; /* Static height */
+        height: 10px;
         animation: none;
     }
 
@@ -267,6 +308,7 @@ const flag = getFlag(countryCode);
         }
     }
 
+    /* Heart Icon */
     .heart-icon {
         font-size: 1.5rem;
         line-height: 1;
@@ -275,29 +317,26 @@ const flag = getFlag(countryCode);
             transform 0.2s,
             color 0.2s;
         z-index: 3;
-        position: relative; /* Ensure z-index works */
+        position: relative;
     }
-
     .heart-icon::before {
         content: "♡";
     }
-
     .station-checkbox:checked + .card-content .heart-icon {
-        color: #e74c3c; /* Red heart */
+        color: #e74c3c;
         transform: scale(1.1);
     }
-
     .station-checkbox:checked + .card-content .heart-icon::before {
         content: "❤️";
     }
 
+    /* Card Body */
     .card-body {
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
         flex-grow: 1;
     }
-
     .station-name {
         font-size: 1.1rem;
         font-weight: 600;
@@ -307,7 +346,6 @@ const flag = getFlag(countryCode);
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
-
     .station-info {
         font-size: 0.9rem;
         color: var(--muted);
@@ -315,7 +353,6 @@ const flag = getFlag(countryCode);
         align-items: center;
         gap: 0.35rem;
     }
-
     .station-tech {
         margin-top: auto;
         padding-top: 0.5rem;
@@ -327,50 +364,8 @@ const flag = getFlag(countryCode);
         color: var(--muted);
         font-family: monospace;
     }
-
     .badge {
         text-transform: uppercase;
         font-weight: bold;
-    }
-
-    .play-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        margin: 0;
-        line-height: 0;
-        transition: transform 0.2s ease;
-        border-radius: 50%;
-        color: var(--muted);
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 38px; /* Slightly larger touch target */
-        height: 38px;
-
-        /* Absolute positioning for optical centering */
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 10;
-        pointer-events: auto;
-    }
-
-    [data-theme="dark"] .play-btn {
-        color: #fff;
-    }
-
-    /* Hover state for play button only */
-    .play-btn:hover {
-        transform: translate(-50%, -50%) scale(1.1);
-        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
-        color: var(--accent);
-    }
-
-    :global(.station-item.is-playing) .play-btn:hover {
-        filter: none; /* No glow when playing */
     }
 </style>

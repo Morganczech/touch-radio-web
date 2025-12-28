@@ -1,0 +1,452 @@
+[
+  {
+    "id": "78012206-1aa1-11e9-a80b-52543be04c81",
+    "name": "MANGORADIO",
+    "streamUrl": "https://mangoradio.stream.laut.fm/mangoradio",
+    "country": "Germany",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "https://mangoradio.de/"
+  },
+  {
+    "id": "962cc6df-0601-11e8-ae97-52543be04c81",
+    "name": "Dance Wave!",
+    "streamUrl": "https://dancewave.online/dance.mp3",
+    "country": "Hungary",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "https://dancewave.online/"
+  },
+  {
+    "id": "f592bcd7-c052-11e9-8502-52543be04c81",
+    "name": "REYFM - #original",
+    "streamUrl": "https://listen.reyfm.de/original_192kbps.mp3",
+    "country": "",
+    "codec": "MP3",
+    "bitrate": 192,
+    "homepage": "https://www.reyfm.de/"
+  },
+  {
+    "id": "9617a958-0601-11e8-ae97-52543be04c81",
+    "name": "Radio Paradise Main Mix (EU) 320k AAC",
+    "streamUrl": "http://stream-uk1.radioparadise.com/aac-320",
+    "country": "The United States Of America",
+    "codec": "AAC",
+    "bitrate": 320,
+    "homepage": "https://radioparadise.com/"
+  },
+  {
+    "id": "d1a54d2e-623e-4970-ab11-35f7b56c5ec3",
+    "name": "Classic Vinyl HD",
+    "streamUrl": "https://icecast.walmradio.com:8443/classic",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 320,
+    "homepage": "https://walmradio.com/classic"
+  },
+  {
+    "id": "ea8059be-d119-4de3-b27b-0d9bd6aedb17",
+    "name": "Adroit Jazz Underground",
+    "streamUrl": "https://icecast.walmradio.com:8443/jazz",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 320,
+    "homepage": "https://walmradio.com/jazz"
+  },
+  {
+    "id": "6eff3484-4ab4-4d36-bf27-9172c5aac15c",
+    "name": "Christmas Vinyl HD",
+    "streamUrl": "https://icecast.walmradio.com:8443/christmas",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 320,
+    "homepage": "https://walmradio.com/christmas"
+  },
+  {
+    "id": "98adecf7-2683-4408-9be7-02d3f9098eb8",
+    "name": "BBC World Service",
+    "streamUrl": "http://stream.live.vc.bbcmedia.co.uk/bbc_world_service",
+    "country": "The United Kingdom Of Great Britain And Northern Ireland",
+    "codec": "MP3",
+    "bitrate": 56,
+    "homepage": "https://www.bbc.co.uk/programmes/w172xzjgf6lxp7y"
+  },
+  {
+    "id": "348dfc58-ce8c-413b-b264-0384f816344b",
+    "name": "WALM HD",
+    "streamUrl": "https://icecast.walmradio.com:8443/walm",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 320,
+    "homepage": "https://walmradio.com/walm"
+  },
+  {
+    "id": "c3357cf1-5108-11ea-b877-52543be04c81",
+    "name": "Iran International",
+    "streamUrl": "https://radio.iraninternational.app/iintl_c",
+    "country": "",
+    "codec": "MP3",
+    "bitrate": 0,
+    "homepage": "https://iranintl.com/"
+  },
+  {
+    "id": "313046e3-b203-4b9d-bc3e-393da7d97126",
+    "name": "WALM - Old Time Radio",
+    "streamUrl": "https://icecast.walmradio.com:8443/otr",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 64,
+    "homepage": "https://walmradio.com/otr"
+  },
+  {
+    "id": "ba2ff014-f77e-4983-b37f-9b61383cfd65",
+    "name": "Fantasy Italo Radio",
+    "streamUrl": "https://italo.live-streams.nl/fantasy",
+    "country": "The Netherlands",
+    "codec": "MP3",
+    "bitrate": 256,
+    "homepage": "https://www.italo.nu/"
+  },
+  {
+    "id": "96494925-0601-11e8-ae97-52543be04c81",
+    "name": "RFE/RL Radio Farda",
+    "streamUrl": "http://rfe21.akacast.akamaistream.net/7/751/437779/v1/ibb.akacast.akamaistream.net/rfe21",
+    "country": "Czechia",
+    "codec": "MP3",
+    "bitrate": 0,
+    "homepage": "http://www.radiofarda.com/"
+  },
+  {
+    "id": "5c6c092b-2b8b-4ac1-a8d0-090f87037fd9",
+    "name": "iraninternational",
+    "streamUrl": "https://radio.iraninternational.app/iintl_c",
+    "country": "Islamic Republic Of Iran",
+    "codec": "MP3",
+    "bitrate": 0,
+    "homepage": "https://iranintl.com/"
+  },
+  {
+    "id": "1cfb151d-a341-11e9-a787-52543be04c81",
+    "name": "France Info",
+    "streamUrl": "http://direct.franceinfo.fr/live/franceinfo-midfi.mp3",
+    "country": "France",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "https://www.francetvinfo.fr/"
+  },
+  {
+    "id": "d28420a4-eccf-47a2-ace1-088c7e7cb7e0",
+    "name": "101 SMOOTH JAZZ",
+    "streamUrl": "http://www.101smoothjazz.com/101-smoothjazz.m3u",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://101smoothjazz.com/"
+  },
+  {
+    "id": "64bb1467-2585-4454-a96f-34cfbc864d41",
+    "name": "WALM 2 HD",
+    "streamUrl": "https://icecast.walmradio.com:8443/walm2",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 320,
+    "homepage": "https://walmradio.com/walm2"
+  },
+  {
+    "id": "960c2914-0601-11e8-ae97-52543be04c81",
+    "name": "RFI Afrique",
+    "streamUrl": "http://live02.rfi.fr/rfiafrique-64.mp3",
+    "country": "France",
+    "codec": "MP3",
+    "bitrate": 64,
+    "homepage": "http://www.rfi.fr/"
+  },
+  {
+    "id": "9616a843-0601-11e8-ae97-52543be04c81",
+    "name": "Mosaique FM",
+    "streamUrl": "http://radio.mosaiquefm.net:8000/mosalive",
+    "country": "Tunisia",
+    "codec": "MP3",
+    "bitrate": 90,
+    "homepage": "http://www.mosaiquefm.net/ar/"
+  },
+  {
+    "id": "96156a3e-0601-11e8-ae97-52543be04c81",
+    "name": "Deep House Lounge",
+    "streamUrl": "http://198.15.94.34:8006/stream",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://www.deephouselounge.com/"
+  },
+  {
+    "id": "7a3a3989-8f26-44f7-9ae5-fa91e5cf4f9d",
+    "name": "RMC FR",
+    "streamUrl": "https://audio.bfmtv.com/rmcradio_128.mp3",
+    "country": "France",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "https://rmc.bfmtv.com/"
+  },
+  {
+    "id": "dcb4d366-5b06-4f4d-a5cb-0b81d1c09521",
+    "name": "parsa",
+    "streamUrl": "http://parsa.icdndhcp.com:18000/stream",
+    "country": "Islamic Republic Of Iran",
+    "codec": "MP3",
+    "bitrate": 64,
+    "homepage": "http://radio.sarcheshmeh.us/parsa.html"
+  },
+  {
+    "id": "b6eedfc6-4a4b-4899-852f-03dd833f1f1b",
+    "name": "ایران‎  Radio Liberty (Iran) (official stream)",
+    "streamUrl": "https://stream.radiojar.com/cp13r2cpn3quv",
+    "country": "Islamic Republic Of Iran",
+    "codec": "MP3",
+    "bitrate": 0,
+    "homepage": "https://www.radiofarda.com/"
+  },
+  {
+    "id": "96102c22-0601-11e8-ae97-52543be04c81",
+    "name": "Jazz Radio Blues",
+    "streamUrl": "http://jazzblues.ice.infomaniak.ch/jazzblues-high.mp3",
+    "country": "France",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://www.jazzradio.fr/radio/webradio/3/blues"
+  },
+  {
+    "id": "d2bbffaf-5d67-4a65-9772-097d8c0269d3",
+    "name": "France Inter",
+    "streamUrl": "http://direct.franceinter.fr/live/franceinter-hifi.aac",
+    "country": "France",
+    "codec": "AAC",
+    "bitrate": 192,
+    "homepage": "https://www.franceinter.fr/"
+  },
+  {
+    "id": "399b7c2a-6680-11e8-b15b-52543be04c81",
+    "name": "RMF FM",
+    "streamUrl": "http://195.150.20.242:8000/rmf_fm",
+    "country": "Poland",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "https://www.rmf.fm/"
+  },
+  {
+    "id": "9622cd46-0601-11e8-ae97-52543be04c81",
+    "name": "Europa Plus",
+    "streamUrl": "http://ep256.hostingradio.ru:8052/europaplus256.mp3",
+    "country": "The Russian Federation",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://www.europaplus.ru/"
+  },
+  {
+    "id": "70647d8f-bf45-4034-a747-0561ecfa769e",
+    "name": "WALM - Old Time Radio Opus",
+    "streamUrl": "https://icecast.walmradio.com:8443/otr_opus",
+    "country": "The United States Of America",
+    "codec": "OGG",
+    "bitrate": 32,
+    "homepage": "https://walmradio.com/otr"
+  },
+  {
+    "id": "961949f3-0601-11e8-ae97-52543be04c81",
+    "name": "Hit FM (UKraine) - 128kb/s",
+    "streamUrl": "http://195.95.206.17/HitFM",
+    "country": "Ukraine",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://www.hitfm.ua/"
+  },
+  {
+    "id": "ccac6135-cd73-4786-8e69-666df05a5881",
+    "name": "Radio IFM",
+    "streamUrl": "https://live.ifm.tn/radio/8000/ifmlive",
+    "country": "Tunisia",
+    "codec": "MP3",
+    "bitrate": 0,
+    "homepage": "https://www.ifm.tn/"
+  },
+  {
+    "id": "2ce23ee2-95c5-407d-9df8-54c3cdde2825",
+    "name": "Adroit Jazz Underground HD Opus",
+    "streamUrl": "https://icecast.walmradio.com:8443/jazz_opus",
+    "country": "The United States Of America",
+    "codec": "OGG",
+    "bitrate": 192,
+    "homepage": "https://walmradio.com/jazz"
+  },
+  {
+    "id": "961c96ef-0601-11e8-ae97-52543be04c81",
+    "name": "ROCK FM",
+    "streamUrl": "http://nashe1.hostingradio.ru/rock-128.mp3",
+    "country": "The Russian Federation",
+    "codec": "MP3",
+    "bitrate": 0,
+    "homepage": "http://www.rockfm.ru/"
+  },
+  {
+    "id": "31074f8a-e6f4-11e9-a96c-52543be04c81",
+    "name": "France Info",
+    "streamUrl": "http://icecast.radiofrance.fr/franceinfo-hifi.aac",
+    "country": "France",
+    "codec": "AAC",
+    "bitrate": 192,
+    "homepage": "https://www.francetvinfo.fr/en-direct/radio.html"
+  },
+  {
+    "id": "960c68f8-0601-11e8-ae97-52543be04c81",
+    "name": "RFI Monde",
+    "streamUrl": "http://live02.rfi.fr/rfimonde-64.mp3",
+    "country": "France",
+    "codec": "MP3",
+    "bitrate": 64,
+    "homepage": "http://www.rfi.fr/"
+  },
+  {
+    "id": "c93f9c76-2ad4-464d-bff4-7f46e95f2601",
+    "name": "CLASSIC HITS RADIO 70 80 DiscoFunk ModernSoul Boogie",
+    "streamUrl": "https://radiopanther.radiolebowski.com/play",
+    "country": "The United States Of America",
+    "codec": "AAC",
+    "bitrate": 0,
+    "homepage": "http://classichits.radio/"
+  },
+  {
+    "id": "63688c44-e90b-11e8-a471-52543be04c81",
+    "name": "РАДИО ВАНЯ",
+    "streamUrl": "https://icecast-radiovanya.cdnvideo.ru/radiovanya",
+    "country": "The Russian Federation",
+    "codec": "AAC+",
+    "bitrate": 64,
+    "homepage": "http://www.radiovanya.ru/"
+  },
+  {
+    "id": "964be8b7-0601-11e8-ae97-52543be04c81",
+    "name": "Dance Wave Retro!",
+    "streamUrl": "https://retro.dancewave.online/retrodance.mp3",
+    "country": "Hungary",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "https://retro.dacemwave.online/"
+  },
+  {
+    "id": "b96225b2-8536-4b9b-8add-03582fd2e6a2",
+    "name": "WALM 2 HD Opus",
+    "streamUrl": "https://icecast.walmradio.com:8443/walm2_opus",
+    "country": "The United States Of America",
+    "codec": "OGG",
+    "bitrate": 192,
+    "homepage": "https://walmradio.com/walm2"
+  },
+  {
+    "id": "96063f25-0601-11e8-ae97-52543be04c81",
+    "name": "Classic FM UK",
+    "streamUrl": "http://ice-the.musicradio.com/ClassicFMMP3",
+    "country": "The United Kingdom Of Great Britain And Northern Ireland",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://www.classicfm.com/"
+  },
+  {
+    "id": "961b7325-0601-11e8-ae97-52543be04c81",
+    "name": ".977 80s",
+    "streamUrl": "http://playerservices.streamtheworld.com/pls/977_80.pls",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://www.977music.com/"
+  },
+  {
+    "id": "9627ddc0-0601-11e8-ae97-52543be04c81",
+    "name": "181.FM - Old School HipHop/RnB",
+    "streamUrl": "http://listen.181fm.com/181-oldschool_128k.mp3",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://www.181.fm/"
+  },
+  {
+    "id": "960ac54b-0601-11e8-ae97-52543be04c81",
+    "name": "Your Classical - Relax",
+    "streamUrl": "http://relax.stream.publicradio.org/relax.mp3",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://www.yourclassical.org/"
+  },
+  {
+    "id": "961d9b63-0601-11e8-ae97-52543be04c81",
+    "name": ".977 Country",
+    "streamUrl": "http://playerservices.streamtheworld.com/pls/977_COUNTRY.pls",
+    "country": "The United States Of America",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://www.977music.com/"
+  },
+  {
+    "id": "6a1440b2-e6f0-11e9-a96c-52543be04c81",
+    "name": "France Culture",
+    "streamUrl": "http://icecast.radiofrance.fr/franceculture-hifi.aac",
+    "country": "France",
+    "codec": "AAC",
+    "bitrate": 192,
+    "homepage": "https://www.franceculture.fr/"
+  },
+  {
+    "id": "9606c2cd-0601-11e8-ae97-52543be04c81",
+    "name": "RTL",
+    "streamUrl": "http://streaming.radio.rtl.fr/rtl-1-44-128",
+    "country": "France",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "http://www.rtl.fr/"
+  },
+  {
+    "id": "563f5559-105c-11e9-a80b-52543be04c81",
+    "name": "DFM RUSSIAN DANCE",
+    "streamUrl": "https://dfm-dfmrusdance.hostingradio.ru/dfmrusdance96.aacp?0.9987259013359274",
+    "country": "The Russian Federation",
+    "codec": "AAC+",
+    "bitrate": 96,
+    "homepage": "https://dfm.ru/"
+  },
+  {
+    "id": "c2698fb7-f7ec-401d-904f-ef4284501bd9",
+    "name": "RFI-Afrique",
+    "streamUrl": "http://live02.rfi.fr/rfiafrique-96k.mp3",
+    "country": "France",
+    "codec": "MP3",
+    "bitrate": 96,
+    "homepage": "http://www.rfi.fr/fr/"
+  },
+  {
+    "id": "d9fc29b8-b152-11e8-afe1-52543be04c81",
+    "name": "France Inter",
+    "streamUrl": "http://direct.franceinter.fr/live/franceinter-midfi.mp3",
+    "country": "France",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "https://www.franceinter.fr/"
+  },
+  {
+    "id": "0a364b59-56b6-11e9-aa33-52543be04c81",
+    "name": "Дорожное радио",
+    "streamUrl": "http://dorognoe.hostingradio.ru:8000/radio",
+    "country": "The Russian Federation",
+    "codec": "MP3",
+    "bitrate": 320,
+    "homepage": "https://dorognoe.ru/?region=piter"
+  },
+  {
+    "id": "165eab56-4a14-11e9-a4d7-52543be04c81",
+    "name": "DFM Дискач 90-х",
+    "streamUrl": "https://dfm-disc90.hostingradio.ru/disc9096.aacp",
+    "country": "The Russian Federation",
+    "codec": "AAC+",
+    "bitrate": 96,
+    "homepage": "https://dfm.ru/"
+  }
+]

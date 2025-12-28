@@ -633,7 +633,7 @@ const uniqueGenres = [
 				if (currentPlayingButton) {
 					const icon =
 						currentPlayingButton.querySelector(".play-icon");
-					if (icon) icon.textContent = "▶️";
+					// Icon reset handled by CSS removing is-playing class
 					// Find the parent station item/card
 					const stationCard =
 						currentPlayingButton.closest(".station-card");
@@ -676,7 +676,7 @@ const uniqueGenres = [
 								console.error("Playback failed", err);
 								stopPlayback(true);
 							});
-							if (icon) icon.textContent = "⏸️";
+							// CSS handles icon switch via is-playing
 							if (stationCard)
 								stationCard.classList.add("is-playing");
 						} else {
@@ -701,7 +701,7 @@ const uniqueGenres = [
 								stopPlayback(true);
 							});
 
-							if (icon) icon.textContent = "⏸️";
+							// CSS handles icon switch via is-playing
 							if (stationCard)
 								stationCard.classList.add("is-playing");
 						}

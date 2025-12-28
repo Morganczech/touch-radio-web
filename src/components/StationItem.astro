@@ -169,35 +169,6 @@ const flag = getFlag(countryCode);
         border-color: #e74c3c;
     }
 
-    /* =========================================
-       PLAY BUTTON - INLINE (STATION-TECH)
-       ========================================= */
-    .play-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        margin: 0;
-        line-height: 0;
-        border-radius: 50%;
-        color: var(--muted);
-
-        /* Flex centering for the SVG icon inside */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-
-        /* No absolute positioning! */
-        position: relative;
-        z-index: 5;
-
-        transition:
-            transform 0.2s ease,
-            filter 0.2s ease;
-    }
-
     [data-theme="dark"] .play-btn {
         color: #fff;
     }
@@ -359,6 +330,8 @@ const flag = getFlag(countryCode);
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 0.5rem;
+        min-height: 36px; /* Ensure space for 32px button */
         font-size: 0.8rem;
         color: var(--muted);
         font-family: monospace;
@@ -366,5 +339,35 @@ const flag = getFlag(countryCode);
     .badge {
         text-transform: uppercase;
         font-weight: bold;
+    }
+
+    /* =========================================
+       PLAY BUTTON - INLINE (STATION-TECH)
+       ========================================= */
+    .play-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        line-height: 0;
+        border-radius: 50%;
+        color: var(--muted);
+
+        /* Flex Item Properties */
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+
+        /* No absolute positioning! */
+        position: relative;
+        z-index: 5;
+
+        transition:
+            transform 0.2s ease,
+            filter 0.2s ease;
     }
 </style>

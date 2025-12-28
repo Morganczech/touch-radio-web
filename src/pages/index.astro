@@ -79,6 +79,8 @@ const uniqueCodecs = [
 			<p>Selected: <span id="selection-count">0</span></p>
 			<button id="export-btn" disabled>Export selected (JSON)</button>
 			<button id="export-m3u-btn" disabled>Export selected (M3U)</button>
+			<button id="export-m3u8-btn" disabled>Export selected (M3U8)</button
+			>
 			<button id="export-pls-btn" disabled>Export selected (PLS)</button>
 			<StationList stations={stations} />
 		</section>
@@ -120,6 +122,7 @@ const uniqueCodecs = [
 			const buttons = [
 				document.getElementById("export-btn"),
 				document.getElementById("export-m3u-btn"),
+				document.getElementById("export-m3u8-btn"),
 				document.getElementById("export-pls-btn"),
 			];
 
@@ -185,6 +188,31 @@ const uniqueCodecs = [
 						m3uContent,
 						"selected_stations.m3u",
 						"text/plain",
+					);
+				});
+			}
+
+			const exportM3u8Btn = document.getElementById("export-m3u8-btn");
+			if (exportM3u8Btn) {
+				exportM3u8Btn.addEventListener("click", () => {
+					if (selectedIds.size === 0) {
+						alert("No stations selected.");
+						return;
+					}
+
+					const selectedStations = allStations.filter(
+						(station: any) => selectedIds.has(station.id),
+					);
+
+					let m3uContent = "#EXTM3U\n";
+					selectedStations.forEach((station: any) => {
+						m3uContent += `#EXTINF:-1,${station.name}\n${station.streamUrl}\n`;
+					});
+
+					downloadFile(
+						m3uContent,
+						"selected_stations.m3u8",
+						"text/plain;charset=utf-8",
 					);
 				});
 			}

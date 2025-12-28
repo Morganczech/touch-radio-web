@@ -7,7 +7,11 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "https://mangoradio.de/",
-    "favicon": "https://mangoradio.de/wp-content/uploads/cropped-Logo-192x192.webp"
+    "favicon": "https://mangoradio.de/wp-content/uploads/cropped-Logo-192x192.webp",
+    "tags": [
+      "music",
+      "variety"
+    ]
   },
   {
     "id": "962cc6df-0601-11e8-ae97-52543be04c81",
@@ -17,7 +21,10 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "https://dancewave.online/",
-    "favicon": "https://dancewave.online/dw_logo.png"
+    "favicon": "https://dancewave.online/dw_logo.png",
+    "tags": [
+      "club dance electronic house trance"
+    ]
   },
   {
     "id": "f592bcd7-c052-11e9-8502-52543be04c81",
@@ -27,7 +34,13 @@
     "codec": "MP3",
     "bitrate": 192,
     "homepage": "https://www.reyfm.de/",
-    "favicon": "https://www.reyfm.de/icon.png"
+    "favicon": "https://www.reyfm.de/icon.png",
+    "tags": [
+      "#original",
+      "fm",
+      "rey",
+      "reyfm"
+    ]
   },
   {
     "id": "9617a958-0601-11e8-ae97-52543be04c81",
@@ -37,7 +50,16 @@
     "codec": "AAC",
     "bitrate": 320,
     "homepage": "https://radioparadise.com/",
-    "favicon": "https://radioparadise.com/apple-touch-icon.png"
+    "favicon": "https://radioparadise.com/apple-touch-icon.png",
+    "tags": [
+      "california",
+      "eclectic",
+      "free",
+      "internet",
+      "non-commercial",
+      "paradise",
+      "radio"
+    ]
   },
   {
     "id": "d1a54d2e-623e-4970-ab11-35f7b56c5ec3",
@@ -47,7 +69,31 @@
     "codec": "MP3",
     "bitrate": 320,
     "homepage": "https://walmradio.com/classic",
-    "favicon": "https://icecast.walmradio.com:8443/classic.jpg"
+    "favicon": "https://icecast.walmradio.com:8443/classic.jpg",
+    "tags": [
+      "1930",
+      "1940",
+      "1950",
+      "1960",
+      "beautiful music",
+      "big band",
+      "classic hits",
+      "crooners",
+      "easy",
+      "easy listening",
+      "hd",
+      "jazz",
+      "light orchestral",
+      "lounge",
+      "oldies",
+      "orchestral",
+      "otr",
+      "relaxation",
+      "strings",
+      "swing",
+      "unwind",
+      "walm"
+    ]
   },
   {
     "id": "ea8059be-d119-4de3-b27b-0d9bd6aedb17",
@@ -57,7 +103,30 @@
     "codec": "MP3",
     "bitrate": 320,
     "homepage": "https://walmradio.com/jazz",
-    "favicon": "https://icecast.walmradio.com:8443/jazz.jpg"
+    "favicon": "https://icecast.walmradio.com:8443/jazz.jpg",
+    "tags": [
+      "avant-garde",
+      "bebop",
+      "big band",
+      "bop",
+      "combos",
+      "contemporary",
+      "contemporary jazz",
+      "cool",
+      "cool jazz",
+      "free jazz",
+      "fusion",
+      "hard bop",
+      "hd",
+      "mainstream",
+      "mainstream jazz",
+      "modern",
+      "modern big band",
+      "post-bop",
+      "straight-ahead",
+      "walm",
+      "west coast"
+    ]
   },
   {
     "id": "6eff3484-4ab4-4d36-bf27-9172c5aac15c",
@@ -67,7 +136,19 @@
     "codec": "MP3",
     "bitrate": 320,
     "homepage": "https://walmradio.com/christmas",
-    "favicon": "https://icecast.walmradio.com:8443/christmas.png"
+    "favicon": "https://icecast.walmradio.com:8443/christmas.png",
+    "tags": [
+      "christian",
+      "christmas",
+      "easy listening",
+      "hd",
+      "holiday",
+      "otr",
+      "seasonal",
+      "vintage",
+      "vinyl",
+      "walm"
+    ]
   },
   {
     "id": "98adecf7-2683-4408-9be7-02d3f9098eb8",
@@ -77,7 +158,11 @@
     "codec": "MP3",
     "bitrate": 56,
     "homepage": "https://www.bbc.co.uk/programmes/w172xzjgf6lxp7y",
-    "favicon": "http://cdn-profiles.tunein.com/s24948/images/logoq.jpg?t=1"
+    "favicon": "http://cdn-profiles.tunein.com/s24948/images/logoq.jpg?t=1",
+    "tags": [
+      "news",
+      "talk"
+    ]
   },
   {
     "id": "348dfc58-ce8c-413b-b264-0384f816344b",
@@ -87,7 +172,13 @@
     "codec": "MP3",
     "bitrate": 320,
     "homepage": "https://walmradio.com/walm",
-    "favicon": "https://icecast.walmradio.com:8443/walm.jpg"
+    "favicon": "https://icecast.walmradio.com:8443/walm.jpg",
+    "tags": [
+      "christian",
+      "christian music",
+      "contemporary christian",
+      "jesus"
+    ]
   },
   {
     "id": "c3357cf1-5108-11ea-b877-52543be04c81",
@@ -97,7 +188,10 @@
     "codec": "MP3",
     "bitrate": 0,
     "homepage": "https://iranintl.com/",
-    "favicon": ""
+    "favicon": "",
+    "tags": [
+      "news"
+    ]
   },
   {
     "id": "313046e3-b203-4b9d-bc3e-393da7d97126",
@@ -107,7 +201,24 @@
     "codec": "MP3",
     "bitrate": 64,
     "homepage": "https://walmradio.com/otr",
-    "favicon": "https://icecast.walmradio.com:8443/otr.jpg"
+    "favicon": "https://icecast.walmradio.com:8443/otr.jpg",
+    "tags": [
+      "78",
+      "78-rpm",
+      "78rpm",
+      "classic",
+      "comedy",
+      "drama",
+      "easy listening",
+      "musical",
+      "mystery",
+      "old time radio",
+      "otr",
+      "sci-fi",
+      "v-disc",
+      "vintage",
+      "walm"
+    ]
   },
   {
     "id": "ba2ff014-f77e-4983-b37f-9b61383cfd65",
@@ -117,7 +228,15 @@
     "codec": "MP3",
     "bitrate": 256,
     "homepage": "https://www.italo.nu/",
-    "favicon": "https://italo.nu/fantasy-logo.png"
+    "favicon": "https://italo.nu/fantasy-logo.png",
+    "tags": [
+      "80s",
+      "disco",
+      "high enery",
+      "italo",
+      "italodisco",
+      "spacesynth"
+    ]
   },
   {
     "id": "96494925-0601-11e8-ae97-52543be04c81",
@@ -127,7 +246,14 @@
     "codec": "MP3",
     "bitrate": 0,
     "homepage": "http://www.radiofarda.com/",
-    "favicon": "http://www.radiofarda.com//Content/responsive/RFE/img/webApp/favicon.ico"
+    "favicon": "http://www.radiofarda.com//Content/responsive/RFE/img/webApp/favicon.ico",
+    "tags": [
+      "music",
+      "news",
+      "persian",
+      "rfe-rl",
+      "talk"
+    ]
   },
   {
     "id": "5c6c092b-2b8b-4ac1-a8d0-090f87037fd9",
@@ -137,7 +263,12 @@
     "codec": "MP3",
     "bitrate": 0,
     "homepage": "https://iranintl.com/",
-    "favicon": "https://iranintl.com/favicon.ico"
+    "favicon": "https://iranintl.com/favicon.ico",
+    "tags": [
+      "iran",
+      "news",
+      "persian"
+    ]
   },
   {
     "id": "1cfb151d-a341-11e9-a787-52543be04c81",
@@ -147,7 +278,8 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "https://www.francetvinfo.fr/",
-    "favicon": "https://www.francetvinfo.fr/assets/common/images/pwa/ios/120-5487caf3.png"
+    "favicon": "https://www.francetvinfo.fr/assets/common/images/pwa/ios/120-5487caf3.png",
+    "tags": []
   },
   {
     "id": "d28420a4-eccf-47a2-ace1-088c7e7cb7e0",
@@ -157,7 +289,12 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "http://101smoothjazz.com/",
-    "favicon": "http://101smoothjazz.com/favicon.ico"
+    "favicon": "http://101smoothjazz.com/favicon.ico",
+    "tags": [
+      "easy listening",
+      "jazz",
+      "smooth jazz"
+    ]
   },
   {
     "id": "64bb1467-2585-4454-a96f-34cfbc864d41",
@@ -167,7 +304,18 @@
     "codec": "MP3",
     "bitrate": 320,
     "homepage": "https://walmradio.com/walm2",
-    "favicon": "https://icecast.walmradio.com:8443/walm.jpg"
+    "favicon": "https://icecast.walmradio.com:8443/walm.jpg",
+    "tags": [
+      "choral",
+      "christian",
+      "christian music",
+      "classical music",
+      "hymns",
+      "orchestral",
+      "talk",
+      "talk radio",
+      "traditional christian"
+    ]
   },
   {
     "id": "960c2914-0601-11e8-ae97-52543be04c81",
@@ -177,7 +325,11 @@
     "codec": "MP3",
     "bitrate": 64,
     "homepage": "http://www.rfi.fr/",
-    "favicon": "http://www.rfi.fr/apple-touch-icon.png"
+    "favicon": "http://www.rfi.fr/apple-touch-icon.png",
+    "tags": [
+      "africa",
+      "news"
+    ]
   },
   {
     "id": "9616a843-0601-11e8-ae97-52543be04c81",
@@ -187,7 +339,8 @@
     "codec": "MP3",
     "bitrate": 90,
     "homepage": "http://www.mosaiquefm.net/ar/",
-    "favicon": ""
+    "favicon": "",
+    "tags": []
   },
   {
     "id": "96156a3e-0601-11e8-ae97-52543be04c81",
@@ -197,7 +350,18 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "http://www.deephouselounge.com/",
-    "favicon": "http://www.deephouselounge.com/wp-content/themes/maronpro/images/favicon.ico"
+    "favicon": "http://www.deephouselounge.com/wp-content/themes/maronpro/images/favicon.ico",
+    "tags": [
+      "deep house",
+      "disco",
+      "electronica",
+      "funky",
+      "house",
+      "jazzy",
+      "lounge",
+      "philadelphia",
+      "techno"
+    ]
   },
   {
     "id": "7a3a3989-8f26-44f7-9ae5-fa91e5cf4f9d",
@@ -207,7 +371,13 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "https://rmc.bfmtv.com/",
-    "favicon": "https://i1.wp.com/www.mediasportif.fr/wp-content/uploads/2014/05/Radio-RMC.jpg"
+    "favicon": "https://i1.wp.com/www.mediasportif.fr/wp-content/uploads/2014/05/Radio-RMC.jpg",
+    "tags": [
+      "france",
+      "info",
+      "sport",
+      "talk"
+    ]
   },
   {
     "id": "dcb4d366-5b06-4f4d-a5cb-0b81d1c09521",
@@ -217,7 +387,10 @@
     "codec": "MP3",
     "bitrate": 64,
     "homepage": "http://radio.sarcheshmeh.us/parsa.html",
-    "favicon": "https://lh5.googleusercontent.com/proxy/25PMsUBa3Z6So8cdvAyZT7_93NyV26cJNuTTDY4xk6aJU1lcKPByf2C7o2HbrGrv-QxPvbI3dio2D39zYlgi1v6nLg"
+    "favicon": "https://lh5.googleusercontent.com/proxy/25PMsUBa3Z6So8cdvAyZT7_93NyV26cJNuTTDY4xk6aJU1lcKPByf2C7o2HbrGrv-QxPvbI3dio2D39zYlgi1v6nLg",
+    "tags": [
+      "classical"
+    ]
   },
   {
     "id": "b6eedfc6-4a4b-4899-852f-03dd833f1f1b",
@@ -227,7 +400,8 @@
     "codec": "MP3",
     "bitrate": 0,
     "homepage": "https://www.radiofarda.com/",
-    "favicon": "https://www.radiofarda.com/content/responsive/rfe/img/webapp/ico-128x128.png"
+    "favicon": "https://www.radiofarda.com/content/responsive/rfe/img/webapp/ico-128x128.png",
+    "tags": []
   },
   {
     "id": "96102c22-0601-11e8-ae97-52543be04c81",
@@ -237,7 +411,11 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "http://www.jazzradio.fr/radio/webradio/3/blues",
-    "favicon": "https://www.jazzradio.fr/apple-touch-icon-120x120.png"
+    "favicon": "https://www.jazzradio.fr/apple-touch-icon-120x120.png",
+    "tags": [
+      "blues",
+      "jazz"
+    ]
   },
   {
     "id": "d2bbffaf-5d67-4a65-9772-097d8c0269d3",
@@ -247,7 +425,8 @@
     "codec": "AAC",
     "bitrate": 192,
     "homepage": "https://www.franceinter.fr/",
-    "favicon": "https://www.franceinter.fr/favicon.ico"
+    "favicon": "https://www.franceinter.fr/favicon.ico",
+    "tags": []
   },
   {
     "id": "399b7c2a-6680-11e8-b15b-52543be04c81",
@@ -257,7 +436,12 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "https://www.rmf.fm/",
-    "favicon": "https://www.rmf.fm/assets/images/favicon/apple-icon-120x120.png?3"
+    "favicon": "https://www.rmf.fm/assets/images/favicon/apple-icon-120x120.png?3",
+    "tags": [
+      "fm",
+      "rmf",
+      "rmffm"
+    ]
   },
   {
     "id": "9622cd46-0601-11e8-ae97-52543be04c81",
@@ -267,7 +451,12 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "http://www.europaplus.ru/",
-    "favicon": "http://liveam.tv/img/2494.jpg"
+    "favicon": "http://liveam.tv/img/2494.jpg",
+    "tags": [
+      "dance",
+      "house",
+      "pop"
+    ]
   },
   {
     "id": "70647d8f-bf45-4034-a747-0561ecfa769e",
@@ -277,7 +466,25 @@
     "codec": "OGG",
     "bitrate": 32,
     "homepage": "https://walmradio.com/otr",
-    "favicon": "https://icecast.walmradio.com:8443/otr.jpg"
+    "favicon": "https://icecast.walmradio.com:8443/otr.jpg",
+    "tags": [
+      "78",
+      "78-rpm",
+      "78rpm",
+      "classic",
+      "comedy",
+      "drama",
+      "easy listening",
+      "musical",
+      "mystery",
+      "old time radio",
+      "opus",
+      "otr",
+      "sci-fi",
+      "v-disc",
+      "vintage",
+      "walm"
+    ]
   },
   {
     "id": "961949f3-0601-11e8-ae97-52543be04c81",
@@ -287,7 +494,12 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "http://www.hitfm.ua/",
-    "favicon": "https://www.hitfm.ua/static/img/fav-icon/apple-icon-120x120.png"
+    "favicon": "https://www.hitfm.ua/static/img/fav-icon/apple-icon-120x120.png",
+    "tags": [
+      "dance",
+      "pop",
+      "rock"
+    ]
   },
   {
     "id": "ccac6135-cd73-4786-8e69-666df05a5881",
@@ -297,7 +509,12 @@
     "codec": "MP3",
     "bitrate": 0,
     "homepage": "https://www.ifm.tn/",
-    "favicon": ""
+    "favicon": "",
+    "tags": [
+      "entertainment",
+      "music",
+      "news"
+    ]
   },
   {
     "id": "2ce23ee2-95c5-407d-9df8-54c3cdde2825",
@@ -307,7 +524,31 @@
     "codec": "OGG",
     "bitrate": 192,
     "homepage": "https://walmradio.com/jazz",
-    "favicon": "https://icecast.walmradio.com:8443/jazz.jpg"
+    "favicon": "https://icecast.walmradio.com:8443/jazz.jpg",
+    "tags": [
+      "avant-garde",
+      "bebop",
+      "big band",
+      "bop",
+      "combos",
+      "contemporary",
+      "contemporary jazz",
+      "cool",
+      "cool jazz",
+      "free jazz",
+      "fusion",
+      "hard bop",
+      "hd",
+      "mainstream",
+      "mainstream jazz",
+      "modern",
+      "modern big band",
+      "opus",
+      "post-bop",
+      "straight-ahead",
+      "walm",
+      "west coast"
+    ]
   },
   {
     "id": "961c96ef-0601-11e8-ae97-52543be04c81",
@@ -317,7 +558,12 @@
     "codec": "MP3",
     "bitrate": 0,
     "homepage": "http://www.rockfm.ru/",
-    "favicon": "https://lh3.googleusercontent.com/D3taObR7tfyhwDFY40VS8DIVri7iif5RuzI9C-mXxRwF41vGZ_dO_n6MWM57P-mZczFC=w300"
+    "favicon": "https://lh3.googleusercontent.com/D3taObR7tfyhwDFY40VS8DIVri7iif5RuzI9C-mXxRwF41vGZ_dO_n6MWM57P-mZczFC=w300",
+    "tags": [
+      "classic rock",
+      "pop rock",
+      "rock"
+    ]
   },
   {
     "id": "31074f8a-e6f4-11e9-a96c-52543be04c81",
@@ -327,7 +573,13 @@
     "codec": "AAC",
     "bitrate": 192,
     "homepage": "https://www.francetvinfo.fr/en-direct/radio.html",
-    "favicon": "https://www.francetvinfo.fr/assets/common/images/pwa/ios/120-0cfbd6d4.png"
+    "favicon": "https://www.francetvinfo.fr/assets/common/images/pwa/ios/120-0cfbd6d4.png",
+    "tags": [
+      "aac",
+      "information",
+      "public radio",
+      "radio france"
+    ]
   },
   {
     "id": "960c68f8-0601-11e8-ae97-52543be04c81",
@@ -337,7 +589,11 @@
     "codec": "MP3",
     "bitrate": 64,
     "homepage": "http://www.rfi.fr/",
-    "favicon": "http://www.rfi.fr/apple-touch-icon.png"
+    "favicon": "http://www.rfi.fr/apple-touch-icon.png",
+    "tags": [
+      "news",
+      "world music"
+    ]
   },
   {
     "id": "c93f9c76-2ad4-464d-bff4-7f46e95f2601",
@@ -347,7 +603,18 @@
     "codec": "AAC",
     "bitrate": 0,
     "homepage": "http://classichits.radio/",
-    "favicon": ""
+    "favicon": "",
+    "tags": [
+      "1970s",
+      "1980s",
+      "70's",
+      "70s",
+      "70s disco",
+      "80",
+      "80's",
+      "80s",
+      "classic hits"
+    ]
   },
   {
     "id": "63688c44-e90b-11e8-a471-52543be04c81",
@@ -357,7 +624,10 @@
     "codec": "AAC+",
     "bitrate": 64,
     "homepage": "http://www.radiovanya.ru/",
-    "favicon": ""
+    "favicon": "",
+    "tags": [
+      "pop"
+    ]
   },
   {
     "id": "964be8b7-0601-11e8-ae97-52543be04c81",
@@ -367,7 +637,10 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "https://retro.dacemwave.online/",
-    "favicon": "https://dancewave.online/dwr_logo.png"
+    "favicon": "https://dancewave.online/dwr_logo.png",
+    "tags": [
+      "90s dance"
+    ]
   },
   {
     "id": "b96225b2-8536-4b9b-8add-03582fd2e6a2",
@@ -377,7 +650,19 @@
     "codec": "OGG",
     "bitrate": 192,
     "homepage": "https://walmradio.com/walm2",
-    "favicon": "https://icecast.walmradio.com:8443/walm.jpg"
+    "favicon": "https://icecast.walmradio.com:8443/walm.jpg",
+    "tags": [
+      "choral",
+      "christian",
+      "christian music",
+      "classical music",
+      "hymns",
+      "opus",
+      "orchestral",
+      "talk",
+      "talk radio",
+      "traditional christian"
+    ]
   },
   {
     "id": "96063f25-0601-11e8-ae97-52543be04c81",
@@ -387,7 +672,10 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "http://www.classicfm.com/",
-    "favicon": "http://www.classicfm.com/assets_v4r/classic/img/favicon-196x196.png"
+    "favicon": "http://www.classicfm.com/assets_v4r/classic/img/favicon-196x196.png",
+    "tags": [
+      "classical"
+    ]
   },
   {
     "id": "961b7325-0601-11e8-ae97-52543be04c81",
@@ -397,7 +685,10 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "http://www.977music.com/",
-    "favicon": ""
+    "favicon": "",
+    "tags": [
+      "80s"
+    ]
   },
   {
     "id": "9627ddc0-0601-11e8-ae97-52543be04c81",
@@ -407,7 +698,13 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "http://www.181.fm/",
-    "favicon": "http://www.181.fm/favicon.ico"
+    "favicon": "http://www.181.fm/favicon.ico",
+    "tags": [
+      "hiphop",
+      "oldschool",
+      "rnb",
+      "waynesboro"
+    ]
   },
   {
     "id": "960ac54b-0601-11e8-ae97-52543be04c81",
@@ -417,7 +714,11 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "http://www.yourclassical.org/",
-    "favicon": "http://www.yourclassical.org/apple-touch-icon.png"
+    "favicon": "http://www.yourclassical.org/apple-touch-icon.png",
+    "tags": [
+      "classical",
+      "relax"
+    ]
   },
   {
     "id": "6a1440b2-e6f0-11e9-a96c-52543be04c81",
@@ -427,7 +728,13 @@
     "codec": "AAC",
     "bitrate": 192,
     "homepage": "https://www.franceculture.fr/",
-    "favicon": "https://upload.wikimedia.org/wikipedia/fr/thumb/c/c9/France_Culture_-_2008.svg/1024px-France_Culture_-_2008.svg.png"
+    "favicon": "https://upload.wikimedia.org/wikipedia/fr/thumb/c/c9/France_Culture_-_2008.svg/1024px-France_Culture_-_2008.svg.png",
+    "tags": [
+      "aac",
+      "culture",
+      "public radio",
+      "radio france"
+    ]
   },
   {
     "id": "961d9b63-0601-11e8-ae97-52543be04c81",
@@ -437,7 +744,10 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "http://www.977music.com/",
-    "favicon": ""
+    "favicon": "",
+    "tags": [
+      "country"
+    ]
   },
   {
     "id": "9606c2cd-0601-11e8-ae97-52543be04c81",
@@ -447,7 +757,8 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "http://www.rtl.fr/",
-    "favicon": ""
+    "favicon": "",
+    "tags": []
   },
   {
     "id": "563f5559-105c-11e9-a80b-52543be04c81",
@@ -457,7 +768,10 @@
     "codec": "AAC+",
     "bitrate": 96,
     "homepage": "https://dfm.ru/",
-    "favicon": "https://dfm.ru/uploads/favicon.ico"
+    "favicon": "https://dfm.ru/uploads/favicon.ico",
+    "tags": [
+      "dance"
+    ]
   },
   {
     "id": "c2698fb7-f7ec-401d-904f-ef4284501bd9",
@@ -467,7 +781,13 @@
     "codec": "MP3",
     "bitrate": 96,
     "homepage": "http://www.rfi.fr/fr/",
-    "favicon": ""
+    "favicon": "",
+    "tags": [
+      "france médias monde",
+      "information",
+      "public radio",
+      "world news"
+    ]
   },
   {
     "id": "d9fc29b8-b152-11e8-afe1-52543be04c81",
@@ -477,7 +797,8 @@
     "codec": "MP3",
     "bitrate": 128,
     "homepage": "https://www.franceinter.fr/",
-    "favicon": ""
+    "favicon": "",
+    "tags": []
   },
   {
     "id": "0a364b59-56b6-11e9-aa33-52543be04c81",
@@ -487,7 +808,10 @@
     "codec": "MP3",
     "bitrate": 320,
     "homepage": "https://dorognoe.ru/?region=piter",
-    "favicon": "https://dorognoe.ru/assets/default/i/fav_114x114.png"
+    "favicon": "https://dorognoe.ru/assets/default/i/fav_114x114.png",
+    "tags": [
+      "dorojnoe"
+    ]
   },
   {
     "id": "165eab56-4a14-11e9-a4d7-52543be04c81",
@@ -497,6 +821,11 @@
     "codec": "AAC+",
     "bitrate": 96,
     "homepage": "https://dfm.ru/",
-    "favicon": ""
+    "favicon": "",
+    "tags": [
+      "90-е",
+      "eurodance",
+      "nostalgia"
+    ]
   }
 ]

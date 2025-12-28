@@ -21,7 +21,8 @@ async function normalizeStations() {
             codec: station.codec,
             bitrate: station.bitrate,
             homepage: station.homepage,
-            favicon: station.favicon
+            favicon: station.favicon,
+            tags: station.tags ? station.tags.split(',').map(tag => tag.trim().toLowerCase()).filter(Boolean) : []
         }));
 
         await fs.writeFile(OUTPUT_FILE, JSON.stringify(normalizedStations, null, 2), 'utf-8');

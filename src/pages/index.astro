@@ -1,5 +1,5 @@
 ---
-
+import stations from "../data/stations.normalized.json";
 ---
 
 <html lang="en">
@@ -8,9 +8,19 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Touch Radio Web</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>Touch Radio Stations</h1>
+		<ul>
+			{
+				stations.map((station) => (
+					<li>
+						<strong>{station.name}</strong> - {station.country} (
+						{station.codec}, {station.bitrate}kbps)
+					</li>
+				))
+			}
+		</ul>
 	</body>
 </html>

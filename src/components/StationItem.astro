@@ -73,35 +73,34 @@ const flag = getFlag(countryCode);
                 </div>
                 <div class="station-tech">
                     <span class="badge">{station.codec}</span>
-                    <button
-                        class="play-btn"
-                        data-stream={station.streamUrl}
-                        title="Preview station"
-                    >
-                        <span class="play-icon-container">
-                            <svg
-                                class="svg-icon icon-play"
-                                viewBox="0 0 24 24"
-                                width="24"
-                                height="24"
-                            >
-                                <path d="M8 5v14l11-7z"></path>
-                            </svg>
-                            <svg
-                                class="svg-icon icon-pause"
-                                viewBox="0 0 24 24"
-                                width="24"
-                                height="24"
-                            >
-                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"
-                                ></path>
-                            </svg>
-                        </span>
-                    </button>
                     <span class="bitrate">{station.bitrate} kbps</span>
                 </div>
             </div>
         </div>
+        <button
+            class="play-btn"
+            data-stream={station.streamUrl}
+            title="Preview station"
+        >
+            <span class="play-icon-container">
+                <svg
+                    class="svg-icon icon-play"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                >
+                    <path d="M8 5v14l11-7z"></path>
+                </svg>
+                <svg
+                    class="svg-icon icon-pause"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                >
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+                </svg>
+            </span>
+        </button>
     </label>
 </li>
 
@@ -169,8 +168,8 @@ const flag = getFlag(countryCode);
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 20px;
-        height: 20px;
+        width: 24px; /* Slightly larger container for SVG */
+        height: 24px;
     }
 
     .svg-icon {
@@ -337,18 +336,38 @@ const flag = getFlag(countryCode);
     .play-btn {
         background: none;
         border: none;
-        font-size: 1.25rem;
         cursor: pointer;
-        padding: 0 0.5rem;
-        line-height: 1;
-        transition: transform 0.2s;
+        padding: 0;
+        margin: 0;
+        line-height: 0;
+        transition: transform 0.2s ease;
         border-radius: 50%;
+        color: var(--muted);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px; /* Slightly larger touch target */
+        height: 38px;
+
+        /* Absolute positioning for optical centering */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        pointer-events: auto;
+    }
+
+    [data-theme="dark"] .play-btn {
+        color: #fff;
     }
 
     /* Hover state for play button only */
     .play-btn:hover {
-        transform: scale(1.2);
-        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+        transform: translate(-50%, -50%) scale(1.1);
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+        color: var(--accent);
     }
 
     :global(.station-item.is-playing) .play-btn:hover {

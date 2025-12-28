@@ -169,46 +169,6 @@ const flag = getFlag(countryCode);
         border-color: #e74c3c;
     }
 
-    [data-theme="dark"] .play-btn {
-        color: #fff;
-    }
-
-    .play-btn:hover {
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
-        color: var(--accent);
-    }
-
-    /* No glow on button when playing */
-    :global(.station-item.is-playing) .play-btn:hover {
-        filter: none;
-    }
-
-    /* Play/Pause Icon SVG Logic */
-    .play-icon-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 20px;
-        height: 20px;
-    }
-    .svg-icon {
-        width: 100%;
-        height: 100%;
-        fill: currentColor;
-    }
-    .icon-pause {
-        display: none;
-    }
-
-    /* Toggle icons based on parent class */
-    :global(.station-card.is-playing) .icon-play {
-        display: none;
-    }
-    :global(.station-card.is-playing) .icon-pause {
-        display: block;
-    }
-
     /* Header Layout */
     .card-header {
         display: flex;
@@ -323,37 +283,50 @@ const flag = getFlag(countryCode);
         align-items: center;
         gap: 0.35rem;
     }
+
+    /* =========================================
+       FOOTER (STATION-TECH)
+       ========================================= */
     .station-tech {
         margin-top: auto;
-        padding: 0.5rem 0.5rem 0 0.5rem; /* added side padding */
+        padding: 0 1rem;
         border-top: 1px solid var(--border);
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 0.5rem;
-        min-height: 42px; /* Adjusted height */
+        height: 48px; /* Consistent fixed height */
         font-size: 0.8rem;
         color: var(--muted);
         font-family: monospace;
 
-        /* Tech Bar UX Polish */
+        /* Layout resets to fill card bottom */
+        margin-left: -1rem;
+        margin-right: -1rem;
+        margin-bottom: -1rem;
+        border-radius: 0 0 12px 12px; /* Rounded bottom corners matching card */
+        background-color: transparent;
         transition: background-color 0.2s ease;
-        border-radius: 0 0 12px 12px;
-        margin: 0 -1rem -1rem -1rem; /* Negative margins to fill bottom */
     }
 
     .badge {
         text-transform: uppercase;
         font-weight: bold;
+        min-width: 40px;
+    }
+
+    .bitrate {
+        min-width: 60px;
+        text-align: right;
     }
 
     /* Highlight tech bar on card hover */
     .station-card:hover .station-tech {
-        background-color: rgba(128, 128, 128, 0.04);
+        background-color: rgba(128, 128, 128, 0.05);
     }
 
     /* =========================================
-       PLAY BUTTON - INLINE (STATION-TECH)
+       PLAY BUTTON - INLINE
        ========================================= */
     .play-btn {
         background: none;
@@ -366,39 +339,37 @@ const flag = getFlag(countryCode);
         color: var(--muted);
 
         /* Flex Item Properties */
-        flex: 0 0 auto;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 32px;
         height: 32px;
+        flex: 0 0 32px; /* Rigid sizing */
 
-        /* No absolute positioning! */
         position: relative;
         z-index: 5;
 
-        /* UX Polish: Default opacity */
+        /* Default state */
         opacity: 0.6;
         transition:
-            transform 0.2s ease,
-            filter 0.2s ease,
+            transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
             opacity 0.2s ease,
             color 0.2s ease;
     }
 
     .station-card:hover .play-btn {
-        opacity: 1; /* Fully visible on card hover */
+        opacity: 1;
     }
 
     /* Keep fully visible if playing */
     :global(.station-item.is-playing) .play-btn {
         opacity: 1;
+        color: var(--accent);
     }
 
     .play-btn:hover {
         transform: scale(1.1);
         color: var(--accent);
-        /* No dropshadow to keep it subtle as requested */
     }
 
     [data-theme="dark"] .play-btn {
@@ -408,5 +379,30 @@ const flag = getFlag(countryCode);
     /* No glow on button when playing */
     :global(.station-item.is-playing) .play-btn:hover {
         filter: none;
+    }
+
+    /* Play/Pause Icon SVG Logic */
+    .play-icon-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+    }
+    .svg-icon {
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
+    }
+    .icon-pause {
+        display: none;
+    }
+
+    /* Toggle icons based on parent class */
+    :global(.station-card.is-playing) .icon-play {
+        display: none;
+    }
+    :global(.station-card.is-playing) .icon-pause {
+        display: block;
     }
 </style>

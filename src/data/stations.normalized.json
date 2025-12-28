@@ -814,22 +814,18 @@
     ]
   },
   {
-    "id": "964fade0-0601-11e8-ae97-52543be04c81",
-    "name": "Ретро FM",
-    "streamUrl": "http://retroserver.streamr.ru:8043/retro256.mp3",
+    "id": "165eab56-4a14-11e9-a4d7-52543be04c81",
+    "name": "DFM Дискач 90-х",
+    "streamUrl": "https://dfm-disc90.hostingradio.ru/disc9096.aacp",
     "country": "The Russian Federation",
-    "codec": "MP3",
-    "bitrate": 256,
-    "homepage": "http://retrofm.ru/",
+    "codec": "AAC+",
+    "bitrate": 96,
+    "homepage": "https://dfm.ru/",
     "favicon": "",
     "tags": [
-      "classic hits",
-      "moscow",
-      "music",
-      "pop",
-      "retro",
-      "russia",
-      "russian pop"
+      "90-е",
+      "eurodance",
+      "nostalgia"
     ]
   }
 ]

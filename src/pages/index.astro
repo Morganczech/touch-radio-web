@@ -4,15 +4,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout>
-	<h1>Touch Radio Stations</h1>
-	<ul>
-		{
-			stations.map((station) => (
-				<li>
-					<strong>{station.name}</strong> - {station.country} (
-					{station.codec}, {station.bitrate}kbps)
-				</li>
-			))
-		}
-	</ul>
+	<header>
+		<h1>Touch Radio</h1>
+	</header>
+	<main>
+		<section>
+			<h2>Available Stations</h2>
+			<ul>
+				{
+					stations.map((station) => (
+						<li>
+							<strong>{station.name}</strong> - {station.country}{" "}
+							({station.codec}, {station.bitrate}kbps)
+						</li>
+					))
+				}
+			</ul>
+		</section>
+	</main>
 </BaseLayout>

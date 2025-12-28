@@ -58,6 +58,15 @@ const uniqueCodecs = [
 						}
 					</select>
 				</label>
+				<label style="flex: 1;">
+					Min bitrate (kbps):
+					<input
+						type="number"
+						id="bitrate-filter"
+						placeholder="Min kbps"
+						style="width: 100%; margin-top: 0.25rem; padding: 0.25rem;"
+					/>
+				</label>
 			</div>
 			<p>Select stations and export a playlist</p>
 			<p>Selected: <span id="selection-count">0</span></p>
@@ -249,6 +258,9 @@ const uniqueCodecs = [
 			const codecFilter = document.getElementById(
 				"codec-filter",
 			) as HTMLSelectElement;
+			const bitrateFilter = document.getElementById(
+				"bitrate-filter",
+			) as HTMLInputElement;
 			const stationItems = document.querySelectorAll(
 				"li[data-name]",
 			) as NodeListOf<HTMLLIElement>;
@@ -261,20 +273,31 @@ const uniqueCodecs = [
 					? countryFilter.value
 					: "";
 				const selectedCodec = codecFilter ? codecFilter.value : "";
+				const minBitrate =
+					bitrateFilter && bitrateFilter.value
+						? parseInt(bitrateFilter.value)
+						: 0;
 
 				stationItems.forEach((item) => {
 					const name = item.dataset.name || "";
 					const country = item.dataset.country || "";
 					const codec = item.dataset.codec || "";
+					const bitrate = item.dataset.bitrate
+						? parseInt(item.dataset.bitrate)
+						: 0;
 
 					const matchesName = name.includes(query);
 					const matchesCountry =
 						selectedCountry === "" || country === selectedCountry;
 					const matchesCodec =
 						selectedCodec === "" || codec === selectedCodec;
+					const matchesBitrate = bitrate >= minBitrate;
 
 					item.style.display =
-						matchesName && matchesCountry && matchesCodec
+						matchesName &&
+						matchesCountry &&
+						matchesCodec &&
+						matchesBitrate
 							? ""
 							: "none";
 				});
@@ -292,12 +315,8 @@ const uniqueCodecs = [
 				codecFilter.addEventListener("change", filterStations);
 			}
 
-			if (searchInput) {
-				searchInput.addEventListener("input", filterStations);
-			}
-
-			if (countryFilter) {
-				countryFilter.addEventListener("change", filterStations);
+			if (bitrateFilter) {
+				bitrateFilter.addEventListener("input", filterStations);
 			}
 		});
 	</script>

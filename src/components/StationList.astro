@@ -3,6 +3,16 @@ import StationItem from "./StationItem.astro";
 const { stations } = Astro.props;
 ---
 
-<ul>
+<ul class="station-grid">
     {stations.map((station) => <StationItem station={station} />)}
 </ul>
+
+<style>
+    .station-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+        list-style: none;
+        padding: 0;
+    }
+</style>

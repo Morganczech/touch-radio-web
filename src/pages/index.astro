@@ -77,11 +77,28 @@ const uniqueCodecs = [
 			</div>
 			<p>Select stations and export a playlist</p>
 			<p>Selected: <span id="selection-count">0</span></p>
-			<button id="export-btn" disabled>Export selected (JSON)</button>
-			<button id="export-m3u-btn" disabled>Export selected (M3U)</button>
-			<button id="export-m3u8-btn" disabled>Export selected (M3U8)</button
+			<button
+				id="export-btn"
+				disabled
+				title="Export selected stations in Touch Radio JSON format"
+				>Export JSON</button
 			>
-			<button id="export-pls-btn" disabled>Export selected (PLS)</button>
+			<button
+				id="export-m3u-btn"
+				disabled
+				title="Export playlist in M3U format">Export M3U</button
+			>
+			<button
+				id="export-m3u8-btn"
+				disabled
+				title="Export playlist in UTF-8 encoded M3U8 format"
+				>Export M3U8 (UTF-8)</button
+			>
+			<button
+				id="export-pls-btn"
+				disabled
+				title="Export playlist in PLS format">Export PLS</button
+			>
 			<StationList stations={stations} />
 		</section>
 	</main>

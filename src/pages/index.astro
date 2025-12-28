@@ -117,9 +117,123 @@ const uniqueGenres = [
 				disabled
 				title="Export playlist in PLS format">Export PLS</button
 			>
-			<StationList stations={stations} />
+			<div class="content-wrapper">
+				<div class="main-content">
+					<StationList stations={stations} />
+				</div>
+				<aside class="selection-panel">
+					<h3>My Selection</h3>
+					<div id="selection-list" class="selection-list">
+						<p class="empty-state">No stations selected</p>
+					</div>
+				</aside>
+			</div>
 		</section>
 	</main>
+
+	<style>
+		.content-wrapper {
+			display: flex;
+			gap: 2rem;
+			align-items: flex-start;
+		}
+
+		.main-content {
+			flex: 1;
+			min-width: 0; /* Prevents overflow in flex items */
+		}
+
+		.selection-panel {
+			width: 300px;
+			flex-shrink: 0;
+			background: var(--bg);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			padding: 1rem;
+			position: sticky;
+			top: 1rem;
+			max-height: calc(100vh - 2rem);
+			overflow-y: auto;
+		}
+
+		.selection-list {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			margin-top: 1rem;
+		}
+
+		.empty-state {
+			color: var(--muted);
+			font-style: italic;
+			text-align: center;
+			padding: 1rem 0;
+		}
+
+		@media (max-width: 1024px) {
+			.content-wrapper {
+				flex-direction: column;
+			}
+
+			.selection-panel {
+				width: 100%;
+				position: static;
+				max-height: 500px;
+			}
+		}
+
+		/* Helper styles for dynamically created elements */
+		:global(.selected-item) {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0.5rem;
+			background: rgba(0, 0, 0, 0.02);
+			border-radius: 6px;
+			border: 1px solid var(--border);
+		}
+
+		:global([data-theme="dark"] .selected-item) {
+			background: rgba(255, 255, 255, 0.05);
+		}
+
+		:global(.selected-item-info) {
+			display: flex;
+			flex-direction: column;
+			gap: 0.1rem;
+			overflow: hidden;
+		}
+
+		:global(.selected-item-name) {
+			font-weight: 600;
+			font-size: 0.9rem;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		:global(.selected-item-meta) {
+			font-size: 0.75rem;
+			color: var(--muted);
+		}
+
+		:global(.remove-btn) {
+			background: none;
+			border: none;
+			cursor: pointer;
+			color: #e74c3c;
+			padding: 0.25rem;
+			font-size: 1.1rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: transform 0.2s;
+		}
+
+		:global(.remove-btn:hover) {
+			transform: scale(1.1);
+		}
+	</style>
 	<script>
 		// Client-side state management for station selection
 		document.addEventListener("DOMContentLoaded", () => {
@@ -161,12 +275,54 @@ const uniqueGenres = [
 				document.getElementById("export-pls-btn"),
 			];
 
+			// Helper to get flag from country code (duplicated logic from StationItem for client-side use)
+			// Ideally this would be shared code, but keeping strict vanilla JS in this file as per constraints
+			const COUNTRY_CODES: Record<string, string> = {
+				Germany: "DE",
+				Hungary: "HU",
+				"The United States Of America": "US",
+				USA: "US",
+				"The United Kingdom Of Great Britain And Northern Ireland":
+					"GB",
+				UK: "GB",
+				"Great Britain": "GB",
+				"Islamic Republic Of Iran": "IR",
+				Iran: "IR",
+				Czechia: "CZ",
+				"Czech Republic": "CZ",
+				France: "FR",
+				Poland: "PL",
+				"The Russian Federation": "RU",
+				Russia: "RU",
+				Ukraine: "UA",
+				Tunisia: "TN",
+				"The Netherlands": "NL",
+				Netherlands: "NL",
+				Spain: "ES",
+				Italy: "IT",
+				Greece: "GR",
+				Switzerland: "CH",
+				Austria: "AT",
+				Belgium: "BE",
+			};
+
+			function getFlag(countryName: string) {
+				const code = COUNTRY_CODES[countryName];
+				if (!code || code.length !== 2) return "🌍";
+				const offset = 127397;
+				const chars = [...code.toUpperCase()].map(
+					(c) => c.charCodeAt(0) + offset,
+				);
+				return String.fromCodePoint(...chars);
+			}
+
 			function updateUI() {
 				const count = selectedIds.size;
 				if (countSpan) {
 					countSpan.textContent = count.toString();
 				}
 
+				// Update helper buttons state
 				const isDisabled = count === 0;
 				buttons.forEach((btn) => {
 					if (btn) {
@@ -177,6 +333,59 @@ const uniqueGenres = [
 						}
 					}
 				});
+
+				// Update Selection Panel
+				const selectionList = document.getElementById("selection-list");
+				if (selectionList) {
+					selectionList.innerHTML = "";
+
+					if (count === 0) {
+						selectionList.innerHTML =
+							'<p class="empty-state">No stations selected</p>';
+					} else {
+						const selectedStations = allStations.filter((s: any) =>
+							selectedIds.has(s.id),
+						);
+						selectedStations.forEach((station: any) => {
+							const item = document.createElement("div");
+							item.className = "selected-item";
+
+							const flag = getFlag(station.country);
+
+							item.innerHTML = `
+								<div class="selected-item-info">
+									<div class="selected-item-name">${flag} ${station.name}</div>
+									<div class="selected-item-meta">${station.codec} • ${station.bitrate}kbps</div>
+								</div>
+								<button class="remove-btn" data-remove-id="${station.id}" title="Remove from selection">❤️</button>
+							`;
+							selectionList.appendChild(item);
+						});
+
+						// Add event listeners for remove buttons
+						selectionList
+							.querySelectorAll(".remove-btn")
+							.forEach((btn) => {
+								btn.addEventListener("click", (e) => {
+									const target =
+										e.currentTarget as HTMLButtonElement;
+									const idToRemove = target.dataset.removeId;
+									if (idToRemove) {
+										// Uncheck the checkbox
+										const checkbox = document.querySelector(
+											`input[data-id="${idToRemove}"]`,
+										) as HTMLInputElement;
+										if (checkbox) {
+											checkbox.checked = false;
+											checkbox.dispatchEvent(
+												new Event("change"),
+											);
+										}
+									}
+								});
+							});
+					}
+				}
 			}
 
 			if (exportBtn) {

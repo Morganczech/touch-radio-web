@@ -2,7 +2,11 @@
 const { station } = Astro.props;
 ---
 
-<li data-name={station.name.toLowerCase()} data-country={station.country}>
+<li
+    data-name={station.name.toLowerCase()}
+    data-country={station.country}
+    data-codec={station.codec}
+>
     <input type="checkbox" data-id={station.id} />
     <img
         src="/station-placeholder.svg"

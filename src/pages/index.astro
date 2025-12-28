@@ -6,6 +6,10 @@ import StationList from "../components/StationList.astro";
 const uniqueCountries = [
 	...new Set(stations.map((s) => s.country).filter(Boolean)),
 ].sort();
+
+const uniqueCodecs = [
+	...new Set(stations.map((s) => s.codec).filter(Boolean)),
+].sort();
 ---
 
 <BaseLayout>
@@ -25,20 +29,36 @@ const uniqueCountries = [
 					style="margin-left: 0.5rem; padding: 0.25rem;"
 				/>
 			</label>
-			<label style="display: block; margin-bottom: 1rem;">
-				Filter by country:
-				<select
-					id="country-filter"
-					style="margin-left: 0.5rem; padding: 0.25rem;"
-				>
-					<option value="">All Countries</option>
-					{
-						uniqueCountries.map((country) => (
-							<option value={country}>{country}</option>
-						))
-					}
-				</select>
-			</label>
+			<div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+				<label style="flex: 1;">
+					Filter by country:
+					<select
+						id="country-filter"
+						style="width: 100%; margin-top: 0.25rem; padding: 0.25rem;"
+					>
+						<option value="">All Countries</option>
+						{
+							uniqueCountries.map((country) => (
+								<option value={country}>{country}</option>
+							))
+						}
+					</select>
+				</label>
+				<label style="flex: 1;">
+					Filter by codec:
+					<select
+						id="codec-filter"
+						style="width: 100%; margin-top: 0.25rem; padding: 0.25rem;"
+					>
+						<option value="">All Codecs</option>
+						{
+							uniqueCodecs.map((codec) => (
+								<option value={codec}>{codec}</option>
+							))
+						}
+					</select>
+				</label>
+			</div>
 			<p>Select stations and export a playlist</p>
 			<p>Selected: <span id="selection-count">0</span></p>
 			<button id="export-btn" disabled>Export selected (JSON)</button>
@@ -226,6 +246,9 @@ const uniqueCountries = [
 			const countryFilter = document.getElementById(
 				"country-filter",
 			) as HTMLSelectElement;
+			const codecFilter = document.getElementById(
+				"codec-filter",
+			) as HTMLSelectElement;
 			const stationItems = document.querySelectorAll(
 				"li[data-name]",
 			) as NodeListOf<HTMLLIElement>;
@@ -237,18 +260,36 @@ const uniqueCountries = [
 				const selectedCountry = countryFilter
 					? countryFilter.value
 					: "";
+				const selectedCodec = codecFilter ? codecFilter.value : "";
 
 				stationItems.forEach((item) => {
 					const name = item.dataset.name || "";
 					const country = item.dataset.country || "";
+					const codec = item.dataset.codec || "";
 
 					const matchesName = name.includes(query);
 					const matchesCountry =
 						selectedCountry === "" || country === selectedCountry;
+					const matchesCodec =
+						selectedCodec === "" || codec === selectedCodec;
 
 					item.style.display =
-						matchesName && matchesCountry ? "" : "none";
+						matchesName && matchesCountry && matchesCodec
+							? ""
+							: "none";
 				});
+			}
+
+			if (searchInput) {
+				searchInput.addEventListener("input", filterStations);
+			}
+
+			if (countryFilter) {
+				countryFilter.addEventListener("change", filterStations);
+			}
+
+			if (codecFilter) {
+				codecFilter.addEventListener("change", filterStations);
 			}
 
 			if (searchInput) {

@@ -146,8 +146,32 @@ const flag = getFlag(countryCode);
         border-color: #e74c3c;
     }
 
-    :global(.station-item.is-playing) .play-icon {
-        content: "⏸️";
+    /* Play/Pause Icon Logic */
+    .play-icon-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+    }
+
+    .svg-icon {
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
+    }
+
+    .icon-pause {
+        display: none;
+    }
+
+    /* Switch icons based on parent card state */
+    :global(.station-card.is-playing) .icon-play {
+        display: none;
+    }
+
+    :global(.station-card.is-playing) .icon-pause {
+        display: block;
     }
 
     .card-header {

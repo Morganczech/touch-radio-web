@@ -12,6 +12,8 @@ import StationList from "../components/StationList.astro";
 		<section>
 			<h2>Available Stations</h2>
 			<button id="export-btn">Export selected (JSON)</button>
+			<button id="export-m3u-btn">Export selected (M3U)</button>
+			<button id="export-pls-btn">Export selected (PLS)</button>
 			<StationList stations={stations} />
 		</section>
 	</main>
@@ -61,19 +63,85 @@ import StationList from "../components/StationList.astro";
 						null,
 						2,
 					);
-					const blob = new Blob([jsonString], {
-						type: "application/json",
-					});
-					const url = URL.createObjectURL(blob);
-
-					const a = document.createElement("a");
-					a.href = url;
-					a.download = "selected_stations.json";
-					document.body.appendChild(a);
-					a.click();
-					document.body.removeChild(a);
-					URL.revokeObjectURL(url);
+					downloadFile(
+						jsonString,
+						"selected_stations.json",
+						"application/json",
+					);
 				});
+			}
+
+			const exportM3uBtn = document.getElementById("export-m3u-btn");
+			if (exportM3uBtn) {
+				exportM3uBtn.addEventListener("click", () => {
+					if (selectedIds.size === 0) {
+						alert("No stations selected.");
+						return;
+					}
+
+					const selectedStations = allStations.filter(
+						(station: any) => selectedIds.has(station.id),
+					);
+
+					let m3uContent = "#EXTM3U\n";
+					selectedStations.forEach((station: any) => {
+						m3uContent += `#EXTINF:-1,${station.name}\n${station.streamUrl}\n`;
+					});
+
+					downloadFile(
+						m3uContent,
+						"selected_stations.m3u",
+						"text/plain",
+					);
+				});
+			}
+
+			const exportPlsBtn = document.getElementById("export-pls-btn");
+			if (exportPlsBtn) {
+				exportPlsBtn.addEventListener("click", () => {
+					if (selectedIds.size === 0) {
+						alert("No stations selected.");
+						return;
+					}
+
+					const selectedStations = allStations.filter(
+						(station: any) => selectedIds.has(station.id),
+					);
+
+					let plsContent = "[playlist]\n";
+					plsContent += `NumberOfEntries=${selectedStations.length}\n`;
+
+					selectedStations.forEach((station: any, index: number) => {
+						const i = index + 1;
+						plsContent += `File${i}=${station.streamUrl}\n`;
+						plsContent += `Title${i}=${station.name}\n`;
+						plsContent += `Length${i}=-1\n`;
+					});
+
+					plsContent += "Version=2\n";
+
+					downloadFile(
+						plsContent,
+						"selected_stations.pls",
+						"text/plain",
+					);
+				});
+			}
+
+			function downloadFile(
+				content: string,
+				filename: string,
+				type: string,
+			) {
+				const blob = new Blob([content], { type: type });
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement("a");
+				a.href = url;
+				a.download = filename;
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+				URL.revokeObjectURL(url);
 			}
 		});
 	</script>

@@ -1,5 +1,43 @@
 ---
 const { station } = Astro.props;
+
+const COUNTRY_CODES: Record<string, string> = {
+    Germany: "DE",
+    Hungary: "HU",
+    "The United States Of America": "US",
+    USA: "US",
+    "The United Kingdom Of Great Britain And Northern Ireland": "GB",
+    UK: "GB",
+    "Great Britain": "GB",
+    "Islamic Republic Of Iran": "IR",
+    Iran: "IR",
+    Czechia: "CZ",
+    "Czech Republic": "CZ",
+    France: "FR",
+    Poland: "PL",
+    "The Russian Federation": "RU",
+    Russia: "RU",
+    Ukraine: "UA",
+    Tunisia: "TN",
+    "The Netherlands": "NL",
+    Netherlands: "NL",
+    Spain: "ES",
+    Italy: "IT",
+    Greece: "GR",
+    Switzerland: "CH",
+    Austria: "AT",
+    Belgium: "BE",
+};
+
+function getFlag(code: string) {
+    if (!code || code.length !== 2) return "🌍"; // Fallback for unknown/missing
+    const offset = 127397;
+    const chars = [...code.toUpperCase()].map((c) => c.charCodeAt(0) + offset);
+    return String.fromCodePoint(...chars);
+}
+
+const countryCode = COUNTRY_CODES[station.country] || "";
+const flag = getFlag(countryCode);
 ---
 
 <li
@@ -25,7 +63,7 @@ const { station } = Astro.props;
             <div class="card-body">
                 <strong class="station-name">{station.name}</strong>
                 <div class="station-info">
-                    <span class="flag-placeholder">🏳️</span>
+                    <span class="flag-placeholder">{flag}</span>
                     <span class="country-name">{station.country}</span>
                 </div>
                 <div class="station-tech">

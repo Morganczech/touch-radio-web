@@ -153,8 +153,8 @@ const flag = getFlag(countryCode);
 
     /* Selected state */
     .station-checkbox:checked + .card-content {
-        border-color: var(--accent);
-        background-color: rgba(0, 0, 0, 0.02);
+        border-color: transparent;
+        box-shadow: 0 0 0 2px var(--accent);
     }
 
     [data-theme="dark"] .station-checkbox:checked + .card-content {

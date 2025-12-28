@@ -325,20 +325,31 @@ const flag = getFlag(countryCode);
     }
     .station-tech {
         margin-top: auto;
-        padding-top: 0.5rem;
+        padding: 0.5rem 0.5rem 0 0.5rem; /* added side padding */
         border-top: 1px solid var(--border);
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 0.5rem;
-        min-height: 36px; /* Ensure space for 32px button */
+        min-height: 42px; /* Adjusted height */
         font-size: 0.8rem;
         color: var(--muted);
         font-family: monospace;
+
+        /* Tech Bar UX Polish */
+        transition: background-color 0.2s ease;
+        border-radius: 0 0 12px 12px;
+        margin: 0 -1rem -1rem -1rem; /* Negative margins to fill bottom */
     }
+
     .badge {
         text-transform: uppercase;
         font-weight: bold;
+    }
+
+    /* Highlight tech bar on card hover */
+    .station-card:hover .station-tech {
+        background-color: rgba(128, 128, 128, 0.04);
     }
 
     /* =========================================
@@ -366,8 +377,36 @@ const flag = getFlag(countryCode);
         position: relative;
         z-index: 5;
 
+        /* UX Polish: Default opacity */
+        opacity: 0.6;
         transition:
             transform 0.2s ease,
-            filter 0.2s ease;
+            filter 0.2s ease,
+            opacity 0.2s ease,
+            color 0.2s ease;
+    }
+
+    .station-card:hover .play-btn {
+        opacity: 1; /* Fully visible on card hover */
+    }
+
+    /* Keep fully visible if playing */
+    :global(.station-item.is-playing) .play-btn {
+        opacity: 1;
+    }
+
+    .play-btn:hover {
+        transform: scale(1.1);
+        color: var(--accent);
+        /* No dropshadow to keep it subtle as requested */
+    }
+
+    [data-theme="dark"] .play-btn {
+        color: #fff;
+    }
+
+    /* No glow on button when playing */
+    :global(.station-item.is-playing) .play-btn:hover {
+        filter: none;
     }
 </style>

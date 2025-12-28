@@ -627,18 +627,25 @@ const uniqueGenres = [
 			const audioPlayer = new Audio();
 			let currentPlayingButton: HTMLButtonElement | null = null;
 
-			function stopPlayback() {
+			function stopPlayback(isError = false) {
 				audioPlayer.pause();
 				audioPlayer.src = "";
 				if (currentPlayingButton) {
 					const icon =
 						currentPlayingButton.querySelector(".play-icon");
 					if (icon) icon.textContent = "▶️";
-					// Find the parent station item/card to remove active class
-					const stationItem =
-						currentPlayingButton.closest(".station-item");
-					if (stationItem) {
-						stationItem.classList.remove("is-playing");
+					// Find the parent station item/card
+					const stationCard =
+						currentPlayingButton.closest(".station-card");
+					if (stationCard) {
+						stationCard.classList.remove("is-playing");
+						if (isError) {
+							stationCard.classList.add("is-error");
+							// Remove error state after 3 seconds
+							setTimeout(() => {
+								stationCard.classList.remove("is-error");
+							}, 3000);
+						}
 					}
 					currentPlayingButton = null;
 				}
@@ -660,14 +667,18 @@ const uniqueGenres = [
 					if (currentPlayingButton === button) {
 						// Toggle Pause
 						if (audioPlayer.paused) {
+							// Clear any previous error state
+							const stationCard = button.closest(".station-card");
+							if (stationCard)
+								stationCard.classList.remove("is-error");
+
 							audioPlayer.play().catch((err) => {
 								console.error("Playback failed", err);
-								stopPlayback();
+								stopPlayback(true);
 							});
 							if (icon) icon.textContent = "⏸️";
-							const stationItem = button.closest(".station-item");
-							if (stationItem)
-								stationItem.classList.add("is-playing");
+							if (stationCard)
+								stationCard.classList.add("is-playing");
 						} else {
 							stopPlayback();
 						}
@@ -679,16 +690,20 @@ const uniqueGenres = [
 						if (streamUrl) {
 							currentPlayingButton = button;
 							audioPlayer.src = streamUrl;
+
+							// Clear any previous error state on new item
+							const stationCard = button.closest(".station-card");
+							if (stationCard)
+								stationCard.classList.remove("is-error");
+
 							audioPlayer.play().catch((err) => {
 								console.error("Playback failed", err);
-								stopPlayback();
-								// alert("Playback failed. Stream might be offline or incompatible."); // Optional: silent fail is often better for previews
+								stopPlayback(true);
 							});
 
 							if (icon) icon.textContent = "⏸️";
-							const stationItem = button.closest(".station-item");
-							if (stationItem)
-								stationItem.classList.add("is-playing");
+							if (stationCard)
+								stationCard.classList.add("is-playing");
 						}
 					}
 				});
@@ -696,7 +711,7 @@ const uniqueGenres = [
 
 			// Handle audio errors/end
 			audioPlayer.addEventListener("error", () => {
-				stopPlayback();
+				stopPlayback(true);
 			});
 			audioPlayer.addEventListener("ended", () => {
 				stopPlayback();

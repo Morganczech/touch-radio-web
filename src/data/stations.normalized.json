@@ -761,19 +761,6 @@
     "tags": []
   },
   {
-    "id": "563f5559-105c-11e9-a80b-52543be04c81",
-    "name": "DFM RUSSIAN DANCE",
-    "streamUrl": "https://dfm-dfmrusdance.hostingradio.ru/dfmrusdance96.aacp?0.9987259013359274",
-    "country": "The Russian Federation",
-    "codec": "AAC+",
-    "bitrate": 96,
-    "homepage": "https://dfm.ru/",
-    "favicon": "https://dfm.ru/uploads/favicon.ico",
-    "tags": [
-      "dance"
-    ]
-  },
-  {
     "id": "c2698fb7-f7ec-401d-904f-ef4284501bd9",
     "name": "RFI-Afrique",
     "streamUrl": "http://live02.rfi.fr/rfiafrique-96k.mp3",
@@ -787,6 +774,19 @@
       "information",
       "public radio",
       "world news"
+    ]
+  },
+  {
+    "id": "563f5559-105c-11e9-a80b-52543be04c81",
+    "name": "DFM RUSSIAN DANCE",
+    "streamUrl": "https://dfm-dfmrusdance.hostingradio.ru/dfmrusdance96.aacp?0.9987259013359274",
+    "country": "The Russian Federation",
+    "codec": "AAC+",
+    "bitrate": 96,
+    "homepage": "https://dfm.ru/",
+    "favicon": "https://dfm.ru/uploads/favicon.ico",
+    "tags": [
+      "dance"
     ]
   },
   {

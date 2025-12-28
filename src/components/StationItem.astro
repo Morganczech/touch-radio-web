@@ -58,6 +58,11 @@ const flag = getFlag(countryCode);
                     alt={station.name}
                     class="station-icon"
                 />
+                <div class="equalizer">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
                 <span class="heart-icon" aria-hidden="true"></span>
             </div>
             <div class="card-body">
@@ -130,9 +135,14 @@ const flag = getFlag(countryCode);
         background-color: rgba(255, 255, 255, 0.05);
     }
 
-    /* Playing state */
+    /* Playing state visual updates */
     :global(.station-item.is-playing) .card-content {
-        box-shadow: 0 0 15px rgba(255, 100, 100, 0.3);
+        /* No glow on card container as per requirement */
+        border-color: #2ecc71; /* Green border for playing */
+    }
+
+    /* Error state */
+    :global(.station-item.is-error) .card-content {
         border-color: #e74c3c;
     }
 
@@ -143,7 +153,8 @@ const flag = getFlag(countryCode);
     .card-header {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center; /* Centered alignment */
+        position: relative;
     }
 
     .station-icon {
@@ -154,6 +165,67 @@ const flag = getFlag(countryCode);
         background: rgba(128, 128, 128, 0.1);
     }
 
+    /* EQUALIZER STYLES */
+    .equalizer {
+        display: flex;
+        align-items: flex-end;
+        gap: 2px;
+        height: 16px;
+        width: 16px;
+
+        /* KRITICKÉ */
+        position: static; /* nebo to úplně smaž */
+
+        z-index: 2;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+    }
+
+    .bar {
+        width: 3px;
+        background-color: #2ecc71;
+        border-radius: 1px;
+        height: 3px; /* Start height */
+    }
+
+    /* Show equalizer when playing or error */
+    :global(.station-item.is-playing) .equalizer,
+    :global(.station-item.is-error) .equalizer {
+        opacity: 1;
+    }
+
+    /* Animation for playing state */
+    :global(.station-item.is-playing) .bar {
+        animation: equalizer 0.5s infinite ease-in-out alternate;
+    }
+
+    :global(.station-item.is-playing) .bar:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+    :global(.station-item.is-playing) .bar:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    :global(.station-item.is-playing) .bar:nth-child(3) {
+        animation-delay: 0s;
+    }
+
+    /* Error state: Red bars, no animation */
+    :global(.station-item.is-error) .bar {
+        background-color: #e74c3c;
+        height: 10px; /* Static height */
+        animation: none;
+    }
+
+    @keyframes equalizer {
+        0% {
+            height: 3px;
+        }
+        100% {
+            height: 16px;
+        }
+    }
+
     .heart-icon {
         font-size: 1.5rem;
         line-height: 1;
@@ -161,6 +233,8 @@ const flag = getFlag(countryCode);
         transition:
             transform 0.2s,
             color 0.2s;
+        z-index: 3;
+        position: relative; /* Ensure z-index works */
     }
 
     .heart-icon::before {
@@ -229,7 +303,13 @@ const flag = getFlag(countryCode);
         border-radius: 50%;
     }
 
+    /* Hover state for play button only */
     .play-btn:hover {
         transform: scale(1.2);
+        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+    }
+
+    :global(.station-item.is-playing) .play-btn:hover {
+        filter: none; /* No glow when playing */
     }
 </style>

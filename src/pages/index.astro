@@ -622,6 +622,85 @@ const uniqueGenres = [
 					filterStations();
 				});
 			}
+
+			// Inline Audio Preview Logic
+			const audioPlayer = new Audio();
+			let currentPlayingButton: HTMLButtonElement | null = null;
+
+			function stopPlayback() {
+				audioPlayer.pause();
+				audioPlayer.src = "";
+				if (currentPlayingButton) {
+					const icon =
+						currentPlayingButton.querySelector(".play-icon");
+					if (icon) icon.textContent = "▶️";
+					// Find the parent station item/card to remove active class
+					const stationItem =
+						currentPlayingButton.closest(".station-item");
+					if (stationItem) {
+						stationItem.classList.remove("is-playing");
+					}
+					currentPlayingButton = null;
+				}
+			}
+
+			// Delegate event listener for play buttons since they might be dynamically updated (though strictly here they are static, but good practice)
+			// Actually, StationList is static so we can attach listeners directly or delegate from main.
+			// Let's attach to all .play-btn elements.
+			const playButtons = document.querySelectorAll(".play-btn");
+			playButtons.forEach((btn) => {
+				btn.addEventListener("click", (e) => {
+					e.preventDefault();
+					e.stopPropagation(); // Prevent card click (selection)
+
+					const button = e.currentTarget as HTMLButtonElement;
+					const streamUrl = button.dataset.stream;
+					const icon = button.querySelector(".play-icon");
+
+					if (currentPlayingButton === button) {
+						// Toggle Pause
+						if (audioPlayer.paused) {
+							audioPlayer.play().catch((err) => {
+								console.error("Playback failed", err);
+								stopPlayback();
+							});
+							if (icon) icon.textContent = "⏸️";
+							const stationItem = button.closest(".station-item");
+							if (stationItem)
+								stationItem.classList.add("is-playing");
+						} else {
+							stopPlayback();
+						}
+					} else {
+						// Stop previous
+						stopPlayback();
+
+						// Play new
+						if (streamUrl) {
+							currentPlayingButton = button;
+							audioPlayer.src = streamUrl;
+							audioPlayer.play().catch((err) => {
+								console.error("Playback failed", err);
+								stopPlayback();
+								// alert("Playback failed. Stream might be offline or incompatible."); // Optional: silent fail is often better for previews
+							});
+
+							if (icon) icon.textContent = "⏸️";
+							const stationItem = button.closest(".station-item");
+							if (stationItem)
+								stationItem.classList.add("is-playing");
+						}
+					}
+				});
+			});
+
+			// Handle audio errors/end
+			audioPlayer.addEventListener("error", () => {
+				stopPlayback();
+			});
+			audioPlayer.addEventListener("ended", () => {
+				stopPlayback();
+			});
 		});
 	</script>
 </BaseLayout>

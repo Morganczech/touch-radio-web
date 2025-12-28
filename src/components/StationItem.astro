@@ -68,6 +68,13 @@ const flag = getFlag(countryCode);
                 </div>
                 <div class="station-tech">
                     <span class="badge">{station.codec}</span>
+                    <button
+                        class="play-btn"
+                        data-stream={station.streamUrl}
+                        title="Preview station"
+                    >
+                        <span class="play-icon">▶️</span>
+                    </button>
                     <span class="bitrate">{station.bitrate} kbps</span>
                 </div>
             </div>
@@ -123,6 +130,16 @@ const flag = getFlag(countryCode);
         background-color: rgba(255, 255, 255, 0.05);
     }
 
+    /* Playing state */
+    :global(.station-item.is-playing) .card-content {
+        box-shadow: 0 0 15px rgba(255, 100, 100, 0.3);
+        border-color: #e74c3c;
+    }
+
+    :global(.station-item.is-playing) .play-icon {
+        content: "⏸️";
+    }
+
     .card-header {
         display: flex;
         justify-content: space-between;
@@ -159,9 +176,6 @@ const flag = getFlag(countryCode);
         content: "❤️";
     }
 
-    /* Fallback if unicode heart doesn't work well, or just style preference */
-    /* Using content replacement is simple for now */
-
     .card-body {
         display: flex;
         flex-direction: column;
@@ -193,6 +207,7 @@ const flag = getFlag(countryCode);
         border-top: 1px solid var(--border);
         display: flex;
         justify-content: space-between;
+        align-items: center;
         font-size: 0.8rem;
         color: var(--muted);
         font-family: monospace;
@@ -201,5 +216,20 @@ const flag = getFlag(countryCode);
     .badge {
         text-transform: uppercase;
         font-weight: bold;
+    }
+
+    .play-btn {
+        background: none;
+        border: none;
+        font-size: 1.25rem;
+        cursor: pointer;
+        padding: 0 0.5rem;
+        line-height: 1;
+        transition: transform 0.2s;
+        border-radius: 50%;
+    }
+
+    .play-btn:hover {
+        transform: scale(1.2);
     }
 </style>

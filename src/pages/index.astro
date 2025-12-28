@@ -67,6 +67,13 @@ const uniqueCodecs = [
 						style="width: 100%; margin-top: 0.25rem; padding: 0.25rem;"
 					/>
 				</label>
+				<div
+					style="flex: 0 0 auto; display: flex; align-items: flex-end;"
+				>
+					<button id="clear-filters-btn" style="margin-bottom: 0;"
+						>Clear filters</button
+					>
+				</div>
 			</div>
 			<p>Select stations and export a playlist</p>
 			<p>Selected: <span id="selection-count">0</span></p>
@@ -317,6 +324,18 @@ const uniqueCodecs = [
 
 			if (bitrateFilter) {
 				bitrateFilter.addEventListener("input", filterStations);
+			}
+
+			const clearFiltersBtn =
+				document.getElementById("clear-filters-btn");
+			if (clearFiltersBtn) {
+				clearFiltersBtn.addEventListener("click", () => {
+					if (searchInput) searchInput.value = "";
+					if (countryFilter) countryFilter.value = "";
+					if (codecFilter) codecFilter.value = "";
+					if (bitrateFilter) bitrateFilter.value = "";
+					filterStations();
+				});
 			}
 		});
 	</script>

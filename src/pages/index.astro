@@ -11,6 +11,16 @@ import StationList from "../components/StationList.astro";
 	<main data-stations={JSON.stringify(stations)}>
 		<section>
 			<h2>Available Stations</h2>
+			<label style="display: block; margin-bottom: 1rem;">
+				Search stations:
+				<input
+					type="search"
+					id="search-input"
+					placeholder="Type station name…"
+					autocomplete="off"
+					style="margin-left: 0.5rem; padding: 0.25rem;"
+				/>
+			</label>
 			<p>Select stations and export a playlist</p>
 			<p>Selected: <span id="selection-count">0</span></p>
 			<button id="export-btn" disabled>Export selected (JSON)</button>
@@ -190,6 +200,26 @@ import StationList from "../components/StationList.astro";
 					tempImg.src = faviconUrl;
 				}
 			});
+
+			// Search functionality
+			const searchInput = document.getElementById(
+				"search-input",
+			) as HTMLInputElement;
+			const stationItems = document.querySelectorAll(
+				"li[data-name]",
+			) as NodeListOf<HTMLLIElement>;
+
+			if (searchInput) {
+				searchInput.addEventListener("input", () => {
+					const query = searchInput.value.trim().toLowerCase();
+
+					stationItems.forEach((item) => {
+						const name = item.dataset.name || "";
+						const match = name.includes(query);
+						item.style.display = match ? "" : "none";
+					});
+				});
+			}
 		});
 	</script>
 </BaseLayout>

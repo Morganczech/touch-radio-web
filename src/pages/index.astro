@@ -14,4 +14,33 @@ import StationList from "../components/StationList.astro";
 			<StationList stations={stations} />
 		</section>
 	</main>
+	<script>
+		// Client-side state management for station selection
+		document.addEventListener("DOMContentLoaded", () => {
+			const selectedIds = new Set();
+			const checkboxes = document.querySelectorAll(
+				'input[type="checkbox"][data-id]',
+			);
+
+			checkboxes.forEach((checkbox) => {
+				checkbox.addEventListener("change", (event) => {
+					const target = event.target as HTMLInputElement;
+					const id = target.dataset.id;
+
+					if (id) {
+						if (target.checked) {
+							selectedIds.add(id);
+						} else {
+							selectedIds.delete(id);
+						}
+						// Console log for verification as per "no UI changes" except checkbox requirement
+						console.log(
+							"Selected Stations IDs:",
+							Array.from(selectedIds),
+						);
+					}
+				});
+			});
+		});
+	</script>
 </BaseLayout>

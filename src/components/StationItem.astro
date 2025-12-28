@@ -3,6 +3,7 @@ const { station } = Astro.props;
 ---
 
 <li>
+    <input type="checkbox" data-id={station.id} />
     <strong>{station.name}</strong> - {station.country} ({station.codec}, {
         station.bitrate
     }kbps)

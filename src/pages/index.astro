@@ -10,6 +10,10 @@ const uniqueCountries = [
 const uniqueCodecs = [
 	...new Set(stations.map((s) => s.codec).filter(Boolean)),
 ].sort();
+
+const uniqueGenres = [
+	...new Set(stations.flatMap((s) => s.tags || []).filter(Boolean)),
+].sort();
 ---
 
 <BaseLayout>
@@ -40,6 +44,20 @@ const uniqueCodecs = [
 						{
 							uniqueCountries.map((country) => (
 								<option value={country}>{country}</option>
+							))
+						}
+					</select>
+				</label>
+				<label style="flex: 1;">
+					Filter by genre:
+					<select
+						id="genre-filter"
+						style="width: 100%; margin-top: 0.25rem; padding: 0.25rem;"
+					>
+						<option value="">All Genres</option>
+						{
+							uniqueGenres.map((genre) => (
+								<option value={genre}>{genre}</option>
 							))
 						}
 					</select>
@@ -307,6 +325,9 @@ const uniqueCodecs = [
 			const countryFilter = document.getElementById(
 				"country-filter",
 			) as HTMLSelectElement;
+			const genreFilter = document.getElementById(
+				"genre-filter",
+			) as HTMLSelectElement;
 			const codecFilter = document.getElementById(
 				"codec-filter",
 			) as HTMLSelectElement;
@@ -324,6 +345,7 @@ const uniqueCodecs = [
 				const selectedCountry = countryFilter
 					? countryFilter.value
 					: "";
+				const selectedGenre = genreFilter ? genreFilter.value : "";
 				const selectedCodec = codecFilter ? codecFilter.value : "";
 				const minBitrate =
 					bitrateFilter && bitrateFilter.value
@@ -333,6 +355,7 @@ const uniqueCodecs = [
 				stationItems.forEach((item) => {
 					const name = item.dataset.name || "";
 					const country = item.dataset.country || "";
+					const tags = (item.dataset.tags || "").split(",");
 					const codec = item.dataset.codec || "";
 					const bitrate = item.dataset.bitrate
 						? parseInt(item.dataset.bitrate)
@@ -341,6 +364,8 @@ const uniqueCodecs = [
 					const matchesName = name.includes(query);
 					const matchesCountry =
 						selectedCountry === "" || country === selectedCountry;
+					const matchesGenre =
+						selectedGenre === "" || tags.includes(selectedGenre);
 					const matchesCodec =
 						selectedCodec === "" || codec === selectedCodec;
 					const matchesBitrate = bitrate >= minBitrate;
@@ -348,6 +373,7 @@ const uniqueCodecs = [
 					item.style.display =
 						matchesName &&
 						matchesCountry &&
+						matchesGenre &&
 						matchesCodec &&
 						matchesBitrate
 							? ""
@@ -361,6 +387,10 @@ const uniqueCodecs = [
 
 			if (countryFilter) {
 				countryFilter.addEventListener("change", filterStations);
+			}
+
+			if (genreFilter) {
+				genreFilter.addEventListener("change", filterStations);
 			}
 
 			if (codecFilter) {
@@ -377,6 +407,7 @@ const uniqueCodecs = [
 				clearFiltersBtn.addEventListener("click", () => {
 					if (searchInput) searchInput.value = "";
 					if (countryFilter) countryFilter.value = "";
+					if (genreFilter) genreFilter.value = "";
 					if (codecFilter) codecFilter.value = "";
 					if (bitrateFilter) bitrateFilter.value = "";
 					filterStations();

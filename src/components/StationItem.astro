@@ -7,6 +7,7 @@ const { station } = Astro.props;
     data-country={station.country}
     data-codec={station.codec}
     data-bitrate={station.bitrate}
+    data-tags={station.tags ? station.tags.join(",") : ""}
 >
     <input type="checkbox" data-id={station.id} />
     <img

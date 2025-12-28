@@ -172,6 +172,24 @@ import StationList from "../components/StationList.astro";
 				document.body.removeChild(a);
 				URL.revokeObjectURL(url);
 			}
+
+			// Favicon handling
+			const stationImages = document.querySelectorAll(
+				"img[data-favicon]",
+			) as NodeListOf<HTMLImageElement>;
+
+			stationImages.forEach((img) => {
+				const faviconUrl = img.dataset.favicon;
+				if (faviconUrl) {
+					const tempImg = new Image();
+					tempImg.onload = () => {
+						img.src = faviconUrl;
+					};
+					// Handle error silently, placeholder remains
+					tempImg.onerror = () => {};
+					tempImg.src = faviconUrl;
+				}
+			});
 		});
 	</script>
 </BaseLayout>

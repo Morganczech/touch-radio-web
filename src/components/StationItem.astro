@@ -4,6 +4,14 @@ const { station } = Astro.props;
 
 <li>
     <input type="checkbox" data-id={station.id} />
+    <img
+        src="/station-placeholder.svg"
+        data-favicon={station.favicon}
+        alt={station.name}
+        width="32"
+        height="32"
+        style="vertical-align: middle; margin-right: 0.5rem;"
+    />
     <strong>{station.name}</strong> - {station.country} ({station.codec}, {
         station.bitrate
     }kbps)

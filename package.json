@@ -6,7 +6,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "fetch:stations": "node scripts/fetch-stations.mjs",
+    "normalize:stations": "node scripts/normalize-stations.mjs",
+    "prebuild": "npm run fetch:stations && npm run normalize:stations"
   },
   "dependencies": {
     "astro": "^5.16.6"

@@ -2,6 +2,10 @@
 import stations from "../data/stations.normalized.json";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import StationList from "../components/StationList.astro";
+
+const uniqueCountries = [
+	...new Set(stations.map((s) => s.country).filter(Boolean)),
+].sort();
 ---
 
 <BaseLayout>
@@ -20,6 +24,20 @@ import StationList from "../components/StationList.astro";
 					autocomplete="off"
 					style="margin-left: 0.5rem; padding: 0.25rem;"
 				/>
+			</label>
+			<label style="display: block; margin-bottom: 1rem;">
+				Filter by country:
+				<select
+					id="country-filter"
+					style="margin-left: 0.5rem; padding: 0.25rem;"
+				>
+					<option value="">All Countries</option>
+					{
+						uniqueCountries.map((country) => (
+							<option value={country}>{country}</option>
+						))
+					}
+				</select>
 			</label>
 			<p>Select stations and export a playlist</p>
 			<p>Selected: <span id="selection-count">0</span></p>
@@ -201,24 +219,44 @@ import StationList from "../components/StationList.astro";
 				}
 			});
 
-			// Search functionality
+			// Search and Filter functionality
 			const searchInput = document.getElementById(
 				"search-input",
 			) as HTMLInputElement;
+			const countryFilter = document.getElementById(
+				"country-filter",
+			) as HTMLSelectElement;
 			const stationItems = document.querySelectorAll(
 				"li[data-name]",
 			) as NodeListOf<HTMLLIElement>;
 
-			if (searchInput) {
-				searchInput.addEventListener("input", () => {
-					const query = searchInput.value.trim().toLowerCase();
+			function filterStations() {
+				const query = searchInput
+					? searchInput.value.trim().toLowerCase()
+					: "";
+				const selectedCountry = countryFilter
+					? countryFilter.value
+					: "";
 
-					stationItems.forEach((item) => {
-						const name = item.dataset.name || "";
-						const match = name.includes(query);
-						item.style.display = match ? "" : "none";
-					});
+				stationItems.forEach((item) => {
+					const name = item.dataset.name || "";
+					const country = item.dataset.country || "";
+
+					const matchesName = name.includes(query);
+					const matchesCountry =
+						selectedCountry === "" || country === selectedCountry;
+
+					item.style.display =
+						matchesName && matchesCountry ? "" : "none";
 				});
+			}
+
+			if (searchInput) {
+				searchInput.addEventListener("input", filterStations);
+			}
+
+			if (countryFilter) {
+				countryFilter.addEventListener("change", filterStations);
 			}
 		});
 	</script>

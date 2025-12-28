@@ -8,9 +8,10 @@ import StationList from "../components/StationList.astro";
 	<header>
 		<h1>Touch Radio</h1>
 	</header>
-	<main>
+	<main data-stations={JSON.stringify(stations)}>
 		<section>
 			<h2>Available Stations</h2>
+			<button id="export-btn">Export selected (JSON)</button>
 			<StationList stations={stations} />
 		</section>
 	</main>
@@ -18,6 +19,14 @@ import StationList from "../components/StationList.astro";
 		// Client-side state management for station selection
 		document.addEventListener("DOMContentLoaded", () => {
 			const selectedIds = new Set();
+			const exportBtn = document.getElementById("export-btn");
+			const mainElement = document.querySelector("main");
+			// Parse stations data from data attribute safely
+			const allStations =
+				mainElement && mainElement.dataset.stations
+					? JSON.parse(mainElement.dataset.stations)
+					: [];
+
 			const checkboxes = document.querySelectorAll(
 				'input[type="checkbox"][data-id]',
 			);
@@ -33,10 +42,39 @@ import StationList from "../components/StationList.astro";
 						} else {
 							selectedIds.delete(id);
 						}
-						// Console log for verification as per "no UI changes" except checkbox requirement
 					}
 				});
 			});
+
+			if (exportBtn) {
+				exportBtn.addEventListener("click", () => {
+					if (selectedIds.size === 0) {
+						alert("No stations selected.");
+						return;
+					}
+
+					const selectedStations = allStations.filter(
+						(station: any) => selectedIds.has(station.id),
+					);
+					const jsonString = JSON.stringify(
+						selectedStations,
+						null,
+						2,
+					);
+					const blob = new Blob([jsonString], {
+						type: "application/json",
+					});
+					const url = URL.createObjectURL(blob);
+
+					const a = document.createElement("a");
+					a.href = url;
+					a.download = "selected_stations.json";
+					document.body.appendChild(a);
+					a.click();
+					document.body.removeChild(a);
+					URL.revokeObjectURL(url);
+				});
+			}
 		});
 	</script>
 </BaseLayout>

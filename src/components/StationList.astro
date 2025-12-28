@@ -1,0 +1,8 @@
+---
+import StationItem from "./StationItem.astro";
+const { stations } = Astro.props;
+---
+
+<ul>
+    {stations.map((station) => <StationItem station={station} />)}
+</ul>

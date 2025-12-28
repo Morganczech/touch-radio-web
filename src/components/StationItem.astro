@@ -1,0 +1,9 @@
+---
+const { station } = Astro.props;
+---
+
+<li>
+    <strong>{station.name}</strong> - {station.country} ({station.codec}, {
+        station.bitrate
+    }kbps)
+</li>

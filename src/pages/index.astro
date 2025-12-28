@@ -1,6 +1,7 @@
 ---
 import stations from "../data/stations.normalized.json";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import StationList from "../components/StationList.astro";
 ---
 
 <BaseLayout>
@@ -10,16 +11,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 	<main>
 		<section>
 			<h2>Available Stations</h2>
-			<ul>
-				{
-					stations.map((station) => (
-						<li>
-							<strong>{station.name}</strong> - {station.country}{" "}
-							({station.codec}, {station.bitrate}kbps)
-						</li>
-					))
-				}
-			</ul>
+			<StationList stations={stations} />
 		</section>
 	</main>
 </BaseLayout>

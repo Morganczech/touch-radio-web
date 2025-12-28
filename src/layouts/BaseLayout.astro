@@ -16,6 +16,40 @@ import "../styles/global.css";
         <title>{title}</title>
     </head>
     <body>
+        <div
+            style="display: flex; justify-content: flex-end; padding-bottom: 1rem;"
+        >
+            <button id="theme-toggle" aria-label="Toggle theme"
+                >Toggle Theme</button
+            >
+        </div>
         <slot />
+        <script>
+            const themeToggle = document.getElementById("theme-toggle");
+
+            // Determine current theme
+            function getCurrentTheme() {
+                const htmlTheme =
+                    document.documentElement.getAttribute("data-theme");
+                if (htmlTheme) return htmlTheme;
+
+                return window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light";
+            }
+
+            // Apply theme
+            function setTheme(theme: string) {
+                document.documentElement.setAttribute("data-theme", theme);
+            }
+
+            if (themeToggle) {
+                themeToggle.addEventListener("click", () => {
+                    const current = getCurrentTheme();
+                    const next = current === "dark" ? "light" : "dark";
+                    setTheme(next);
+                });
+            }
+        </script>
     </body>
 </html>

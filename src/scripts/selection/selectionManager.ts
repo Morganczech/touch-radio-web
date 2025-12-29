@@ -1,6 +1,6 @@
 import { appState } from "../state/appState";
 import { getFlag } from "../utils/flags";
-import { handlePlayButtonClick } from "../player/audioPlayer";
+import { handlePlayButtonClick, stopPlayback } from "../player/audioPlayer";
 
 export function downloadFile(content: string, filename: string, type: string) {
     const blob = new Blob([content], { type: type });
@@ -91,6 +91,11 @@ export function updateUI() {
                     const target = e.currentTarget as HTMLButtonElement;
                     const idToRemove = target.dataset.removeId;
                     if (idToRemove) {
+                        // If this station is currently playing, stop it
+                        if (appState.currentPlayingId === idToRemove) {
+                            stopPlayback();
+                        }
+
                         // Update State
                         appState.selectedIds.delete(idToRemove);
 

@@ -21,7 +21,7 @@ async function normalizeStations() {
             codec: station.codec,
             bitrate: station.bitrate,
             homepage: station.homepage,
-            favicon: station.favicon,
+            favicon: station.favicon ? station.favicon.replace('http:', 'https:') : '',
             tags: station.tags ? station.tags.split(',').map(tag => tag.trim().toLowerCase()).filter(Boolean) : []
         }));
 

@@ -1,721 +1,1719 @@
 ---
-import stations from "../data/stations.normalized.json";
+import stationsRaw from "../data/stations.normalized.json";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import StationList from "../components/StationList.astro";
+import "../styles/station-item.css";
 
+// Filter valid stations first
+const allStations = stationsRaw.filter((s: any) => !s.broken);
+// No SSR station rendering - strictly client side
+
+// Extract unique values for filters
 const uniqueCountries = [
-	...new Set(stations.map((s) => s.country).filter(Boolean)),
+	...new Set(allStations.map((s: any) => s.country).filter(Boolean)),
 ].sort();
-
-const uniqueCodecs = [
-	...new Set(stations.map((s) => s.codec).filter(Boolean)),
-].sort();
-
 const uniqueGenres = [
-	...new Set(stations.flatMap((s) => s.tags || []).filter(Boolean)),
+	...new Set(allStations.flatMap((s: any) => s.tags || []).filter(Boolean)),
+].sort();
+const uniqueCodecs = [
+	...new Set(allStations.map((s: any) => s.codec).filter(Boolean)),
 ].sort();
 ---
 
 <BaseLayout>
-	<header>
-		<h1>Touch Radio</h1>
-	</header>
-	<main data-stations={JSON.stringify(stations)}>
-		<section>
-			<h2>Available Stations</h2>
-			<label style="display: block; margin-bottom: 1rem;">
-				Search stations:
-				<input
-					type="search"
-					id="search-input"
-					placeholder="Type station name…"
-					autocomplete="off"
-					style="margin-left: 0.5rem; padding: 0.25rem;"
-				/>
-			</label>
-			<div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-				<label style="flex: 1;">
-					Filter by country:
-					<select
-						id="country-filter"
-						style="width: 100%; margin-top: 0.25rem; padding: 0.25rem;"
-					>
-						<option value="">All Countries</option>
-						{
-							uniqueCountries.map((country) => (
-								<option value={country}>{country}</option>
-							))
-						}
-					</select>
-				</label>
-				<label style="flex: 1;">
-					Filter by genre:
-					<select
-						id="genre-filter"
-						style="width: 100%; margin-top: 0.25rem; padding: 0.25rem;"
-					>
-						<option value="">All Genres</option>
-						{
-							uniqueGenres.map((genre) => (
-								<option value={genre}>{genre}</option>
-							))
-						}
-					</select>
-				</label>
-				<label style="flex: 1;">
-					Filter by codec:
-					<select
-						id="codec-filter"
-						style="width: 100%; margin-top: 0.25rem; padding: 0.25rem;"
-					>
-						<option value="">All Codecs</option>
-						{
-							uniqueCodecs.map((codec) => (
-								<option value={codec}>{codec}</option>
-							))
-						}
-					</select>
-				</label>
-				<label style="flex: 1;">
-					Min bitrate (kbps):
+	<main>
+		<section class="hero-section">
+			<div class="hero-content">
+				<h1>Discover music without algorithms</h1>
+				<p class="hero-subtitle">
+					Explore radio stations from around the world. No tracking.
+					No recommendations. Just real sound.
+				</p>
+				<div class="search-container">
 					<input
-						type="number"
-						id="bitrate-filter"
-						placeholder="Min kbps"
-						style="width: 100%; margin-top: 0.25rem; padding: 0.25rem;"
+						type="search"
+						id="search-input"
+						class="hero-search"
+						placeholder="Search stations (e.g. jazz 128 us mp3)"
+						autocomplete="off"
 					/>
-				</label>
-				<div
-					style="flex: 0 0 auto; display: flex; align-items: flex-end;"
-				>
-					<button id="clear-filters-btn" style="margin-bottom: 0;"
-						>Clear filters</button
-					>
-				</div>
-			</div>
-			<p>Select stations and export a playlist</p>
-			<p>Selected: <span id="selection-count">0</span></p>
-			<button
-				id="export-btn"
-				disabled
-				title="Export selected stations in Touch Radio JSON format"
-				>Export JSON</button
-			>
-			<button
-				id="export-m3u-btn"
-				disabled
-				title="Export playlist in M3U format">Export M3U</button
-			>
-			<button
-				id="export-m3u8-btn"
-				disabled
-				title="Export playlist in UTF-8 encoded M3U8 format"
-				>Export M3U8 (UTF-8)</button
-			>
-			<button
-				id="export-pls-btn"
-				disabled
-				title="Export playlist in PLS format">Export PLS</button
-			>
-			<div class="content-wrapper">
-				<div class="main-content">
-					<StationList stations={stations} />
-				</div>
-				<aside class="selection-panel">
-					<h3>My Selection</h3>
-					<div id="selection-list" class="selection-list">
-						<p class="empty-state">No stations selected</p>
+					<div class="discovery-row">
+						<div
+							class="discovery-items"
+							id="discovery-badges-container"
+						>
+							<span
+								class="discovery-item"
+								data-query="Relax"
+								tabindex="0"
+								role="button">Relax</span
+							>
+							<span
+								class="discovery-item"
+								data-query="Calm"
+								tabindex="0"
+								role="button">Calm</span
+							>
+							<span
+								class="discovery-item"
+								data-query="Night"
+								tabindex="0"
+								role="button">Night</span
+							>
+							<span
+								class="discovery-item"
+								data-query="Chill"
+								tabindex="0"
+								role="button">Chill</span
+							>
+							<span
+								class="discovery-item"
+								data-query="Ambient"
+								tabindex="0"
+								role="button">Ambient</span
+							>
+						</div>
+						<div class="discovery-controls">
+							<span
+								id="discovery-up"
+								class="arrow arrow-up"
+								role="button"
+								tabindex="0"></span>
+							<span
+								id="discovery-down"
+								class="arrow
+arrow-down"
+								role="button"
+								tabindex="0"></span>
+						</div>
 					</div>
-				</aside>
+					<div id="smart-hint" class="smart-hint"></div>
+				</div>
 			</div>
 		</section>
+		<div class="ap-container filters-wrapper">
+			<button
+				id="toggle-filters-btn"
+				class="toggle-filters-btn"
+				aria-expanded="false"
+				aria-controls="filters-panel">Show filters</button
+			>
+			<div id="filters-panel" class="filters-panel" aria-hidden="true">
+				<div class="filters-inner">
+					<div class="filters-container">
+						<select id="country-filter" class="hero-filter">
+							<option value="">All Countries</option>
+							{
+								uniqueCountries.map((country) => (
+									<option value={country}>{country}</option>
+								))
+							}
+						</select>
+						<select id="genre-filter" class="hero-filter">
+							<option value="">All Genres</option>
+							{
+								uniqueGenres.map((genre) => (
+									<option value={genre}>{genre}</option>
+								))
+							}
+						</select>
+						<select id="codec-filter" class="hero-filter">
+							<option value="">All Codecs</option>
+							{
+								uniqueCodecs.map((codec) => (
+									<option value={codec}>{codec}</option>
+								))
+							}
+						</select>
+						<input
+							type="number"
+							id="bitrate-filter"
+							class="hero-filter bitrate-input"
+							placeholder="Min kbps"
+						/>
+						<button id="clear-filters-btn" class="clear-btn"
+							>Clear filters</button
+						>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section class="content-section">
+			<div class="section-header">
+				<h2>Available Stations</h2>
+				<p class="section-subtitle">
+					Select stations and export a playlist
+				</p>
+			</div>
+		</section>
+		<div class="content-wrapper">
+			<div class="main-content">
+				<div
+					id="search-status"
+					class="search-status"
+					style="display: none;"
+				>
+					Searching all stations...
+				</div>
+				<ul id="station-grid" class="station-grid"></ul>
+				<div class="load-more-container">
+					<button
+						id="load-more-btn"
+						class="load-more-btn"
+						style="display: none;"
+					>
+						Show more stations
+					</button>
+				</div>
+			</div>
+			<aside class="selection-panel">
+				<h3>My Selection (<span id="selection-count">0</span>)</h3>
+				<div id="selection-list" class="selection-list">
+					<p class="empty-state">No stations selected</p>
+				</div>
+				<div class="export-actions">
+					<button
+						id="export-btn"
+						disabled
+						class="sidebar-btn"
+						title="Export selected stations in Touch Radio JSON format"
+						>Export JSON</button
+					>
+					<button
+						id="export-m3u-btn"
+						disabled
+						class="sidebar-btn"
+						title="Export playlist in M3U format">Export M3U</button
+					>
+					<button
+						id="export-m3u8-btn"
+						disabled
+						class="sidebar-btn"
+						title="Export playlist in
+UTF-8 encoded M3U8 format"
+						>Export M3U8 (UTF-8)</button
+					>
+					<button
+						id="export-pls-btn"
+						disabled
+						class="sidebar-btn"
+						title="Export playlist in PLS
+format">Export PLS</button
+					>
+				</div>
+			</aside>
+		</div>
 	</main>
+</BaseLayout>
 
-	<style>
-		.content-wrapper {
-			display: flex;
-			gap: 2rem;
-			align-items: flex-start;
+<style>
+	/* Hero Section */
+	.hero-section {
+		padding: 4rem 1rem 3rem;
+		/* STRICT: Always dark surface + visible ambient gradient */
+		background: radial-gradient(
+				circle at 50% 0%,
+				rgba(255, 255, 255, 0.14),
+				rgba(255, 255, 255, 0.04) 40%,
+				rgba(0, 0, 0, 0.9) 75%
+			),
+			#0f0f10;
+		margin-bottom: 2rem;
+		border-bottom: 1px solid var(--border);
+		position: relative;
+		overflow: hidden;
+		/* Force light text for this dark section */
+		color: #ffffff;
+		animation: heroGlow 30s ease-in-out infinite;
+	}
+
+	@keyframes heroGlow {
+		0% {
+			background-position: 50% 0%;
 		}
+		50% {
+			background-position: 55% 5%;
+		}
+		100% {
+			background-position: 50% 0%;
+		}
+	}
 
-		.main-content {
-			flex: 1;
-			min-width: 0; /* Prevents overflow in flex items */
+	/* Remove theme-specific override since Hero is always dark now */
+	:global([data-theme="dark"] .hero-section) {
+		background: radial-gradient(
+				circle at 50% 0%,
+				rgba(255, 255, 255, 0.14),
+				rgba(255, 255, 255, 0.04) 40%,
+				rgba(0, 0, 0, 0.9) 75%
+			),
+			#0f0f10;
+	}
+
+	.hero-content {
+		max-width: 800px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.hero-content h1 {
+		font-size: 2.5rem;
+		font-weight: 800;
+		margin-bottom: 0.75rem;
+		line-height: 1.1;
+		letter-spacing: -0.02em;
+		color: #ffffff; /* Ensure title is white */
+	}
+
+	.hero-subtitle {
+		font-size: 1.1rem;
+		color: rgba(255, 255, 255, 0.7); /* Muted white for subtitle */
+		margin-bottom: 2.5rem;
+		line-height: 1.5;
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	/* Search */
+	.search-container {
+		margin-bottom: 1.5rem;
+	}
+
+	.hero-search {
+		width: 100%;
+		max-width: 600px;
+		height: 60px;
+		padding: 0 1.5rem;
+		font-size: 1.2rem;
+		border-radius: 30px;
+		color: #ffffff;
+		caret-color: rgba(255, 255, 255, 0.9);
+		/* Standardized Glass Surface */
+		background: linear-gradient(
+			to bottom,
+			rgba(255, 255, 255, 0.06),
+			rgba(255, 255, 255, 0.02)
+		);
+		backdrop-filter: blur(6px);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.08),
+			0 8px 24px rgba(0, 0, 0, 0.35);
+		transition:
+			background 0.25s ease,
+			border-color 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.hero-search::placeholder {
+		color: rgba(255, 255, 255, 0.45);
+	}
+
+	/* Removed Hover for cleaner, low-key look per "premium" instruction */
+	.hero-search:focus {
+		outline: none;
+		border-color: rgba(255, 255, 255, 0.18);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.15),
+			0 12px 32px rgba(0, 0, 0, 0.45);
+	}
+
+	/* Discovery Badges */
+	.discovery-row {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-width: 600px;
+		margin: 0.75rem auto 0.25rem;
+		min-height: 24px;
+	}
+
+	.discovery-items {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		justify-content: center;
+		transition:
+			opacity 0.3s ease,
+			transform 0.3s ease;
+		width: 100%;
+		padding: 0 2rem;
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.discovery-items.fade-out {
+		opacity: 0;
+		transform: translateY(2px);
+		transition:
+			opacity 0.25s ease,
+			transform 0.25s ease;
+	}
+
+	.discovery-item {
+		display: inline-block;
+		font-size: 0.85rem;
+		font-weight: 400;
+		color: rgba(255, 255, 255, 0.65);
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		transition: color 0.2s ease;
+		outline: none;
+		user-select: none;
+	}
+
+	.discovery-item:hover {
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	/* Arrows */
+	.discovery-controls {
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		width: 1.5rem;
+		align-items: center;
+	}
+
+	.arrow {
+		width: 0;
+		height: 0;
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		opacity: 0.5;
+		cursor: pointer;
+		transition: opacity 0.2s ease;
+		display: block;
+	}
+
+	.arrow:hover {
+		opacity: 0.9;
+	}
+
+	.arrow-up {
+		border-bottom: 6px solid rgba(255, 255, 255, 0.6);
+	}
+
+	.arrow-down {
+		border-top: 6px solid rgba(255, 255, 255, 0.6);
+	}
+
+	.smart-hint {
+		font-size: 0.8rem;
+		color: var(--muted);
+		margin-top: 0.75rem;
+		padding: 0 1rem;
+		min-height: 1.5em;
+		opacity: 0;
+		transform: translateY(-4px);
+		transition: all 0.3s ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.35rem;
+		font-weight: 500;
+		pointer-events: none; /* purely visual */
+	}
+
+	.smart-hint.active {
+		opacity: 0.7;
+		transform: translateY(0);
+	}
+
+	.smart-hint.active::before {
+		content: "🔍";
+		font-size: 1.1em;
+		opacity: 0.8;
+	}
+
+	.search-status {
+		color: var(--muted);
+		font-size: 0.9rem;
+		margin-bottom: 1rem;
+		font-style: italic;
+	}
+
+	.load-more-container {
+		display: flex;
+		justify-content: center;
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+	}
+
+	.load-more-btn {
+		background: var(--surface);
+		border: 1px solid var(--border);
+		color: var(--text);
+		padding: 0.75rem 2rem;
+		border-radius: 2rem;
+		cursor: pointer;
+		font-size: 0.95rem;
+		transition: all 0.2s ease;
+	}
+
+	.load-more-btn:hover {
+		background: var(--surface-hover);
+		border-color: var(--accent);
+		color: var(--accent);
+		transform: translateY(-1px);
+	}
+
+	/* Filters */
+	.filters-container {
+		display: flex;
+		justify-content: center;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	.hero-filter {
+		padding: 0.5rem 1rem;
+		border-radius: 8px;
+		border: 1px solid var(--border);
+		background: var(--bg);
+		font-size: 0.9rem;
+		cursor: pointer;
+		color: var(--text);
+		min-width: 120px;
+	}
+
+	.bitrate-input {
+		width: 100px;
+	}
+
+	.clear-btn {
+		background: none;
+		border: none;
+		color: var(--muted);
+		font-size: 0.9rem;
+		text-decoration: underline;
+		cursor: pointer;
+		padding: 0.5rem;
+	}
+
+	.clear-btn:hover {
+		color: var(--text);
+	}
+
+	/* Section Headers */
+	.section-header {
+		margin-bottom: 1.5rem;
+	}
+
+	.section-header h2 {
+		font-size: 1.5rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.section-subtitle {
+		color: var(--muted);
+		font-size: 0.95rem;
+	}
+
+	/* Original Layout */
+	.content-wrapper {
+		display: flex;
+		gap: 2rem;
+		align-items: flex-start;
+	}
+
+	.main-content {
+		flex: 1;
+		min-width: 0; /* Prevents overflow in flex items */
+	}
+
+	.selection-panel {
+		width: 320px;
+		flex-shrink: 0;
+		background: var(--bg);
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		padding: 1rem;
+		position: sticky;
+		top: 1rem;
+		height: fit-content;
+		max-height: calc(100vh - 2rem);
+		display: flex;
+		flex-direction: column;
+	}
+
+	.selection-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-top: 1rem;
+		overflow-y: auto;
+		flex: 1;
+		min-height: 100px;
+		padding-right: 4px; /* Space for scrollbar */
+	}
+
+	.export-actions {
+		margin-top: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--border);
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.sidebar-btn {
+		width: 100%;
+		text-align: center;
+	}
+
+	.empty-state {
+		color: var(--muted);
+		font-style: italic;
+		text-align: center;
+		padding: 1rem 0;
+	}
+
+	@media (max-width: 1024px) {
+		.content-wrapper {
+			flex-direction: column;
 		}
 
 		.selection-panel {
-			width: 300px;
-			flex-shrink: 0;
-			background: var(--bg);
-			border: 1px solid var(--border);
-			border-radius: 12px;
-			padding: 1rem;
-			position: sticky;
-			top: 1rem;
-			max-height: calc(100vh - 2rem);
-			overflow-y: auto;
+			width: 100%;
+			position: static;
+			max-height: 500px;
+		}
+	}
+
+	/* Grid Layout */
+	.station-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: 1.25rem;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	/* Helper styles for dynamically created elements */
+	:global(.selected-item) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.5rem;
+		background: rgba(0, 0, 0, 0.02);
+		border-radius: 6px;
+		border: 1px solid var(--border);
+	}
+
+	:global([data-theme="dark"] .selected-item) {
+		background: rgba(255, 255, 255, 0.05);
+	}
+
+	:global(.selected-item-info) {
+		display: flex;
+		flex-direction: column;
+		gap: 0.1rem;
+		overflow: hidden;
+	}
+
+	:global(.selected-item-name) {
+		font-weight: 600;
+		font-size: 0.9rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	:global(.selected-item-meta) {
+		font-size: 0.75rem;
+		color: var(--muted);
+	}
+
+	:global(.remove-btn) {
+		background: none;
+		border: none;
+		cursor: pointer;
+		color: #e74c3c;
+		padding: 0.25rem;
+		font-size: 1.1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: transform 0.2s;
+	}
+
+	:global(.remove-btn:hover) {
+		transform: scale(1.1);
+	}
+
+	/* Filter Toggle & Panel */
+	.filters-wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 1.5rem;
+		position: relative;
+		z-index: 10;
+	}
+
+	.toggle-filters-btn {
+		background: none;
+		border: none;
+		color: var(--muted);
+		font-size: 0.95rem;
+		cursor: pointer;
+		padding: 0.5rem 1rem;
+		font-weight: 500;
+		transition: color 0.2s;
+	}
+
+	.toggle-filters-btn:hover {
+		color: var(--text);
+		text-decoration: underline;
+	}
+
+	.filters-panel {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition:
+			grid-template-rows 0.3s ease-out,
+			opacity 0.3s ease-out,
+			transform 0.3s ease-out,
+			visibility 0.3s,
+			margin-top 0.3s;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-10px);
+		width: 100%;
+		max-width: 900px;
+	}
+
+	.filters-panel.expanded {
+		grid-template-rows: 1fr;
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+		margin-top: 0.5rem;
+	}
+
+	.filters-inner {
+		min-height: 0;
+		overflow: hidden;
+	}
+
+	/* Adjust existing filters for new context */
+	.filters-container {
+		/* Inherits flex layout from previous CSS, just ensure it wraps nicely */
+		padding: 1rem; /* Add some padding so controls aren't cut off */
+	}
+
+	/* Update hero-filter to be more utility-like in this context */
+	.hero-filter {
+		background-color: var(--bg); /* Standard background */
+		/* Ensure border matches new context */
+		border-color: var(--border);
+	}
+</style>
+<script>
+	import stationsRaw from "../data/stations.normalized.json";
+	// Filter valid stations (Source of Truth)
+	const allStations = stationsRaw.filter((s: any) => !s.broken);
+
+	// Client-side state management for station selection
+	document.addEventListener("DOMContentLoaded", () => {
+		const searchInput = document.getElementById(
+			"search-input",
+		) as HTMLInputElement;
+		const smartHint = document.getElementById("smart-hint");
+		const selectedIds = new Set();
+		const exportBtn = document.getElementById("export-btn");
+		const mainElement = document.querySelector("main");
+
+		const checkboxes = document.querySelectorAll(
+			'input[type="checkbox"][data-id]',
+		);
+		checkboxes.forEach((checkbox) => {
+			checkbox.addEventListener("change", (event) => {
+				const target = event.target as HTMLInputElement;
+				const id = target.dataset.id;
+				if (id) {
+					if (target.checked) {
+						selectedIds.add(id);
+					} else {
+						selectedIds.delete(id);
+					}
+					updateUI();
+				}
+			});
+		});
+
+		// Initial UI update
+		const countSpan = document.getElementById("selection-count");
+		const buttons = [
+			document.getElementById("export-btn"),
+			document.getElementById("export-m3u-btn"),
+			document.getElementById("export-m3u8-btn"),
+			document.getElementById("export-pls-btn"),
+		];
+
+		// Helper to get flag from country code (duplicated logic from StationItem for client-side use)
+		// Ideally this would be shared code, but keeping strict vanilla JS in this file as per constraints
+		const COUNTRY_CODES: Record<string, string> = {
+			Germany: "DE",
+			Hungary: "HU",
+			"The United States Of America": "US",
+			USA: "US",
+			"The United Kingdom Of Great Britain And Northern Ireland": "GB",
+			UK: "GB",
+			"Great Britain": "GB",
+			"Islamic Republic Of Iran": "IR",
+			Iran: "IR",
+			Czechia: "CZ",
+			"Czech Republic": "CZ",
+			France: "FR",
+			Poland: "PL",
+			"The Russian Federation": "RU",
+			Russia: "RU",
+			Ukraine: "UA",
+			Tunisia: "TN",
+			"The Netherlands": "NL",
+			Netherlands: "NL",
+			Spain: "ES",
+			Italy: "IT",
+			Greece: "GR",
+			Switzerland: "CH",
+			Austria: "AT",
+			Belgium: "BE",
+		};
+
+		function getFlag(countryName: string) {
+			const code = COUNTRY_CODES[countryName];
+			if (!code || code.length !== 2) return "🌍";
+			const offset = 127397;
+			const chars = [...code.toUpperCase()].map(
+				(c) => c.charCodeAt(0) + offset,
+			);
+			return String.fromCodePoint(...chars);
 		}
 
-		.selection-list {
-			display: flex;
-			flex-direction: column;
-			gap: 0.5rem;
-			margin-top: 1rem;
-		}
-
-		.empty-state {
-			color: var(--muted);
-			font-style: italic;
-			text-align: center;
-			padding: 1rem 0;
-		}
-
-		@media (max-width: 1024px) {
-			.content-wrapper {
-				flex-direction: column;
+		function updateUI() {
+			const count = selectedIds.size;
+			if (countSpan) {
+				countSpan.textContent = count.toString();
 			}
 
-			.selection-panel {
-				width: 100%;
-				position: static;
-				max-height: 500px;
+			// Update helper buttons state
+			const isDisabled = count === 0;
+			buttons.forEach((btn) => {
+				if (btn) {
+					if (isDisabled) {
+						btn.setAttribute("disabled", "true");
+					} else {
+						btn.removeAttribute("disabled");
+					}
+				}
+			});
+
+			// Update Selection Panel
+			const selectionList = document.getElementById("selection-list");
+			if (selectionList) {
+				selectionList.innerHTML = "";
+				if (count === 0) {
+					selectionList.innerHTML =
+						'<p class="empty-state">No stations selected</p>';
+				} else {
+					const selectedStations = allStations.filter((s: any) =>
+						selectedIds.has(s.id),
+					);
+
+					selectedStations.forEach((station: any) => {
+						const item = document.createElement("div");
+						item.className = "selected-item";
+						const flag = getFlag(station.country);
+						item.innerHTML = `
+						<div class="selected-item-info">
+							<div class="selected-item-name">${flag} ${station.name}</div>
+							<div class="selected-item-meta">${station.codec} • ${station.bitrate}kbps</div>
+						</div>
+						<button class="remove-btn" data-remove-id="${station.id}" title="Remove from selection">❤️</button>
+					`;
+						selectionList.appendChild(item);
+					});
+
+					// Add event listeners for remove buttons
+					selectionList
+						.querySelectorAll(".remove-btn")
+						.forEach((btn) => {
+							btn.addEventListener("click", (e) => {
+								const target =
+									e.currentTarget as HTMLButtonElement;
+								const idToRemove = target.dataset.removeId;
+								if (idToRemove) {
+									// Uncheck the checkbox
+									const checkbox = document.querySelector(
+										`input[data-id="${idToRemove}"]`,
+									) as HTMLInputElement;
+									if (checkbox) {
+										checkbox.checked = false;
+										checkbox.dispatchEvent(
+											new Event("change"),
+										);
+									}
+								}
+							});
+						});
+				}
 			}
 		}
 
-		/* Helper styles for dynamically created elements */
-		:global(.selected-item) {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding: 0.5rem;
-			background: rgba(0, 0, 0, 0.02);
-			border-radius: 6px;
-			border: 1px solid var(--border);
+		if (exportBtn) {
+			exportBtn.addEventListener("click", () => {
+				if (selectedIds.size === 0) {
+					alert("No stations selected.");
+					return;
+				}
+				const selectedStations = allStations.filter((station: any) =>
+					selectedIds.has(station.id),
+				);
+				const jsonString = JSON.stringify(selectedStations, null, 2);
+				downloadFile(
+					jsonString,
+					"selected_stations.json",
+					"application/json",
+				);
+			});
 		}
 
-		:global([data-theme="dark"] .selected-item) {
-			background: rgba(255, 255, 255, 0.05);
+		const exportM3uBtn = document.getElementById("export-m3u-btn");
+		if (exportM3uBtn) {
+			exportM3uBtn.addEventListener("click", () => {
+				if (selectedIds.size === 0) {
+					alert("No stations selected.");
+					return;
+				}
+				const selectedStations = allStations.filter((station: any) =>
+					selectedIds.has(station.id),
+				);
+				let m3uContent = "#EXTM3U\n";
+				selectedStations.forEach((station: any) => {
+					m3uContent += `#EXTINF:-1,${station.name}\n${station.streamUrl}\n`;
+				});
+				downloadFile(m3uContent, "selected_stations.m3u", "text/plain");
+			});
 		}
 
-		:global(.selected-item-info) {
-			display: flex;
-			flex-direction: column;
-			gap: 0.1rem;
-			overflow: hidden;
+		const exportM3u8Btn = document.getElementById("export-m3u8-btn");
+		if (exportM3u8Btn) {
+			exportM3u8Btn.addEventListener("click", () => {
+				if (selectedIds.size === 0) {
+					alert("No stations selected.");
+					return;
+				}
+				const selectedStations = allStations.filter((station: any) =>
+					selectedIds.has(station.id),
+				);
+				let m3uContent = "#EXTM3U\n";
+				selectedStations.forEach((station: any) => {
+					m3uContent += `#EXTINF:-1,${station.name}\n${station.streamUrl}\n`;
+				});
+				downloadFile(
+					m3uContent,
+					"selected_stations.m3u8",
+					"text/plain;charset=utf-8",
+				);
+			});
 		}
 
-		:global(.selected-item-name) {
-			font-weight: 600;
-			font-size: 0.9rem;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
+		const exportPlsBtn = document.getElementById("export-pls-btn");
+		if (exportPlsBtn) {
+			exportPlsBtn.addEventListener("click", () => {
+				if (selectedIds.size === 0) {
+					alert("No stations selected.");
+					return;
+				}
+				const selectedStations = allStations.filter((station: any) =>
+					selectedIds.has(station.id),
+				);
+				let plsContent = "[playlist]\n";
+				plsContent += `NumberOfEntries=${selectedStations.length}\n`;
+				selectedStations.forEach((station: any, index: number) => {
+					const i = index + 1;
+					plsContent += `File${i}=${station.streamUrl}\n`;
+					plsContent += `Title${i}=${station.name}\n`;
+					plsContent += `Length${i}=-1\n`;
+				});
+				plsContent += "Version=2\n";
+				downloadFile(plsContent, "selected_stations.pls", "text/plain");
+			});
 		}
 
-		:global(.selected-item-meta) {
-			font-size: 0.75rem;
-			color: var(--muted);
+		function downloadFile(content: string, filename: string, type: string) {
+			const blob = new Blob([content], { type: type });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = filename;
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+			URL.revokeObjectURL(url);
 		}
 
-		:global(.remove-btn) {
-			background: none;
-			border: none;
-			cursor: pointer;
-			color: #e74c3c;
-			padding: 0.25rem;
-			font-size: 1.1rem;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			transition: transform 0.2s;
+		// Search and Filter functionality
+		// searchInput is already declared above in Placeholder Rotation Logic
+		const countryFilter = document.getElementById(
+			"country-filter",
+		) as HTMLSelectElement;
+		const genreFilter = document.getElementById(
+			"genre-filter",
+		) as HTMLSelectElement;
+		const codecFilter = document.getElementById(
+			"codec-filter",
+		) as HTMLSelectElement;
+		const bitrateFilter = document.getElementById(
+			"bitrate-filter",
+		) as HTMLInputElement;
+
+		// Helper: Render Station HTML (Matches StationItem.astro structure)
+		function renderStationHTML(station: any) {
+			const flag = getFlag(station.country);
+			const tags = station.tags ? station.tags.join(",") : "";
+			const isSelected = selectedIds.has(station.id) ? "checked" : "";
+			// Note: styles are global now.
+
+			return `
+			<li
+				data-name="${station.name.toLowerCase()}"
+				class="station-item"
+			>
+				<label class="station-card">
+					<input type="checkbox" data-id="${station.id}" class="station-checkbox" ${isSelected} />
+					<div class="card-content">
+						<div class="card-header">
+							<img
+								src="/station-placeholder.svg"
+								data-favicon="${station.favicon}"
+								alt="${station.name}"
+								class="station-icon"
+							/>
+							<div class="equalizer">
+								<span class="bar"></span>
+								<span class="bar"></span>
+								<span class="bar"></span>
+							</div>
+							<span class="heart-icon" aria-hidden="true"></span>
+						</div>
+
+						<div class="card-body">
+							<strong class="station-name">${station.name}</strong>
+							<div class="station-info">
+								<span class="flag-placeholder">${flag}</span>
+								<span class="country-name">${station.country}</span>
+							</div>
+
+							<div class="station-tech">
+								<span class="badge">${station.codec}</span>
+								<button
+									class="play-btn"
+									data-stream="${station.streamUrl}"
+									title="Preview station"
+								>
+									<span class="play-icon-container">
+										<svg class="svg-icon icon-play" viewBox="0 0 24 24" width="24" height="24">
+											<path d="M8 5v14l11-7z"></path>
+										</svg>
+										<svg class="svg-icon icon-pause" viewBox="0 0 24 24" width="24" height="24">
+											<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+										</svg>
+									</span>
+								</button>
+								<span class="bitrate">${station.bitrate} kbps</span>
+								<span class="error-text">Stream unavailable</span>
+							</div>
+						</div>
+					</div>
+				</label>
+			</li>
+			`;
 		}
 
-		:global(.remove-btn:hover) {
-			transform: scale(1.1);
-		}
-	</style>
-	<script>
-		// Client-side state management for station selection
-		document.addEventListener("DOMContentLoaded", () => {
-			const selectedIds = new Set();
-			const exportBtn = document.getElementById("export-btn");
-			const mainElement = document.querySelector("main");
-			// Parse stations data from data attribute safely
-			const allStations =
-				mainElement && mainElement.dataset.stations
-					? JSON.parse(mainElement.dataset.stations)
-					: [];
-
-			const checkboxes = document.querySelectorAll(
+		// Helper: Attach listeners to dynamic elements
+		function attachDynamicListeners() {
+			// Checkboxes
+			const newCheckboxes = document.querySelectorAll(
 				'input[type="checkbox"][data-id]',
 			);
-
-			checkboxes.forEach((checkbox) => {
+			newCheckboxes.forEach((checkbox) => {
 				checkbox.addEventListener("change", (event) => {
 					const target = event.target as HTMLInputElement;
 					const id = target.dataset.id;
-
 					if (id) {
-						if (target.checked) {
-							selectedIds.add(id);
-						} else {
-							selectedIds.delete(id);
-						}
+						if (target.checked) selectedIds.add(id);
+						else selectedIds.delete(id);
 						updateUI();
 					}
 				});
 			});
 
-			// Initial UI update
-			const countSpan = document.getElementById("selection-count");
-			const buttons = [
-				document.getElementById("export-btn"),
-				document.getElementById("export-m3u-btn"),
-				document.getElementById("export-m3u8-btn"),
-				document.getElementById("export-pls-btn"),
-			];
+			// Play Buttons
+			const newPlayButtons = document.querySelectorAll(".play-btn");
+			newPlayButtons.forEach((btn) => {
+				btn.addEventListener("click", handlePlayButtonClick);
+			});
 
-			// Helper to get flag from country code (duplicated logic from StationItem for client-side use)
-			// Ideally this would be shared code, but keeping strict vanilla JS in this file as per constraints
-			const COUNTRY_CODES: Record<string, string> = {
-				Germany: "DE",
-				Hungary: "HU",
-				"The United States Of America": "US",
-				USA: "US",
-				"The United Kingdom Of Great Britain And Northern Ireland":
-					"GB",
-				UK: "GB",
-				"Great Britain": "GB",
-				"Islamic Republic Of Iran": "IR",
-				Iran: "IR",
-				Czechia: "CZ",
-				"Czech Republic": "CZ",
-				France: "FR",
-				Poland: "PL",
-				"The Russian Federation": "RU",
-				Russia: "RU",
-				Ukraine: "UA",
-				Tunisia: "TN",
-				"The Netherlands": "NL",
-				Netherlands: "NL",
-				Spain: "ES",
-				Italy: "IT",
-				Greece: "GR",
-				Switzerland: "CH",
-				Austria: "AT",
-				Belgium: "BE",
-			};
-
-			function getFlag(countryName: string) {
-				const code = COUNTRY_CODES[countryName];
-				if (!code || code.length !== 2) return "🌍";
-				const offset = 127397;
-				const chars = [...code.toUpperCase()].map(
-					(c) => c.charCodeAt(0) + offset,
-				);
-				return String.fromCodePoint(...chars);
-			}
-
-			function updateUI() {
-				const count = selectedIds.size;
-				if (countSpan) {
-					countSpan.textContent = count.toString();
-				}
-
-				// Update helper buttons state
-				const isDisabled = count === 0;
-				buttons.forEach((btn) => {
-					if (btn) {
-						if (isDisabled) {
-							btn.setAttribute("disabled", "true");
-						} else {
-							btn.removeAttribute("disabled");
-						}
-					}
-				});
-
-				// Update Selection Panel
-				const selectionList = document.getElementById("selection-list");
-				if (selectionList) {
-					selectionList.innerHTML = "";
-
-					if (count === 0) {
-						selectionList.innerHTML =
-							'<p class="empty-state">No stations selected</p>';
-					} else {
-						const selectedStations = allStations.filter((s: any) =>
-							selectedIds.has(s.id),
-						);
-						selectedStations.forEach((station: any) => {
-							const item = document.createElement("div");
-							item.className = "selected-item";
-
-							const flag = getFlag(station.country);
-
-							item.innerHTML = `
-								<div class="selected-item-info">
-									<div class="selected-item-name">${flag} ${station.name}</div>
-									<div class="selected-item-meta">${station.codec} • ${station.bitrate}kbps</div>
-								</div>
-								<button class="remove-btn" data-remove-id="${station.id}" title="Remove from selection">❤️</button>
-							`;
-							selectionList.appendChild(item);
-						});
-
-						// Add event listeners for remove buttons
-						selectionList
-							.querySelectorAll(".remove-btn")
-							.forEach((btn) => {
-								btn.addEventListener("click", (e) => {
-									const target =
-										e.currentTarget as HTMLButtonElement;
-									const idToRemove = target.dataset.removeId;
-									if (idToRemove) {
-										// Uncheck the checkbox
-										const checkbox = document.querySelector(
-											`input[data-id="${idToRemove}"]`,
-										) as HTMLInputElement;
-										if (checkbox) {
-											checkbox.checked = false;
-											checkbox.dispatchEvent(
-												new Event("change"),
-											);
-										}
-									}
-								});
-							});
-					}
-				}
-			}
-
-			if (exportBtn) {
-				exportBtn.addEventListener("click", () => {
-					if (selectedIds.size === 0) {
-						alert("No stations selected.");
-						return;
-					}
-
-					const selectedStations = allStations.filter(
-						(station: any) => selectedIds.has(station.id),
-					);
-					const jsonString = JSON.stringify(
-						selectedStations,
-						null,
-						2,
-					);
-					downloadFile(
-						jsonString,
-						"selected_stations.json",
-						"application/json",
-					);
-				});
-			}
-
-			const exportM3uBtn = document.getElementById("export-m3u-btn");
-			if (exportM3uBtn) {
-				exportM3uBtn.addEventListener("click", () => {
-					if (selectedIds.size === 0) {
-						alert("No stations selected.");
-						return;
-					}
-
-					const selectedStations = allStations.filter(
-						(station: any) => selectedIds.has(station.id),
-					);
-
-					let m3uContent = "#EXTM3U\n";
-					selectedStations.forEach((station: any) => {
-						m3uContent += `#EXTINF:-1,${station.name}\n${station.streamUrl}\n`;
-					});
-
-					downloadFile(
-						m3uContent,
-						"selected_stations.m3u",
-						"text/plain",
-					);
-				});
-			}
-
-			const exportM3u8Btn = document.getElementById("export-m3u8-btn");
-			if (exportM3u8Btn) {
-				exportM3u8Btn.addEventListener("click", () => {
-					if (selectedIds.size === 0) {
-						alert("No stations selected.");
-						return;
-					}
-
-					const selectedStations = allStations.filter(
-						(station: any) => selectedIds.has(station.id),
-					);
-
-					let m3uContent = "#EXTM3U\n";
-					selectedStations.forEach((station: any) => {
-						m3uContent += `#EXTINF:-1,${station.name}\n${station.streamUrl}\n`;
-					});
-
-					downloadFile(
-						m3uContent,
-						"selected_stations.m3u8",
-						"text/plain;charset=utf-8",
-					);
-				});
-			}
-
-			const exportPlsBtn = document.getElementById("export-pls-btn");
-			if (exportPlsBtn) {
-				exportPlsBtn.addEventListener("click", () => {
-					if (selectedIds.size === 0) {
-						alert("No stations selected.");
-						return;
-					}
-
-					const selectedStations = allStations.filter(
-						(station: any) => selectedIds.has(station.id),
-					);
-
-					let plsContent = "[playlist]\n";
-					plsContent += `NumberOfEntries=${selectedStations.length}\n`;
-
-					selectedStations.forEach((station: any, index: number) => {
-						const i = index + 1;
-						plsContent += `File${i}=${station.streamUrl}\n`;
-						plsContent += `Title${i}=${station.name}\n`;
-						plsContent += `Length${i}=-1\n`;
-					});
-
-					plsContent += "Version=2\n";
-
-					downloadFile(
-						plsContent,
-						"selected_stations.pls",
-						"text/plain",
-					);
-				});
-			}
-
-			function downloadFile(
-				content: string,
-				filename: string,
-				type: string,
-			) {
-				const blob = new Blob([content], { type: type });
-				const url = URL.createObjectURL(blob);
-				const a = document.createElement("a");
-				a.href = url;
-				a.download = filename;
-				document.body.appendChild(a);
-				a.click();
-				document.body.removeChild(a);
-				URL.revokeObjectURL(url);
-			}
-
-			// Favicon handling
-			const stationImages = document.querySelectorAll(
+			// Favicons
+			const newImages = document.querySelectorAll(
 				"img[data-favicon]",
 			) as NodeListOf<HTMLImageElement>;
-
-			stationImages.forEach((img) => {
+			newImages.forEach((img) => {
 				const faviconUrl = img.dataset.favicon;
 				if (faviconUrl) {
 					const tempImg = new Image();
 					tempImg.onload = () => {
 						img.src = faviconUrl;
 					};
-					// Handle error silently, placeholder remains
-					tempImg.onerror = () => {};
+					// Handle error silently
 					tempImg.src = faviconUrl;
 				}
 			});
+		}
 
-			// Search and Filter functionality
-			const searchInput = document.getElementById(
-				"search-input",
-			) as HTMLInputElement;
-			const countryFilter = document.getElementById(
-				"country-filter",
-			) as HTMLSelectElement;
-			const genreFilter = document.getElementById(
-				"genre-filter",
-			) as HTMLSelectElement;
-			const codecFilter = document.getElementById(
-				"codec-filter",
-			) as HTMLSelectElement;
-			const bitrateFilter = document.getElementById(
-				"bitrate-filter",
-			) as HTMLInputElement;
-			const stationItems = document.querySelectorAll(
-				"li[data-name]",
-			) as NodeListOf<HTMLLIElement>;
+		// Extracted Play Button Handler
+		function handlePlayButtonClick(e: Event) {
+			e.preventDefault();
+			e.stopPropagation(); // Prevent card click (selection)
 
-			function filterStations() {
-				const query = searchInput
-					? searchInput.value.trim().toLowerCase()
-					: "";
-				const selectedCountry = countryFilter
-					? countryFilter.value
-					: "";
-				const selectedGenre = genreFilter ? genreFilter.value : "";
-				const selectedCodec = codecFilter ? codecFilter.value : "";
-				const minBitrate =
-					bitrateFilter && bitrateFilter.value
-						? parseInt(bitrateFilter.value)
-						: 0;
+			const button = e.currentTarget as HTMLButtonElement;
+			const streamUrl = button.dataset.stream;
 
-				stationItems.forEach((item) => {
-					const name = item.dataset.name || "";
-					const country = item.dataset.country || "";
-					const tags = (item.dataset.tags || "").split(",");
-					const codec = item.dataset.codec || "";
-					const bitrate = item.dataset.bitrate
-						? parseInt(item.dataset.bitrate)
-						: 0;
+			if (currentPlayingButton === button) {
+				// Toggle Pause
+				if (audioPlayer.paused) {
+					// Clear any previous error state
+					const stationCard = button.closest(".station-card");
+					if (stationCard) stationCard.classList.remove("is-error");
 
-					const matchesName = name.includes(query);
-					const matchesCountry =
-						selectedCountry === "" || country === selectedCountry;
-					const matchesGenre =
-						selectedGenre === "" || tags.includes(selectedGenre);
-					const matchesCodec =
-						selectedCodec === "" || codec === selectedCodec;
-					const matchesBitrate = bitrate >= minBitrate;
+					audioPlayer.play().catch((err) => {
+						console.error("Playback failed", err);
+						stopPlayback(true);
+					});
+					if (stationCard) stationCard.classList.add("is-playing");
+				} else {
+					stopPlayback();
+				}
+			} else {
+				// Stop previous
+				stopPlayback();
 
-					item.style.display =
-						matchesName &&
-						matchesCountry &&
-						matchesGenre &&
-						matchesCodec &&
-						matchesBitrate
-							? ""
-							: "none";
-				});
+				// Play new
+				if (streamUrl) {
+					currentPlayingButton = button;
+					audioPlayer.src = streamUrl;
+
+					// Clear any previous error state on new item
+					const stationCard = button.closest(".station-card");
+					if (stationCard) stationCard.classList.remove("is-error");
+
+					audioPlayer.play().catch((err) => {
+						console.error("Playback failed", err);
+						stopPlayback(true);
+					});
+
+					if (stationCard) stationCard.classList.add("is-playing");
+				}
 			}
+		}
 
-			if (searchInput) {
-				searchInput.addEventListener("input", filterStations);
-			}
+		// References
+		const stationGrid = document.querySelector(".station-grid");
 
-			if (countryFilter) {
-				countryFilter.addEventListener("change", filterStations);
-			}
+		// Browse Mode State (Persistent)
+		const PAGE_SIZE = 50;
+		let browseOffset = PAGE_SIZE;
+		const loadMoreBtn = document.getElementById("load-more-btn");
+		const searchStatus = document.getElementById("search-status");
 
-			if (genreFilter) {
-				genreFilter.addEventListener("change", filterStations);
-			}
+		if (loadMoreBtn) {
+			loadMoreBtn.addEventListener("click", () => {
+				browseOffset += PAGE_SIZE;
+				filterStations();
+			});
+		}
 
-			if (codecFilter) {
-				codecFilter.addEventListener("change", filterStations);
-			}
+		function filterStations() {
+			let query = searchInput
+				? searchInput.value.trim().toLowerCase()
+				: "";
 
-			if (bitrateFilter) {
-				bitrateFilter.addEventListener("input", filterStations);
-			}
+			// Internal state for smart filters - defaults to visual filter state
+			const parsedQuery = {
+				text: query,
+				country: countryFilter ? countryFilter.value : "",
+				codec: codecFilter ? codecFilter.value : "",
+				bitrate: bitrateFilter ? parseInt(bitrateFilter.value) || 0 : 0,
+			};
 
-			const clearFiltersBtn =
-				document.getElementById("clear-filters-btn");
-			if (clearFiltersBtn) {
-				clearFiltersBtn.addEventListener("click", () => {
-					if (searchInput) searchInput.value = "";
-					if (countryFilter) countryFilter.value = "";
-					if (genreFilter) genreFilter.value = "";
-					if (codecFilter) codecFilter.value = "";
-					if (bitrateFilter) bitrateFilter.value = "";
-					filterStations();
-				});
-			}
+			// 1. Smart Search Parsing (Simple heuristic)
+			const textParts: string[] = [];
+			let consumed = false;
 
-			// Inline Audio Preview Logic
-			const audioPlayer = new Audio();
-			let currentPlayingButton: HTMLButtonElement | null = null;
+			if (query.trim() !== "") {
+				const tokens = query.split(/\s+/).filter(Boolean);
+				tokens.forEach((token) => {
+					consumed = false;
 
-			function stopPlayback(isError = false) {
-				audioPlayer.pause();
-				audioPlayer.src = "";
-				if (currentPlayingButton) {
-					const icon =
-						currentPlayingButton.querySelector(".play-icon");
-					// Icon reset handled by CSS removing is-playing class
-					// Find the parent station item/card
-					const stationCard =
-						currentPlayingButton.closest(".station-card");
-					if (stationCard) {
-						stationCard.classList.remove("is-playing");
-						if (isError) {
-							stationCard.classList.add("is-error");
-							// Remove error state after 3 seconds
-							setTimeout(() => {
-								stationCard.classList.remove("is-error");
-							}, 3000);
+					// 1. Bitrate
+					if (!consumed && /^\d+$/.test(token)) {
+						const num = parseInt(token);
+						if (!isNaN(num)) {
+							const uiBitrateActive =
+								bitrateFilter &&
+								bitrateFilter.value &&
+								parseInt(bitrateFilter.value) > 0;
+							if (!uiBitrateActive) {
+								parsedQuery.bitrate = num;
+								consumed = true;
+							}
 						}
 					}
-					currentPlayingButton = null;
+
+					// 2. Known Codecs
+					if (!consumed && codecFilter) {
+						const knownCodecs = ["mp3", "aac", "ogg", "flac"];
+						if (knownCodecs.includes(token)) {
+							const uiCodecActive = codecFilter.value !== "";
+							if (!uiCodecActive) {
+								for (const opt of Array.from(
+									codecFilter.options,
+								)) {
+									if (opt.value.toLowerCase() === token) {
+										parsedQuery.codec = opt.value;
+										consumed = true;
+										break;
+									}
+								}
+							} else {
+								consumed = true;
+							}
+						}
+					}
+
+					// 3. Country Codes
+					if (!consumed && countryFilter) {
+						for (const [name, code] of Object.entries(
+							COUNTRY_CODES,
+						)) {
+							if (code.toLowerCase() === token) {
+								const uiCountryActive =
+									countryFilter.value !== "";
+								if (!uiCountryActive) {
+									for (const opt of Array.from(
+										countryFilter.options,
+									)) {
+										if (opt.value === name) {
+											parsedQuery.country = opt.value;
+											consumed = true;
+											break;
+										}
+									}
+								} else {
+									consumed = true;
+								}
+								if (consumed) break;
+							}
+						}
+					}
+
+					// 4. Text Search
+					if (!consumed) {
+						textParts.push(token);
+					}
+				});
+				parsedQuery.text = textParts.join(" ");
+			}
+
+			// UX Feedback: Smart Hint
+			if (smartHint) {
+				const hints: string[] = [];
+				if (parsedQuery.text) hints.push(parsedQuery.text);
+				if (parsedQuery.bitrate > 0)
+					hints.push(`${parsedQuery.bitrate} kbps`);
+				if (parsedQuery.country && COUNTRY_CODES[parsedQuery.country])
+					hints.push(COUNTRY_CODES[parsedQuery.country]);
+				else if (parsedQuery.country) hints.push(parsedQuery.country);
+				if (parsedQuery.codec)
+					hints.push(parsedQuery.codec.toUpperCase());
+
+				if (hints.length > 0 && query.trim() !== "") {
+					smartHint.textContent = `Recognized: ${hints.join(" · ")}`;
+					smartHint.classList.add("active");
+				} else {
+					smartHint.textContent = "";
+					smartHint.classList.remove("active");
 				}
 			}
 
-			// Delegate event listener for play buttons since they might be dynamically updated (though strictly here they are static, but good practice)
-			// Actually, StationList is static so we can attach listeners directly or delegate from main.
-			// Let's attach to all .play-btn elements.
-			const playButtons = document.querySelectorAll(".play-btn");
-			playButtons.forEach((btn) => {
-				btn.addEventListener("click", (e) => {
-					e.preventDefault();
-					e.stopPropagation(); // Prevent card click (selection)
+			// DEFINITIONS
+			const selectedCountry = parsedQuery.country;
+			const selectedGenre = genreFilter ? genreFilter.value : "";
+			const selectedCodec = parsedQuery.codec;
+			const minBitrate = parsedQuery.bitrate;
+			const searchTerms = parsedQuery.text
+				? parsedQuery.text.split(/\s+/).filter(Boolean)
+				: [];
 
-					const button = e.currentTarget as HTMLButtonElement;
-					const streamUrl = button.dataset.stream;
-					const icon = button.querySelector(".play-icon");
+			// MODE & VISIBILITY LOGIC
+			// FIX: Separate render decision and do NOT move browseOffset in search mode.
+			const isSearchMode = query !== "";
 
-					if (currentPlayingButton === button) {
-						// Toggle Pause
-						if (audioPlayer.paused) {
-							// Clear any previous error state
-							const stationCard = button.closest(".station-card");
-							if (stationCard)
-								stationCard.classList.remove("is-error");
+			// FILTERING (Uses Data Array Source of Truth)
+			const filteredStations = allStations.filter((station: any) => {
+				// STRICT: Keep broken stations hidden
+				if (station.broken) return false;
 
-							audioPlayer.play().catch((err) => {
-								console.error("Playback failed", err);
-								stopPlayback(true);
-							});
-							// CSS handles icon switch via is-playing
-							if (stationCard)
-								stationCard.classList.add("is-playing");
-						} else {
-							stopPlayback();
-						}
+				const name = station.name ? station.name.toLowerCase() : "";
+				const country = station.country || "";
+				const tags = station.tags || [];
+				const codec = station.codec || "";
+				const bitrate = station.bitrate || 0;
+
+				const matchesText =
+					searchTerms.length === 0 ||
+					searchTerms.every(
+						(term: string) =>
+							name.includes(term) ||
+							tags.some((tag: string) =>
+								tag.toLowerCase().includes(term),
+							),
+					);
+
+				const matchesCountry =
+					selectedCountry === "" || country === selectedCountry;
+				const matchesGenre =
+					selectedGenre === "" || tags.includes(selectedGenre);
+				const matchesCodec =
+					selectedCodec === "" || codec === selectedCodec;
+				const matchesBitrate = bitrate >= minBitrate;
+
+				return (
+					matchesText &&
+					matchesCountry &&
+					matchesGenre &&
+					matchesCodec &&
+					matchesBitrate
+				);
+			});
+
+			const totalMatches = filteredStations.length;
+			let stationsToRender = [];
+
+			if (isSearchMode) {
+				// SEARCH = always full dataset (no limits)
+				stationsToRender = filteredStations;
+				if (searchStatus) {
+					searchStatus.style.display = "block";
+					searchStatus.textContent = `Searching full catalog — ${filteredStations.length} results`;
+				}
+			} else {
+				// BROWSE = paging
+				stationsToRender = filteredStations.slice(0, browseOffset);
+				if (searchStatus) {
+					searchStatus.style.display = "none";
+				}
+			}
+
+			// RENDER
+			if (stationGrid) {
+				stationGrid.innerHTML = stationsToRender
+					.map(renderStationHTML)
+					.join("");
+				attachDynamicListeners();
+			}
+
+			// Handle Load More Button
+			if (loadMoreBtn) {
+				if (!isSearchMode && totalMatches > stationsToRender.length) {
+					loadMoreBtn.style.display = "block";
+				} else {
+					loadMoreBtn.style.display = "none";
+				}
+			}
+		}
+
+		// Initial render
+		filterStations();
+
+		if (searchInput) {
+			searchInput.addEventListener("input", filterStations);
+		}
+		if (countryFilter) {
+			countryFilter.addEventListener("change", filterStations);
+		}
+		if (genreFilter) {
+			genreFilter.addEventListener("change", filterStations);
+		}
+		if (codecFilter) {
+			codecFilter.addEventListener("change", filterStations);
+		}
+		if (bitrateFilter) {
+			bitrateFilter.addEventListener("input", filterStations);
+		}
+
+		const clearFiltersBtn = document.getElementById("clear-filters-btn");
+		if (clearFiltersBtn) {
+			clearFiltersBtn.addEventListener("click", () => {
+				if (searchInput) searchInput.value = "";
+				if (countryFilter) countryFilter.value = "";
+				if (genreFilter) genreFilter.value = "";
+				if (codecFilter) codecFilter.value = "";
+				if (bitrateFilter) bitrateFilter.value = "";
+				filterStations();
+			});
+		}
+
+		// Placeholder Rotation Logic
+		if (searchInput) {
+			const examples = [
+				"Search stations (e.g. jazz 128 us mp3)",
+				"Try 'rock de 192'",
+				"Try 'classical fr'",
+				"Try 'news gb'",
+				"Try 'pop us 320'",
+			];
+
+			// State
+			let currentExampleIndex = 0;
+			let charIndex = 0;
+			let isDeleting = false;
+			let typeTimer: any = null;
+			let isUserTyping = false;
+
+			// Configuration
+			const TYPING_SPEED = 50; // ms per char
+			const DELETING_SPEED = 30; // ms per char
+			const PAUSE_END = 2000; // ms wait after finishing phrase
+			const PAUSE_START = 500; // ms wait before starting new phrase
+
+			const typeStep = () => {
+				// Stop if user is interacting
+				if (
+					isUserTyping ||
+					document.activeElement === searchInput ||
+					searchInput.value.length > 0
+				) {
+					return;
+				}
+
+				const currentPhrase = examples[currentExampleIndex];
+
+				if (isDeleting) {
+					charIndex--;
+					searchInput.setAttribute(
+						"placeholder",
+						currentPhrase.substring(0, charIndex),
+					);
+					if (charIndex === 0) {
+						isDeleting = false;
+						currentExampleIndex =
+							(currentExampleIndex + 1) % examples.length;
+						typeTimer = setTimeout(typeStep, PAUSE_START);
 					} else {
-						// Stop previous
-						stopPlayback();
-
-						// Play new
-						if (streamUrl) {
-							currentPlayingButton = button;
-							audioPlayer.src = streamUrl;
-
-							// Clear any previous error state on new item
-							const stationCard = button.closest(".station-card");
-							if (stationCard)
-								stationCard.classList.remove("is-error");
-
-							audioPlayer.play().catch((err) => {
-								console.error("Playback failed", err);
-								stopPlayback(true);
-							});
-
-							// CSS handles icon switch via is-playing
-							if (stationCard)
-								stationCard.classList.add("is-playing");
-						}
+						typeTimer = setTimeout(typeStep, DELETING_SPEED);
 					}
+				} else {
+					charIndex++;
+					searchInput.setAttribute(
+						"placeholder",
+						currentPhrase.substring(0, charIndex),
+					);
+					if (charIndex === currentPhrase.length) {
+						isDeleting = true;
+						typeTimer = setTimeout(typeStep, PAUSE_END);
+					} else {
+						typeTimer = setTimeout(typeStep, TYPING_SPEED);
+					}
+				}
+			};
+
+			const startTyping = () => {
+				if (typeTimer) clearTimeout(typeTimer);
+				isUserTyping = false;
+				// Only start if input is empty
+				if (!searchInput.value) {
+					typeStep();
+				}
+			};
+
+			const stopTyping = () => {
+				if (typeTimer) clearTimeout(typeTimer);
+				typeTimer = null;
+				isUserTyping = true;
+			};
+
+			// Start initially
+			typeTimer = setTimeout(typeStep, 1000);
+
+			// Handle interaction
+			searchInput.addEventListener("focus", stopTyping);
+			searchInput.addEventListener("blur", () => {
+				isUserTyping = false;
+				if (!searchInput.value) {
+					startTyping();
+				}
+			});
+			searchInput.addEventListener("input", () => {
+				stopTyping();
+				// If user clears input manually but stays focused, we stay stopped (as strictly requested: focus stops it)
+				// If user clears input AND blurs, blur handler restarts it.
+				// Wait, "Pokud je input znovu prázdný: animace pokračuje od začátku"
+				// Does this mean even if focused?
+				// "Pokud user začne psát: typing animace se okamžitě zastaví" -> implies while typing.
+				// If I clear it and sit there?
+				// Usually better to keep generic "Search..." if focused.
+				// So sticking to blur check is safer and cleaner.
+				// EXCEPT: "Pokud je input znovu prázdný..." might imply real-time check.
+				// But "Pokud user začne psát" (If user starts writing) -> active interaction.
+				// I'll stick to: Stop on Focus/Input. Resume on Blur && Empty.
+				// This feels most premium and standard.
+			});
+		}
+
+		// Favicon handling
+		const stationImages = document.querySelectorAll(
+			"img[data-favicon]",
+		) as NodeListOf<HTMLImageElement>;
+		stationImages.forEach((img) => {
+			const faviconUrl = img.dataset.favicon;
+			if (faviconUrl) {
+				const tempImg = new Image();
+				tempImg.onload = () => {
+					img.src = faviconUrl;
+				};
+				// Handle error silently, placeholder remains
+				tempImg.onerror = () => {};
+				tempImg.src = faviconUrl;
+			}
+		});
+
+		// Delegate event listener for play buttons since they might be dynamically updated
+		// (though strictly here they are static, but good practice)
+		// Actually, StationList is static so we can attach listeners directly or delegate from main.
+		// Let's attach to all .play-btn elements.
+
+		// Inline Audio Preview Logic
+		const audioPlayer = new Audio();
+		let currentPlayingButton: HTMLButtonElement | null = null;
+
+		function stopPlayback(isError = false) {
+			audioPlayer.pause();
+			audioPlayer.src = "";
+
+			if (currentPlayingButton) {
+				const stationCard =
+					currentPlayingButton.closest(".station-card");
+				if (stationCard) {
+					stationCard.classList.remove("is-playing");
+					if (isError) {
+						stationCard.classList.add("is-error");
+						// Wait 2.5s showing the error state
+						setTimeout(() => {
+							// Start fade out
+							stationCard.classList.add("is-fading-out");
+							// After animation (300ms), remove from flow
+							setTimeout(() => {
+								const stationItem =
+									stationCard.closest("li.station-item");
+								if (stationItem instanceof HTMLElement) {
+									// Remove from selection if present
+									const checkbox =
+										stationCard.querySelector(
+											".station-checkbox",
+										);
+									if (
+										checkbox instanceof HTMLInputElement &&
+										checkbox.checked
+									) {
+										checkbox.checked = false;
+										checkbox.dispatchEvent(
+											new Event("change"),
+										);
+									}
+									// Permanently remove from DOM
+									stationItem.remove();
+								}
+							}, 300);
+						}, 2500);
+					}
+				}
+				currentPlayingButton = null;
+			}
+		}
+
+		// Handle audio errors/end
+		audioPlayer.addEventListener("error", () => {
+			stopPlayback(true);
+		});
+		audioPlayer.addEventListener("ended", () => {
+			stopPlayback();
+		});
+
+		// Filter Toggle Logic
+		const toggleFiltersBtn = document.getElementById("toggle-filters-btn");
+		const filtersPanel = document.getElementById("filters-panel");
+
+		if (toggleFiltersBtn && filtersPanel) {
+			toggleFiltersBtn.addEventListener("click", () => {
+				const isExpanded = filtersPanel.classList.contains("expanded");
+				if (isExpanded) {
+					filtersPanel.classList.remove("expanded");
+					toggleFiltersBtn.textContent = "Show filters";
+					toggleFiltersBtn.setAttribute("aria-expanded", "false");
+					filtersPanel.setAttribute("aria-hidden", "true");
+				} else {
+					filtersPanel.classList.add("expanded");
+					toggleFiltersBtn.textContent = "Hide filters";
+					toggleFiltersBtn.setAttribute("aria-expanded", "true");
+					filtersPanel.setAttribute("aria-hidden", "false");
+				}
+			});
+		}
+
+		// Discovery Badges Logic (Multi-row)
+		const discoveryContainer = document.getElementById(
+			"discovery-badges-container",
+		);
+		const btnUp = document.getElementById("discovery-up");
+		const btnDown = document.getElementById("discovery-down");
+
+		if (discoveryContainer && btnUp && btnDown) {
+			const badgeRows = [
+				["Relax", "Calm", "Night", "Chill", "Ambient"],
+				["Coffee", "Work", "Focus", "Workout", "Yoga"],
+				["Jazz", "Rock", "Classical", "Electronic", "Soul"],
+				["Morning", "Evening", "Night", "Late"],
+			];
+
+			let currentRowIndex = 0;
+			let autoRotateEnabled = true;
+			let autoRotateTimer: any = null;
+
+			// Helper to swap content
+			const updateRow = (newIndex: number) => {
+				// 1) Fade out
+				discoveryContainer.classList.add("fade-out");
+				setTimeout(() => {
+					// 2) Content Swap (Text Only)
+					currentRowIndex = newIndex;
+					const newTerms = badgeRows[currentRowIndex];
+					const itemElements =
+						discoveryContainer.querySelectorAll(".discovery-item");
+					itemElements.forEach((el, i) => {
+						const span = el as HTMLElement;
+						if (newTerms[i]) {
+							span.textContent = newTerms[i];
+							span.dataset.query = newTerms[i];
+							span.style.display = "inline-block";
+						} else {
+							span.style.display = "none";
+						}
+					});
+					// 3) Fade in after pause
+					setTimeout(() => {
+						discoveryContainer.classList.remove("fade-out");
+					}, 50);
+				}, 650);
+			};
+
+			// 4) Auto Rotation
+			const startAutoRotate = () => {
+				autoRotateTimer = setInterval(() => {
+					if (autoRotateEnabled) {
+						const nextIndex =
+							(currentRowIndex + 1) % badgeRows.length;
+						updateRow(nextIndex);
+					}
+				}, 6000);
+			};
+
+			const stopAutoRotate = () => {
+				if (autoRotateEnabled) {
+					autoRotateEnabled = false;
+					if (autoRotateTimer) clearInterval(autoRotateTimer);
+				}
+			};
+
+			// Stop on search interaction
+			if (searchInput) {
+				searchInput.addEventListener("focus", stopAutoRotate);
+				searchInput.addEventListener("input", stopAutoRotate);
+			}
+
+			// Re-attach listeners user action helper
+			const attachBadgeListeners = () => {
+				// Listeners are attached once to the stable DOM elements
+				const badges =
+					discoveryContainer.querySelectorAll(".discovery-item");
+				badges.forEach((badge) => {
+					// Handle click
+					badge.addEventListener("click", (e) => {
+						stopAutoRotate();
+						// Stop on badge click
+						const target = e.currentTarget as HTMLElement;
+						const query = target.dataset.query;
+						if (query && searchInput) {
+							searchInput.value = query;
+							filterStations(); // Call filterStations to update results
+						}
+					});
+					// Handle keyboard (Enter/Space) since we use span
+					badge.addEventListener("keydown", (e: any) => {
+						if (e.key === "Enter" || e.key === " ") {
+							stopAutoRotate(); // Stop on badge key interaction
+							e.preventDefault();
+							(badge as HTMLElement).click();
+						}
+					});
 				});
+			};
+
+			// Initial attach
+			attachBadgeListeners();
+			// Start initial rotation
+			startAutoRotate();
+
+			// Arrow Listeners
+			btnUp.addEventListener("click", () => {
+				stopAutoRotate();
+				const nextIndex =
+					(currentRowIndex - 1 + badgeRows.length) % badgeRows.length;
+				updateRow(nextIndex);
+			});
+			btnUp.addEventListener("keydown", (e) => {
+				if (e.key === "Enter" || e.key === " ") {
+					stopAutoRotate();
+					updateRow(
+						(currentRowIndex - 1 + badgeRows.length) %
+							badgeRows.length,
+					);
+				}
 			});
 
-			// Handle audio errors/end
-			audioPlayer.addEventListener("error", () => {
-				stopPlayback(true);
+			btnDown.addEventListener("click", () => {
+				stopAutoRotate();
+				const nextIndex = (currentRowIndex + 1) % badgeRows.length;
+				updateRow(nextIndex);
 			});
-			audioPlayer.addEventListener("ended", () => {
-				stopPlayback();
+			btnDown.addEventListener("keydown", (e) => {
+				if (e.key === "Enter" || e.key === " ") {
+					stopAutoRotate();
+					updateRow((currentRowIndex + 1) % badgeRows.length);
+				}
 			});
-		});
-	</script>
-</BaseLayout>
+		}
+	});
+</script>

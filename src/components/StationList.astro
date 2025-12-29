@@ -1,5 +1,20 @@
 ---
 import StationItem from "./StationItem.astro";
+interface Station {
+    id: string;
+    name: string;
+    country: string;
+    codec: string;
+    bitrate: number;
+    tags: string[];
+    favicon: string;
+    streamUrl: string;
+}
+
+interface Props {
+    stations: Station[];
+}
+
 const { stations } = Astro.props;
 ---
 

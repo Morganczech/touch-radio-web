@@ -1,0 +1,340 @@
+/* Station Card Styles - Copied from StationItem.astro for dynamic rendering */
+.station-item {
+    display: block;
+}
+
+.station-card {
+    display: block;
+    height: 100%;
+    cursor: pointer;
+    position: relative;
+}
+
+/* checkbox hidden but accessible */
+.station-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.card-content {
+    height: 100%;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.station-card:hover .card-content {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--muted);
+}
+
+/* Selected state */
+.station-checkbox:checked+.card-content {
+    border-color: transparent;
+    box-shadow: 0 0 0 2px var(--accent);
+}
+
+[data-theme="dark"] .station-checkbox:checked+.card-content {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Playing/Error visual updates */
+.station-item.is-playing .card-content {
+    border-color: #2ecc71;
+}
+
+.station-item.is-error .card-content {
+    border-color: #e74c3c;
+}
+
+/* Header Layout */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.station-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: contain;
+    background: rgba(128, 128, 128, 0.1);
+}
+
+/* EQUALIZER */
+.equalizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 16px;
+    width: 16px;
+    position: static;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.bar {
+    width: 3px;
+    background-color: #2ecc71;
+    border-radius: 1px;
+    height: 3px;
+}
+
+.station-card.is-playing .equalizer,
+.station-card.is-error .equalizer {
+    opacity: 1;
+}
+
+.station-card.is-playing .bar {
+    animation: equalizer 0.5s infinite ease-in-out alternate;
+}
+
+.station-card.is-playing .bar:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.station-card.is-playing .bar:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.station-card.is-playing .bar:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+/* Local error selectors matching strict requirements */
+.station-card.is-error .bar {
+    background-color: #e74c3c;
+    height: 10px;
+    animation: none;
+}
+
+@keyframes equalizer {
+    0% {
+        height: 3px;
+    }
+
+    100% {
+        height: 16px;
+    }
+}
+
+/* Heart Icon */
+.heart-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--muted);
+    transition:
+        transform 0.2s,
+        color 0.2s;
+    z-index: 3;
+    position: relative;
+}
+
+.heart-icon::before {
+    content: "♡";
+}
+
+.station-checkbox:checked+.card-content .heart-icon {
+    color: #e74c3c;
+    transform: scale(1.1);
+}
+
+.station-checkbox:checked+.card-content .heart-icon::before {
+    content: "❤️";
+}
+
+/* Card Body */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex-grow: 1;
+}
+
+.station-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.station-info {
+    font-size: 0.9rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* =========================================
+       FOOTER (STATION-TECH)
+       ========================================= */
+.station-tech {
+    margin-top: auto;
+    padding: 0 1rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    height: 48px;
+    /* Consistent fixed height */
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-family: monospace;
+
+    /* Layout resets to fill card bottom */
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-bottom: -1rem;
+    border-radius: 0 0 12px 12px;
+    /* Rounded bottom corners matching card */
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+    position: relative;
+}
+
+.badge {
+    text-transform: uppercase;
+    font-weight: bold;
+    min-width: 40px;
+}
+
+.bitrate {
+    min-width: 60px;
+    text-align: right;
+}
+
+/* Highlight tech bar on card hover */
+.station-card:hover .station-tech {
+    background-color: rgba(128, 128, 128, 0.05);
+}
+
+/* =========================================
+       PLAY BUTTON - INLINE
+       ========================================= */
+.play-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    line-height: 0;
+    border-radius: 50%;
+    color: var(--muted);
+
+    /* Flex Item Properties */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    /* Rigid sizing */
+
+    position: relative;
+    z-index: 5;
+
+    /* Default state */
+    opacity: 0.6;
+    transition:
+        transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        opacity 0.2s ease,
+        color 0.2s ease;
+}
+
+.station-card:hover .play-btn {
+    opacity: 1;
+}
+
+/* Keep fully visible if playing */
+.station-item.is-playing .play-btn {
+    opacity: 1;
+    color: var(--accent);
+}
+
+.play-btn:hover {
+    transform: scale(1.1);
+    color: var(--accent);
+}
+
+[data-theme="dark"] .play-btn {
+    color: #fff;
+}
+
+/* No glow on button when playing */
+.station-item.is-playing .play-btn:hover {
+    filter: none;
+}
+
+/* Play/Pause Icon SVG Logic */
+.play-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.svg-icon {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+.icon-pause {
+    display: none;
+}
+
+/* Toggle icons based on parent class */
+.station-card.is-playing .icon-pause {
+    display: block;
+}
+
+/* Local error selectors - STRICT DEV */
+.station-card.is-error {
+    opacity: 0.7;
+}
+
+.station-card.is-error .station-tech {
+    justify-content: center;
+}
+
+.station-card.is-error .badge,
+.station-card.is-error .bitrate,
+.station-card.is-error .play-btn {
+    display: none;
+}
+
+.error-text {
+    display: none;
+}
+
+.station-card.is-error .error-text {
+    display: block;
+    color: #e74c3c;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Fade Out - applied to .station-card per request */
+.station-card.is-fading-out {
+    opacity: 0;
+    transition: opacity 300ms ease;
+}

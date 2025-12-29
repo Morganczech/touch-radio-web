@@ -107,6 +107,7 @@ const flag = getFlag(countryCode);
                     </button>
 
                     <span class="bitrate">{station.bitrate} kbps</span>
+                    <span class="error-text">Stream unavailable</span>
                 </div>
             </div>
         </div>
@@ -206,7 +207,7 @@ const flag = getFlag(countryCode);
     }
 
     :global(.station-card.is-playing) .equalizer,
-    :global(.station-card.is-error) .equalizer {
+    .station-card.is-error .equalizer {
         opacity: 1;
     }
 
@@ -223,7 +224,8 @@ const flag = getFlag(countryCode);
         animation-delay: 0.3s;
     }
 
-    :global(.station-card.is-error) .bar {
+    /* Local error selectors matching strict requirements */
+    .station-card.is-error .bar {
         background-color: #e74c3c;
         height: 10px;
         animation: none;
@@ -307,6 +309,7 @@ const flag = getFlag(countryCode);
         border-radius: 0 0 12px 12px; /* Rounded bottom corners matching card */
         background-color: transparent;
         transition: background-color 0.2s ease;
+        position: relative;
     }
 
     .badge {
@@ -399,10 +402,39 @@ const flag = getFlag(countryCode);
     }
 
     /* Toggle icons based on parent class */
-    :global(.station-card.is-playing) .icon-play {
-        display: none;
-    }
     :global(.station-card.is-playing) .icon-pause {
         display: block;
+    }
+
+    /* Local error selectors - STRICT DEV */
+    .station-card.is-error {
+        opacity: 0.7;
+    }
+
+    .station-card.is-error .station-tech {
+        justify-content: center;
+    }
+
+    .station-card.is-error .badge,
+    .station-card.is-error .bitrate,
+    .station-card.is-error .play-btn {
+        display: none;
+    }
+
+    .error-text {
+        display: none;
+    }
+
+    .station-card.is-error .error-text {
+        display: block;
+        color: #e74c3c;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    /* Fade Out - applied to .station-card per request */
+    .station-card.is-fading-out {
+        opacity: 0;
+        transition: opacity 300ms ease;
     }
 </style>

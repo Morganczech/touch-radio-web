@@ -17,7 +17,7 @@
 - Pokud by byly potřeba, nastavte je v Netlify dashboardu v sekci **Site configuration > Environment variables**.
 
 ## 4. Build Performance
-- **Large Chunk Warning**: Vite hlásí větší chunk (~2.4MB) pro `index.astro_astro_type_script_index_0_lang`. To je očekávané, protože bundlujeme databázi 5000 stanic přímo do aplikace pro offline-first přístup.
+- **Large Chunk Warning**: Vite hlásí větší chunk (~2.8MB) pro `index.astro_astro_type_script_index_0_lang`. To je očekávané, protože bundlujeme databázi 7000+ stanic přímo do aplikace pro offline-first přístup.
 - **Doporučení**: Pokud by velikost rostla, zvážit dynamický import json dat nebo rozdělení do více souborů. Pro teď je to akceptovatelné pro rychlý start.
 
 ## 5. Další kroky

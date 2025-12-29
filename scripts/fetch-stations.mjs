@@ -31,7 +31,7 @@ async function fetchStations() {
 
     try {
         // Fetch top voted stations
-        const votedUrl = `${baseUrl}/json/stations/topvote/5000`;
+        const votedUrl = `${baseUrl}/json/stations/topvote/7500`;
         console.log(`Fetching top voted stations from ${votedUrl}...`);
         const votedResponse = await fetch(votedUrl, {
             headers: {
@@ -47,7 +47,7 @@ async function fetchStations() {
         console.log(`Fetched ${votedData.length} top voted stations.`);
 
         // Fetch top clicked stations
-        const clickedUrl = `${baseUrl}/json/stations/topclick/5000`;
+        const clickedUrl = `${baseUrl}/json/stations/topclick/7500`;
         console.log(`Fetching top clicked stations from ${clickedUrl}...`);
         const clickedResponse = await fetch(clickedUrl, {
             headers: {

@@ -284,7 +284,7 @@ Aktualizovat README s:
 │   Minimalist Web Radio Player                   │
 │   [Menší font, 70% opacity]                     │
 │                                                 │
-│   • 5000+ Stations                              │
+│   • 7000+ Stations                              │
 │   • Smart Search                                │
 │   • Playlist Export                             │
 │                                                 │

@@ -1,0 +1,40 @@
+name: Update Stations
+
+on:
+  schedule:
+    # Run daily at 4:00 AM UTC
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+    # Allow manual trigger from GitHub UI
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Important: allows the action to push changes
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch latest stations
+        run: npm run fetch:stations
+
+      - name: Normalize station data
+        run: npm run normalize:stations
+
+      - name: Commit and Push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(data): update stations list [skip ci]"
+          file_pattern: 'src/data/*.json'
+          branch: main

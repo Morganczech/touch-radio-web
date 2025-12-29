@@ -5,7 +5,7 @@
 <!-- Floating Action Button (Mobile only) -->
 <button id="selection-fab" class="selection-fab" aria-label="Open selection">
     <span class="fab-icon">🎵</span>
-    <span id="fab-count" class="fab-count">0</span>
+    <span id="fab-count" class="fab-count js-selection-count">0</span>
 </button>
 
 <!-- Modal Overlay (Mobile only) -->
@@ -17,49 +17,57 @@
         >
         <aside class="selection-panel modal-panel">
             <div class="selection-header">
-                <h3>My Selection (<span id="selection-count">0</span>)</h3>
+                <h3>
+                    My Selection (<span
+                        id="selection-count-mobile"
+                        class="js-selection-count">0</span
+                    >)
+                </h3>
             </div>
             <button
-                id="clear-all-btn"
-                class="clear-all-btn modal-clear-btn"
+                id="clear-all-btn-mobile"
+                class="clear-all-btn modal-clear-btn js-clear-all-btn"
                 disabled
                 title="Remove all stations from selection">Clear All</button
             >
-            <div id="selection-list" class="selection-list">
+            <div
+                id="selection-list-mobile"
+                class="selection-list js-selection-list"
+            >
                 <p class="empty-state">No stations selected</p>
             </div>
             <div class="export-actions">
                 <button
-                    id="share-playlist-btn"
+                    id="share-playlist-btn-mobile"
                     disabled
-                    class="sidebar-btn share-btn"
+                    class="sidebar-btn share-btn js-share-playlist-btn"
                     title="Share this playlist with others"
                     >🔗 Share Playlist</button
                 >
                 <button
-                    id="export-btn"
+                    id="export-btn-mobile"
                     disabled
-                    class="sidebar-btn"
+                    class="sidebar-btn js-export-btn"
                     title="Export selected stations in Touch Radio JSON format"
                     >Export JSON</button
                 >
                 <button
-                    id="export-m3u-btn"
+                    id="export-m3u-btn-mobile"
                     disabled
-                    class="sidebar-btn"
+                    class="sidebar-btn js-export-m3u-btn"
                     title="Export playlist in M3U format">Export M3U</button
                 >
                 <button
-                    id="export-m3u8-btn"
+                    id="export-m3u8-btn-mobile"
                     disabled
-                    class="sidebar-btn"
+                    class="sidebar-btn js-export-m3u8-btn"
                     title="Export playlist in UTF-8 encoded M3U8 format"
                     >Export M3U8 (UTF-8)</button
                 >
                 <button
-                    id="export-pls-btn"
+                    id="export-pls-btn-mobile"
                     disabled
-                    class="sidebar-btn"
+                    class="sidebar-btn js-export-pls-btn"
                     title="Export playlist in PLS format">Export PLS</button
                 >
             </div>
@@ -70,48 +78,53 @@
 <!-- Desktop Sidebar -->
 <aside class="selection-panel desktop-panel">
     <div class="selection-header">
-        <h3>My Selection (<span id="selection-count">0</span>)</h3>
+        <h3>
+            My Selection (<span
+                id="selection-count-desktop"
+                class="js-selection-count">0</span
+            >)
+        </h3>
         <button
-            id="clear-all-btn"
-            class="clear-all-btn"
+            id="clear-all-btn-desktop"
+            class="clear-all-btn js-clear-all-btn"
             disabled
             title="Remove all stations from selection">Clear All</button
         >
     </div>
-    <div id="selection-list" class="selection-list">
+    <div id="selection-list-desktop" class="selection-list js-selection-list">
         <p class="empty-state">No stations selected</p>
     </div>
     <div class="export-actions">
         <button
-            id="share-playlist-btn"
+            id="share-playlist-btn-desktop"
             disabled
-            class="sidebar-btn share-btn"
+            class="sidebar-btn share-btn js-share-playlist-btn"
             title="Share this playlist with others">🔗 Share Playlist</button
         >
         <button
-            id="export-btn"
+            id="export-btn-desktop"
             disabled
-            class="sidebar-btn"
+            class="sidebar-btn js-export-btn"
             title="Export selected stations in Touch Radio JSON format"
             >Export JSON</button
         >
         <button
-            id="export-m3u-btn"
+            id="export-m3u-btn-desktop"
             disabled
-            class="sidebar-btn"
+            class="sidebar-btn js-export-m3u-btn"
             title="Export playlist in M3U format">Export M3U</button
         >
         <button
-            id="export-m3u8-btn"
+            id="export-m3u8-btn-desktop"
             disabled
-            class="sidebar-btn"
+            class="sidebar-btn js-export-m3u8-btn"
             title="Export playlist in UTF-8 encoded M3U8 format"
             >Export M3U8 (UTF-8)</button
         >
         <button
-            id="export-pls-btn"
+            id="export-pls-btn-desktop"
             disabled
-            class="sidebar-btn"
+            class="sidebar-btn js-export-pls-btn"
             title="Export playlist in PLS format">Export PLS</button
         >
     </div>

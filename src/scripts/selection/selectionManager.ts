@@ -16,37 +16,39 @@ export function downloadFile(content: string, filename: string, type: string) {
 
 export function updateUI() {
     const count = appState.selectedIds.size;
-    const countSpan = document.getElementById("selection-count");
-    if (countSpan) {
-        countSpan.textContent = count.toString();
-    }
+    console.log("updateUI called, selectedIds count:", count, "IDs:", Array.from(appState.selectedIds));
 
-    const buttons = [
-        document.getElementById("clear-all-btn"),
-        document.getElementById("share-playlist-btn"),
-        document.getElementById("export-btn"),
-        document.getElementById("export-m3u-btn"),
-        document.getElementById("export-m3u8-btn"),
-        document.getElementById("export-pls-btn"),
+    // Update all count displays
+    const countSpans = document.querySelectorAll(".js-selection-count");
+    countSpans.forEach(span => {
+        span.textContent = count.toString();
+    });
+
+    // Update buttons state
+    const buttonSelectors = [
+        ".js-clear-all-btn",
+        ".js-share-playlist-btn",
+        ".js-export-btn",
+        ".js-export-m3u-btn",
+        ".js-export-m3u8-btn",
+        ".js-export-pls-btn"
     ];
 
     const isDisabled = count === 0;
-    buttons.forEach((btn) => {
-        if (btn) {
+
+    buttonSelectors.forEach(selector => {
+        const buttons = document.querySelectorAll(selector);
+        buttons.forEach(btn => {
             if (isDisabled) {
                 btn.setAttribute("disabled", "true");
             } else {
                 btn.removeAttribute("disabled");
             }
-        }
+        });
     });
 
-    // Update FAB (Mobile)
-    const fabCount = document.getElementById("fab-count");
+    // Update FAB Visibility (Mobile)
     const fab = document.getElementById("selection-fab");
-    if (fabCount) {
-        fabCount.textContent = count.toString();
-    }
     if (fab) {
         if (count === 0) {
             fab.classList.add("hidden");
@@ -55,9 +57,9 @@ export function updateUI() {
         }
     }
 
-    // Update Selection Panel
-    const selectionList = document.getElementById("selection-list");
-    if (selectionList) {
+    // Update Selection Panels (Mobile & Desktop)
+    const selectionLists = document.querySelectorAll(".js-selection-list");
+    selectionLists.forEach(selectionList => {
         selectionList.innerHTML = "";
         if (count === 0) {
             selectionList.innerHTML = '<p class="empty-state">No stations selected</p>';
@@ -101,7 +103,7 @@ export function updateUI() {
                 selectionList.appendChild(item);
             });
 
-            // Add event listeners for remove buttons
+            // Add event listeners for remove buttons within this specific list
             selectionList.querySelectorAll(".remove-btn").forEach((btn) => {
                 btn.addEventListener("click", (e) => {
                     const target = e.currentTarget as HTMLButtonElement;
@@ -129,7 +131,7 @@ export function updateUI() {
                 });
             });
 
-            // Add event listeners for play buttons in sidebar
+            // Add event listeners for play buttons within this specific list
             selectionList.querySelectorAll(".sidebar-play-btn").forEach((btn) => {
                 btn.addEventListener("click", (e) => {
                     handlePlayButtonClick(e);
@@ -138,14 +140,13 @@ export function updateUI() {
                 });
             });
         }
-    }
+    });
 }
 
 export function initSelection() {
-    // Clear All button
-    const clearAllBtn = document.getElementById("clear-all-btn");
-    if (clearAllBtn) {
-        clearAllBtn.addEventListener("click", () => {
+    // Clear All buttons
+    document.querySelectorAll(".js-clear-all-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
             // Stop playback if any station is playing
             if (appState.currentPlayingId) {
                 stopPlayback();
@@ -162,12 +163,11 @@ export function initSelection() {
             // Update UI
             updateUI();
         });
-    }
+    });
 
-    // Share Playlist button
-    const shareBtn = document.getElementById("share-playlist-btn");
-    if (shareBtn) {
-        shareBtn.addEventListener("click", async () => {
+    // Share Playlist buttons
+    document.querySelectorAll(".js-share-playlist-btn").forEach(btn => {
+        btn.addEventListener("click", async () => {
             const { sharePlaylist } = await import("../utils/sharePlaylist");
             const { showToast } = await import("../utils/toast");
 
@@ -184,11 +184,11 @@ export function initSelection() {
                 }
             }
         });
-    }
+    });
 
-    const exportBtn = document.getElementById("export-btn");
-    if (exportBtn) {
-        exportBtn.addEventListener("click", () => {
+    // Export JSON buttons
+    document.querySelectorAll(".js-export-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
             if (appState.selectedIds.size === 0) {
                 alert("No stations selected.");
                 return;
@@ -199,11 +199,11 @@ export function initSelection() {
             const jsonString = JSON.stringify(selectedStations, null, 2);
             downloadFile(jsonString, "selected_stations.json", "application/json");
         });
-    }
+    });
 
-    const exportM3uBtn = document.getElementById("export-m3u-btn");
-    if (exportM3uBtn) {
-        exportM3uBtn.addEventListener("click", () => {
+    // Export M3U buttons
+    document.querySelectorAll(".js-export-m3u-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
             if (appState.selectedIds.size === 0) {
                 alert("No stations selected.");
                 return;
@@ -217,11 +217,11 @@ export function initSelection() {
             });
             downloadFile(m3uContent, "selected_stations.m3u", "text/plain");
         });
-    }
+    });
 
-    const exportM3u8Btn = document.getElementById("export-m3u8-btn");
-    if (exportM3u8Btn) {
-        exportM3u8Btn.addEventListener("click", () => {
+    // Export M3U8 buttons
+    document.querySelectorAll(".js-export-m3u8-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
             if (appState.selectedIds.size === 0) {
                 alert("No stations selected.");
                 return;
@@ -235,11 +235,11 @@ export function initSelection() {
             });
             downloadFile(m3uContent, "selected_stations.m3u8", "text/plain;charset=utf-8");
         });
-    }
+    });
 
-    const exportPlsBtn = document.getElementById("export-pls-btn");
-    if (exportPlsBtn) {
-        exportPlsBtn.addEventListener("click", () => {
+    // Export PLS buttons
+    document.querySelectorAll(".js-export-pls-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
             if (appState.selectedIds.size === 0) {
                 alert("No stations selected.");
                 return;
@@ -258,7 +258,7 @@ export function initSelection() {
             plsContent += "Version=2\n";
             downloadFile(plsContent, "selected_stations.pls", "text/plain");
         });
-    }
+    });
 
     // Mobile Modal Controls
     const fab = document.getElementById("selection-fab");
@@ -272,7 +272,6 @@ export function initSelection() {
             document.body.style.overflow = "hidden"; // Prevent background scroll
         });
     }
-
 
     // Helper function for smooth modal closing
     const closeModal = () => {

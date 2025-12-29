@@ -12,6 +12,7 @@
     "prebuild": "npm run fetch:stations && npm run normalize:stations"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
     "astro": "^5.16.6"
   }
 }

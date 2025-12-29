@@ -1,0 +1,155 @@
+---
+interface Props {
+    uniqueCountries: string[];
+    uniqueGenres: string[];
+    uniqueCodecs: string[];
+}
+
+const { uniqueCountries, uniqueGenres, uniqueCodecs } = Astro.props;
+---
+
+<div class="ap-container filters-wrapper">
+    <button
+        id="toggle-filters-btn"
+        class="toggle-filters-btn"
+        aria-expanded="false"
+        aria-controls="filters-panel">Show filters</button
+    >
+    <div id="filters-panel" class="filters-panel" aria-hidden="true">
+        <div class="filters-inner">
+            <div class="filters-container">
+                <select id="country-filter" class="hero-filter">
+                    <option value="">All Countries</option>
+                    {
+                        uniqueCountries.map((country) => (
+                            <option value={country}>{country}</option>
+                        ))
+                    }
+                </select>
+                <select id="genre-filter" class="hero-filter">
+                    <option value="">All Genres</option>
+                    {
+                        uniqueGenres.map((genre) => (
+                            <option value={genre}>{genre}</option>
+                        ))
+                    }
+                </select>
+                <select id="codec-filter" class="hero-filter">
+                    <option value="">All Codecs</option>
+                    {
+                        uniqueCodecs.map((codec) => (
+                            <option value={codec}>{codec}</option>
+                        ))
+                    }
+                </select>
+                <input
+                    type="number"
+                    id="bitrate-filter"
+                    class="hero-filter bitrate-input"
+                    placeholder="Min kbps"
+                />
+                <button id="clear-filters-btn" class="clear-btn"
+                    >Clear filters</button
+                >
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Filter Toggle & Panel */
+    .filters-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 10;
+    }
+
+    .toggle-filters-btn {
+        background: none;
+        border: none;
+        color: var(--muted);
+        font-size: 0.95rem;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    .toggle-filters-btn:hover {
+        color: var(--text);
+        text-decoration: underline;
+    }
+
+    .filters-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition:
+            grid-template-rows 0.3s ease-out,
+            opacity 0.3s ease-out,
+            transform 0.3s ease-out,
+            visibility 0.3s,
+            margin-top 0.3s;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        width: 100%;
+        max-width: 900px;
+    }
+
+    .filters-panel.expanded {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        margin-top: 0.5rem;
+    }
+
+    .filters-inner {
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    /* Adjust existing filters for new context */
+    .filters-container {
+        /* Inherits flex layout from previous CSS, just ensure it wraps nicely */
+        padding: 1rem; /* Add some padding so controls aren't cut off */
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    /* Update hero-filter to be more utility-like in this context */
+    .hero-filter {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--bg);
+        font-size: 0.9rem;
+        cursor: pointer;
+        color: var(--text);
+        min-width: 120px;
+    }
+
+    .bitrate-input {
+        width: 100px;
+    }
+
+    .clear-btn {
+        background: none;
+        border: none;
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-decoration: underline;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    .clear-btn:hover {
+        color: var(--text);
+    }
+</style>

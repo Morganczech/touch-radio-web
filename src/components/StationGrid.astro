@@ -1,0 +1,57 @@
+---
+
+---
+
+<div id="search-status" class="search-status" style="display: none;">
+    Searching all stations...
+</div>
+<ul id="station-grid" class="station-grid"></ul>
+<div class="load-more-container">
+    <button id="load-more-btn" class="load-more-btn" style="display: none;">
+        Show more stations
+    </button>
+</div>
+
+<style>
+    /* Grid Layout */
+    .station-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.25rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .search-status {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        font-style: italic;
+    }
+
+    .load-more-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .load-more-btn {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 0.75rem 2rem;
+        border-radius: 2rem;
+        cursor: pointer;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+    .load-more-btn:hover {
+        background: var(--surface-hover);
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: translateY(-1px);
+    }
+</style>

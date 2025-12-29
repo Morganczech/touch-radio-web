@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INPUT_FILE = path.resolve(__dirname, '../src/data/stations.json');
 const OUTPUT_FILE = path.resolve(__dirname, '../src/data/stations.normalized.json');
+const PUBLIC_FILE = path.resolve(__dirname, '../public/stations.json');
 
 async function normalizeStations() {
     console.log('Normalizing stations...');
@@ -25,10 +26,15 @@ async function normalizeStations() {
             tags: station.tags ? station.tags.split(',').map(tag => tag.trim().toLowerCase()).filter(Boolean) : []
         }));
 
+        // Save to src/data for SSG (filters)
         await fs.writeFile(OUTPUT_FILE, JSON.stringify(normalizedStations, null, 2), 'utf-8');
+
+        // Save to public/stations.json for client-side fetching (avoids bundling)
+        await fs.writeFile(PUBLIC_FILE, JSON.stringify(normalizedStations, null, 2), 'utf-8');
 
         console.log(`Normalized ${normalizedStations.length} stations.`);
         console.log(`Saved to ${OUTPUT_FILE}`);
+        console.log(`Saved to ${PUBLIC_FILE}`);
 
         // Show sample for the user
         console.log('\nSample item:');

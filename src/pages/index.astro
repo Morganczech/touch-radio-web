@@ -139,7 +139,6 @@ const uniqueCodecs = [
 
 <style></style>
 <script>
-	import stationsRaw from "../data/stations.normalized.json";
 	import { appState } from "../scripts/state/appState";
 	import { initStations } from "../scripts/stations/stationFilter";
 	import {
@@ -151,46 +150,61 @@ const uniqueCodecs = [
 	import { initKeyboardShortcuts } from "../scripts/search/keyboardShortcuts";
 
 	// Initialize State Source of Truth
-	appState.allStations = stationsRaw.filter((s: any) => !s.broken);
+	// Start empty to avoid bundling massive JSON. Data will be fetched.
+	appState.allStations = [];
 
 	document.addEventListener("DOMContentLoaded", async () => {
-		initStations();
-		initSelection();
+		initSelection(); // Init selection logic (reading localStorage)
 		initDiscoveryBadges();
 		initSearchPlaceholder();
 		initKeyboardShortcuts();
 
-		// Load shared playlist from URL if present
+		// Check if we have shared URL params before fetching, just to be ready
 		const { parseShareUrl } = await import(
 			"../scripts/utils/sharePlaylist"
 		);
 		const { showToast } = await import("../scripts/utils/toast");
-
 		const sharedIds = parseShareUrl();
-		if (sharedIds && sharedIds.length > 0) {
-			// Validate that all IDs exist in our stations
-			const validIds = sharedIds.filter((id) =>
-				appState.allStations.some((s) => s.id === id),
-			);
 
-			if (validIds.length > 0) {
-				// Add to selection
-				validIds.forEach((id) => appState.selectedIds.add(id));
+		// Dynamic Fetch of Stations Data (~1MB uncompressed)
+		// This prevents the data from being bundled into the initial JS, improving LCP/TBT significantly.
+		try {
+			const response = await fetch("/stations.json");
+			if (!response.ok) throw new Error("Failed to load stations");
+			const stationsData = await response.json();
 
-				// Show feedback
-				showToast(
-					`✓ Loaded ${validIds.length} station${validIds.length !== 1 ? "s" : ""} from shared playlist`,
+			// Filter broken stations and update state
+			appState.allStations = stationsData.filter((s: any) => !s.broken);
+
+			// Now initialize the filter system with loaded data
+			initStations(); // filtering happens here
+
+			// Handle Shared Playlist logic after data is loaded
+			if (sharedIds && sharedIds.length > 0) {
+				// Validate that all IDs exist in our stations
+				const validIds = sharedIds.filter((id) =>
+					appState.allStations.some((s) => s.id === id),
 				);
 
-				// Clean URL (remove playlist param)
-				const url = new URL(window.location.href);
-				url.searchParams.delete("playlist");
-				window.history.replaceState({}, "", url.toString());
-			}
-		}
+				if (validIds.length > 0) {
+					validIds.forEach((id) => appState.selectedIds.add(id));
+					showToast(
+						`✓ Loaded ${validIds.length} station${validIds.length !== 1 ? "s" : ""} from shared playlist`,
+					);
 
-		// Initial UI update with build-time stations
-		updateUI();
+					// Clean URL
+					const url = new URL(window.location.href);
+					url.searchParams.delete("playlist");
+					window.history.replaceState({}, "", url.toString());
+				}
+			}
+
+			// Update UI with stations
+			updateUI();
+		} catch (error) {
+			console.error("Error loading stations:", error);
+			showToast("Failed to load stations. Please refresh.");
+		}
 
 		// Scroll to Top Button
 		const scrollToTopBtn = document.getElementById("scroll-to-top");

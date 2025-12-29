@@ -28,3 +28,7 @@ pnpm-debug.log*
 
 # VS Code settings
 .vscode/
+
+# Ignore root markdown files (reports, audits)
+/*.md
+!/README.md

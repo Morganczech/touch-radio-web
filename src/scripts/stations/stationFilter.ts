@@ -72,15 +72,21 @@ export function filterStations() {
     let stationsToRender = [];
     const searchStatus = document.getElementById("search-status");
 
-    if (isSearchMode) {
-        stationsToRender = filteredStations;
-        if (searchStatus) {
+    // Always apply backend-like pagination to prevent rendering massive lists
+    stationsToRender = filteredStations.slice(0, appState.browseOffset);
+
+    // Update Search Status
+    if (searchStatus) {
+        if (isSearchMode) {
             searchStatus.style.display = "block";
-            searchStatus.textContent = `Searching full catalog — ${filteredStations.length} results`;
-        }
-    } else {
-        stationsToRender = filteredStations.slice(0, appState.browseOffset);
-        if (searchStatus) {
+            // Show "Showing X of Y results" if paginated, or just "Found Y results"
+            const showingCount = stationsToRender.length;
+            if (totalMatches > showingCount) {
+                searchStatus.textContent = `Found ${totalMatches} matches — showing top ${showingCount}`;
+            } else {
+                searchStatus.textContent = `Found ${totalMatches} matches`;
+            }
+        } else {
             searchStatus.style.display = "none";
         }
     }
@@ -95,8 +101,11 @@ export function filterStations() {
 
     const loadMoreBtn = document.getElementById("load-more-btn");
     if (loadMoreBtn) {
-        if (!isSearchMode && totalMatches > stationsToRender.length) {
+        // Show button if there are more items than currently rendered
+        if (totalMatches > stationsToRender.length) {
             loadMoreBtn.style.display = "block";
+            // Optional: Update button text to indicate context? "Show more results" vs "Show more stations"
+            // For now, keep it simple.
         } else {
             loadMoreBtn.style.display = "none";
         }
@@ -104,31 +113,37 @@ export function filterStations() {
 }
 
 export function initStations() {
+    // Helper to reset pagination
+    const resetPagination = () => {
+        appState.browseOffset = PAGE_SIZE;
+        filterStations();
+    };
+
     // Initial Render
     filterStations();
 
     const searchInput = document.getElementById("search-input");
     if (searchInput) {
-        searchInput.addEventListener("input", filterStations);
+        searchInput.addEventListener("input", resetPagination); // Reset on search
     }
     const countryFilter = document.getElementById("country-filter");
     if (countryFilter) {
-        countryFilter.addEventListener("change", filterStations);
+        countryFilter.addEventListener("change", resetPagination);
     }
     const genreFilter = document.getElementById("genre-filter");
     if (genreFilter) {
-        genreFilter.addEventListener("change", filterStations);
+        genreFilter.addEventListener("change", resetPagination);
     }
     const codecFilter = document.getElementById("codec-filter");
     if (codecFilter) {
-        codecFilter.addEventListener("change", filterStations);
+        codecFilter.addEventListener("change", resetPagination);
     }
     const bitrateFilter = document.getElementById("bitrate-filter");
     if (bitrateFilter) {
-        bitrateFilter.addEventListener("input", filterStations);
+        bitrateFilter.addEventListener("input", resetPagination);
     }
 
-    // Load More
+    // Load More (DO NOT RESET HERE)
     const loadMoreBtn = document.getElementById("load-more-btn");
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener("click", () => {
@@ -146,7 +161,7 @@ export function initStations() {
             if (genreFilter) (genreFilter as HTMLSelectElement).value = "";
             if (codecFilter) (codecFilter as HTMLSelectElement).value = "";
             if (bitrateFilter) (bitrateFilter as HTMLInputElement).value = "";
-            filterStations();
+            resetPagination(); // Reset here too
         });
     }
 

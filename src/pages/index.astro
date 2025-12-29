@@ -148,6 +148,7 @@ const uniqueCodecs = [
 	} from "../scripts/selection/selectionManager";
 	import { initDiscoveryBadges } from "../scripts/search/discoveryBadges";
 	import { initSearchPlaceholder } from "../scripts/search/searchPlaceholder";
+	import { initKeyboardShortcuts } from "../scripts/search/keyboardShortcuts";
 
 	// Initialize State Source of Truth
 	appState.allStations = stationsRaw.filter((s: any) => !s.broken);
@@ -157,6 +158,7 @@ const uniqueCodecs = [
 		initSelection();
 		initDiscoveryBadges();
 		initSearchPlaceholder();
+		initKeyboardShortcuts();
 
 		// Load shared playlist from URL if present
 		const { parseShareUrl } = await import(

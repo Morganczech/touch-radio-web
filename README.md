@@ -118,7 +118,11 @@ Station data is fetched from the [Radio Browser API](https://www.radio-browser.i
 npm run fetch:stations
 ```
 
-This fetches the top 5,000 voted and clicked stations, merges them, and normalizes the data.
+This fetches the top 7,500 voted and clicked stations, merges them, and normalizes the data.
+
+### Automated Updates
+
+The station list is automatically updated **daily at 4:00 AM UTC** via GitHub Actions. If you fork this repository, you must enable **Read and write permissions** in `Settings -> Actions -> General -> Workflow permissions` for the automation to work.
 
 ## 🤝 Contributing
 

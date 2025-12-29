@@ -761,22 +761,6 @@
     "tags": []
   },
   {
-    "id": "c2698fb7-f7ec-401d-904f-ef4284501bd9",
-    "name": "RFI-Afrique",
-    "streamUrl": "http://live02.rfi.fr/rfiafrique-96k.mp3",
-    "country": "France",
-    "codec": "MP3",
-    "bitrate": 96,
-    "homepage": "http://www.rfi.fr/fr/",
-    "favicon": "",
-    "tags": [
-      "france médias monde",
-      "information",
-      "public radio",
-      "world news"
-    ]
-  },
-  {
     "id": "563f5559-105c-11e9-a80b-52543be04c81",
     "name": "DFM RUSSIAN DANCE",
     "streamUrl": "https://dfm-dfmrusdance.hostingradio.ru/dfmrusdance96.aacp?0.9987259013359274",
@@ -790,16 +774,19 @@
     ]
   },
   {
-    "id": "0a364b59-56b6-11e9-aa33-52543be04c81",
-    "name": "Дорожное радио",
-    "streamUrl": "http://dorognoe.hostingradio.ru:8000/radio",
-    "country": "The Russian Federation",
+    "id": "c2698fb7-f7ec-401d-904f-ef4284501bd9",
+    "name": "RFI-Afrique",
+    "streamUrl": "http://live02.rfi.fr/rfiafrique-96k.mp3",
+    "country": "France",
     "codec": "MP3",
-    "bitrate": 320,
-    "homepage": "https://dorognoe.ru/?region=piter",
-    "favicon": "https://dorognoe.ru/assets/default/i/fav_114x114.png",
+    "bitrate": 96,
+    "homepage": "http://www.rfi.fr/fr/",
+    "favicon": "",
     "tags": [
-      "dorojnoe"
+      "france médias monde",
+      "information",
+      "public radio",
+      "world news"
     ]
   },
   {
@@ -819,6 +806,19 @@
       "retro",
       "russia",
       "russian pop"
+    ]
+  },
+  {
+    "id": "0a364b59-56b6-11e9-aa33-52543be04c81",
+    "name": "Дорожное радио",
+    "streamUrl": "http://dorognoe.hostingradio.ru:8000/radio",
+    "country": "The Russian Federation",
+    "codec": "MP3",
+    "bitrate": 320,
+    "homepage": "https://dorognoe.ru/?region=piter",
+    "favicon": "https://dorognoe.ru/assets/default/i/fav_114x114.png",
+    "tags": [
+      "dorojnoe"
     ]
   },
   {

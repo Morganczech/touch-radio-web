@@ -47,7 +47,8 @@
 }
 
 /* Playing/Error visual updates */
-.station-item.is-playing .card-content {
+.station-item.is-playing .card-content,
+.selected-item.is-playing {
     border-color: #2ecc71;
 }
 
@@ -264,7 +265,8 @@
 }
 
 /* Keep fully visible if playing */
-.station-item.is-playing .play-btn {
+.station-item.is-playing .play-btn,
+.selected-item.is-playing .play-btn {
     opacity: 1;
     color: var(--accent);
 }
@@ -303,11 +305,13 @@
 }
 
 /* Toggle icons based on parent class */
-.station-card.is-playing .icon-pause {
+.station-card.is-playing .icon-pause,
+.selected-item.is-playing .icon-pause {
     display: block;
 }
 
-.station-card.is-playing .icon-play {
+.station-card.is-playing .icon-play,
+.selected-item.is-playing .icon-play {
     display: none;
 }
 

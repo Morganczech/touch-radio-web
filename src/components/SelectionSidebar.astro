@@ -126,6 +126,30 @@
     :global(.selected-item-meta) {
         font-size: 0.75rem;
         color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    :global(.sidebar-play-btn) {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        line-height: 0;
+        color: var(--muted);
+        opacity: 0.7;
+        transition:
+            opacity 0.2s,
+            transform 0.2s,
+            color 0.2s;
+    }
+
+    :global(.sidebar-play-btn:hover) {
+        opacity: 1;
+        transform: scale(1.1);
+        color: var(--accent);
     }
 
     :global(.remove-btn) {

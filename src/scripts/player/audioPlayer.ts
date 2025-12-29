@@ -38,6 +38,13 @@ export function stopPlayback(isError = false) {
                 }
             }
         }
+
+        // Also update sidebar items
+        const sidebarItem = document.querySelector(`.selected-item.is-playing`);
+        if (sidebarItem) {
+            sidebarItem.classList.remove("is-playing");
+        }
+
         appState.currentPlayingId = null;
     }
 }

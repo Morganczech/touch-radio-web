@@ -57,11 +57,11 @@ audioPlayer.addEventListener("ended", () => {
     stopPlayback();
 });
 
-export function handlePlayButtonClick(e: Event) {
+export function handlePlayButtonClick(e: Event, explicitButton?: HTMLElement) {
     e.preventDefault();
     e.stopPropagation(); // Prevent card click (selection)
 
-    const button = e.currentTarget as HTMLButtonElement;
+    const button = (explicitButton || e.currentTarget) as HTMLButtonElement;
     const streamUrl = button.dataset.stream;
     const id = button.dataset.id;
 

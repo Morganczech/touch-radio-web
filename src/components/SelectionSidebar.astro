@@ -2,7 +2,73 @@
 
 ---
 
-<aside class="selection-panel">
+<!-- Floating Action Button (Mobile only) -->
+<button id="selection-fab" class="selection-fab" aria-label="Open selection">
+    <span class="fab-icon">🎵</span>
+    <span id="fab-count" class="fab-count">0</span>
+</button>
+
+<!-- Modal Overlay (Mobile only) -->
+<div id="selection-modal" class="selection-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+        <button id="close-modal-btn" class="close-modal-btn" aria-label="Close"
+            >✕</button
+        >
+        <aside class="selection-panel modal-panel">
+            <div class="selection-header">
+                <h3>My Selection (<span id="selection-count">0</span>)</h3>
+            </div>
+            <button
+                id="clear-all-btn"
+                class="clear-all-btn modal-clear-btn"
+                disabled
+                title="Remove all stations from selection">Clear All</button
+            >
+            <div id="selection-list" class="selection-list">
+                <p class="empty-state">No stations selected</p>
+            </div>
+            <div class="export-actions">
+                <button
+                    id="share-playlist-btn"
+                    disabled
+                    class="sidebar-btn share-btn"
+                    title="Share this playlist with others"
+                    >🔗 Share Playlist</button
+                >
+                <button
+                    id="export-btn"
+                    disabled
+                    class="sidebar-btn"
+                    title="Export selected stations in Touch Radio JSON format"
+                    >Export JSON</button
+                >
+                <button
+                    id="export-m3u-btn"
+                    disabled
+                    class="sidebar-btn"
+                    title="Export playlist in M3U format">Export M3U</button
+                >
+                <button
+                    id="export-m3u8-btn"
+                    disabled
+                    class="sidebar-btn"
+                    title="Export playlist in UTF-8 encoded M3U8 format"
+                    >Export M3U8 (UTF-8)</button
+                >
+                <button
+                    id="export-pls-btn"
+                    disabled
+                    class="sidebar-btn"
+                    title="Export playlist in PLS format">Export PLS</button
+                >
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- Desktop Sidebar -->
+<aside class="selection-panel desktop-panel">
     <div class="selection-header">
         <h3>My Selection (<span id="selection-count">0</span>)</h3>
         <button
@@ -97,6 +163,186 @@
     .clear-all-btn:disabled {
         opacity: 0.3;
         cursor: not-allowed;
+    }
+
+    .modal-clear-btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.02);
+    }
+
+    [data-theme="dark"] .modal-clear-btn {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .modal-clear-btn:hover:not(:disabled) {
+        background: rgba(231, 76, 60, 0.1);
+        border-color: #e74c3c;
+    }
+
+    /* ========================================
+       FLOATING ACTION BUTTON (Mobile)
+       ======================================== */
+    .selection-fab {
+        display: none; /* Hidden on desktop */
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: var(--bg);
+        border: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        z-index: 999;
+        transition:
+            transform 0.2s,
+            box-shadow 0.2s;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+    }
+
+    .selection-fab:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .selection-fab:active {
+        transform: scale(0.95);
+    }
+
+    .fab-icon {
+        font-size: 1.5rem;
+        line-height: 1;
+    }
+
+    .fab-count {
+        font-size: 0.75rem;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    /* Hide FAB when no selection */
+    .selection-fab.hidden {
+        display: none;
+    }
+
+    /* ========================================
+       MODAL (Mobile)
+       ======================================== */
+    .selection-modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+    }
+
+    .selection-modal.open {
+        display: block;
+    }
+
+    .modal-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-height: 85vh;
+        background: var(--bg);
+        border-radius: 20px 20px 0 0;
+        animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideDown {
+        from {
+            transform: translateY(0);
+        }
+        to {
+            transform: translateY(100%);
+        }
+    }
+
+    .modal-content.closing {
+        animation: slideDown 0.3s ease-out forwards;
+    }
+
+    .close-modal-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--muted);
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        z-index: 10;
+        transition: color 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .close-modal-btn:hover {
+        color: var(--text);
+    }
+
+    .modal-panel {
+        width: 100%;
+        max-height: 85vh;
+        position: static;
+        border: none;
+        border-radius: 0;
+    }
+
+    /* Desktop sidebar - hidden on mobile */
+    .desktop-panel {
+        display: block;
+    }
+
+    @media (max-width: 1024px) {
+        /* Hide desktop sidebar */
+        .desktop-panel {
+            display: none;
+        }
+
+        /* Show FAB */
+        .selection-fab {
+            display: flex;
+        }
     }
 
     .selection-list {

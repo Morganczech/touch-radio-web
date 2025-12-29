@@ -41,6 +41,20 @@ export function updateUI() {
         }
     });
 
+    // Update FAB (Mobile)
+    const fabCount = document.getElementById("fab-count");
+    const fab = document.getElementById("selection-fab");
+    if (fabCount) {
+        fabCount.textContent = count.toString();
+    }
+    if (fab) {
+        if (count === 0) {
+            fab.classList.add("hidden");
+        } else {
+            fab.classList.remove("hidden");
+        }
+    }
+
     // Update Selection Panel
     const selectionList = document.getElementById("selection-list");
     if (selectionList) {
@@ -244,5 +258,40 @@ export function initSelection() {
             plsContent += "Version=2\n";
             downloadFile(plsContent, "selected_stations.pls", "text/plain");
         });
+    }
+
+    // Mobile Modal Controls
+    const fab = document.getElementById("selection-fab");
+    const modal = document.getElementById("selection-modal");
+    const closeModalBtn = document.getElementById("close-modal-btn");
+    const modalBackdrop = modal?.querySelector(".modal-backdrop");
+
+    if (fab && modal) {
+        fab.addEventListener("click", () => {
+            modal.classList.add("open");
+            document.body.style.overflow = "hidden"; // Prevent background scroll
+        });
+    }
+
+
+    // Helper function for smooth modal closing
+    const closeModal = () => {
+        const modalContent = modal?.querySelector(".modal-content");
+        if (modalContent && modal) {
+            modalContent.classList.add("closing");
+            setTimeout(() => {
+                modal.classList.remove("open");
+                modalContent.classList.remove("closing");
+                document.body.style.overflow = ""; // Restore scroll
+            }, 300); // Match animation duration
+        }
+    };
+
+    if (closeModalBtn && modal) {
+        closeModalBtn.addEventListener("click", closeModal);
+    }
+
+    if (modalBackdrop && modal) {
+        modalBackdrop.addEventListener("click", closeModal);
     }
 }

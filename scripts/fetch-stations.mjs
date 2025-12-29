@@ -28,7 +28,7 @@ async function getBaseUrl() {
 
 async function fetchStations() {
     const baseUrl = await getBaseUrl();
-    const url = `${baseUrl}/json/stations/topvote/50`;
+    const url = `${baseUrl}/json/stations/topvote/5000`;
 
     console.log(`Fetching stations from ${url}...`);
     try {

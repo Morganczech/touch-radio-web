@@ -803,17 +803,6 @@
     ]
   },
   {
-    "id": "d9fc29b8-b152-11e8-afe1-52543be04c81",
-    "name": "France Inter",
-    "streamUrl": "http://direct.franceinter.fr/live/franceinter-midfi.mp3",
-    "country": "France",
-    "codec": "MP3",
-    "bitrate": 128,
-    "homepage": "https://www.franceinter.fr/",
-    "favicon": "",
-    "tags": []
-  },
-  {
     "id": "964fade0-0601-11e8-ae97-52543be04c81",
     "name": "Ретро FM",
     "streamUrl": "http://retroserver.streamr.ru:8043/retro256.mp3",
@@ -831,5 +820,16 @@
       "russia",
       "russian pop"
     ]
+  },
+  {
+    "id": "d9fc29b8-b152-11e8-afe1-52543be04c81",
+    "name": "France Inter",
+    "streamUrl": "http://direct.franceinter.fr/live/franceinter-midfi.mp3",
+    "country": "France",
+    "codec": "MP3",
+    "bitrate": 128,
+    "homepage": "https://www.franceinter.fr/",
+    "favicon": "",
+    "tags": []
   }
 ]

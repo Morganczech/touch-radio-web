@@ -22,6 +22,8 @@ export function updateUI() {
     }
 
     const buttons = [
+        document.getElementById("clear-all-btn"),
+        document.getElementById("share-playlist-btn"),
         document.getElementById("export-btn"),
         document.getElementById("export-m3u-btn"),
         document.getElementById("export-m3u8-btn"),
@@ -126,6 +128,50 @@ export function updateUI() {
 }
 
 export function initSelection() {
+    // Clear All button
+    const clearAllBtn = document.getElementById("clear-all-btn");
+    if (clearAllBtn) {
+        clearAllBtn.addEventListener("click", () => {
+            // Stop playback if any station is playing
+            if (appState.currentPlayingId) {
+                stopPlayback();
+            }
+
+            // Clear all selections
+            appState.selectedIds.clear();
+
+            // Uncheck all checkboxes
+            document.querySelectorAll('.station-checkbox:checked').forEach((checkbox) => {
+                (checkbox as HTMLInputElement).checked = false;
+            });
+
+            // Update UI
+            updateUI();
+        });
+    }
+
+    // Share Playlist button
+    const shareBtn = document.getElementById("share-playlist-btn");
+    if (shareBtn) {
+        shareBtn.addEventListener("click", async () => {
+            const { sharePlaylist } = await import("../utils/sharePlaylist");
+            const { showToast } = await import("../utils/toast");
+
+            try {
+                const success = await sharePlaylist();
+                if (success) {
+                    showToast("✓ Link copied to clipboard!");
+                }
+            } catch (error) {
+                if (error instanceof Error) {
+                    showToast("⚠ " + error.message);
+                } else {
+                    showToast("⚠ Failed to share playlist");
+                }
+            }
+        });
+    }
+
     const exportBtn = document.getElementById("export-btn");
     if (exportBtn) {
         exportBtn.addEventListener("click", () => {

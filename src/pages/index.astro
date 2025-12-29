@@ -96,11 +96,41 @@ const uniqueCodecs = [
 	// Initialize State Source of Truth
 	appState.allStations = stationsRaw.filter((s: any) => !s.broken);
 
-	document.addEventListener("DOMContentLoaded", () => {
+	document.addEventListener("DOMContentLoaded", async () => {
 		initStations();
 		initSelection();
 		initDiscoveryBadges();
 		initSearchPlaceholder();
+
+		// Load shared playlist from URL if present
+		const { parseShareUrl } = await import(
+			"../scripts/utils/sharePlaylist"
+		);
+		const { showToast } = await import("../scripts/utils/toast");
+
+		const sharedIds = parseShareUrl();
+		if (sharedIds && sharedIds.length > 0) {
+			// Validate that all IDs exist in our stations
+			const validIds = sharedIds.filter((id) =>
+				appState.allStations.some((s) => s.id === id),
+			);
+
+			if (validIds.length > 0) {
+				// Add to selection
+				validIds.forEach((id) => appState.selectedIds.add(id));
+
+				// Show feedback
+				showToast(
+					`✓ Loaded ${validIds.length} station${validIds.length !== 1 ? "s" : ""} from shared playlist`,
+				);
+
+				// Clean URL (remove playlist param)
+				const url = new URL(window.location.href);
+				url.searchParams.delete("playlist");
+				window.history.replaceState({}, "", url.toString());
+			}
+		}
+
 		updateUI();
 	});
 </script>

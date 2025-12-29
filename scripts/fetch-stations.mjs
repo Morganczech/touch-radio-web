@@ -28,27 +28,62 @@ async function getBaseUrl() {
 
 async function fetchStations() {
     const baseUrl = await getBaseUrl();
-    const url = `${baseUrl}/json/stations/topvote/5000`;
 
-    console.log(`Fetching stations from ${url}...`);
     try {
-        const response = await fetch(url, {
+        // Fetch top voted stations
+        const votedUrl = `${baseUrl}/json/stations/topvote/5000`;
+        console.log(`Fetching top voted stations from ${votedUrl}...`);
+        const votedResponse = await fetch(votedUrl, {
             headers: {
                 'User-Agent': 'touch-radio-web/0.0.1'
             }
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        if (!votedResponse.ok) {
+            throw new Error(`HTTP error! status: ${votedResponse.status}`);
         }
 
-        const data = await response.json();
-        console.log(`Fetched ${data.length} stations.`);
+        const votedData = await votedResponse.json();
+        console.log(`Fetched ${votedData.length} top voted stations.`);
+
+        // Fetch top clicked stations
+        const clickedUrl = `${baseUrl}/json/stations/topclick/5000`;
+        console.log(`Fetching top clicked stations from ${clickedUrl}...`);
+        const clickedResponse = await fetch(clickedUrl, {
+            headers: {
+                'User-Agent': 'touch-radio-web/0.0.1'
+            }
+        });
+
+        if (!clickedResponse.ok) {
+            throw new Error(`HTTP error! status: ${clickedResponse.status}`);
+        }
+
+        const clickedData = await clickedResponse.json();
+        console.log(`Fetched ${clickedData.length} top clicked stations.`);
+
+        // Merge and deduplicate by stationuuid
+        const stationMap = new Map();
+
+        // Add voted stations first (they have priority)
+        votedData.forEach(station => {
+            stationMap.set(station.stationuuid, station);
+        });
+
+        // Add clicked stations (only if not already present)
+        clickedData.forEach(station => {
+            if (!stationMap.has(station.stationuuid)) {
+                stationMap.set(station.stationuuid, station);
+            }
+        });
+
+        const mergedData = Array.from(stationMap.values());
+        console.log(`Merged to ${mergedData.length} unique stations (removed ${votedData.length + clickedData.length - mergedData.length} duplicates).`);
 
         // Ensure directory exists
         await fs.mkdir(DATA_DIR, { recursive: true });
 
-        await fs.writeFile(OUTPUT_FILE, JSON.stringify(data, null, 2), 'utf-8');
+        await fs.writeFile(OUTPUT_FILE, JSON.stringify(mergedData, null, 2), 'utf-8');
         console.log(`Saved to ${OUTPUT_FILE}`);
 
     } catch (error) {

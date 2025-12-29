@@ -2,35 +2,35 @@ import { appState } from "../state/appState";
 
 export const audioPlayer = new Audio();
 
-export function stopPlayback(isError = false) {
-    audioPlayer.pause();
-    audioPlayer.src = "";
+// Helper to update UI state for a specific station ID
+function updateUIState(id: string, isPlaying: boolean, isError = false) {
+    // Find all play buttons for this ID (in grid AND sidebar(s))
+    const buttons = document.querySelectorAll(
+        `.play-btn[data-id="${id}"]`
+    );
 
-    if (appState.currentPlayingId) {
-        // Find the button by ID since references might be stale if re-rendered
-        const btn = document.querySelector(`.play-btn[data-id="${appState.currentPlayingId}"]`);
-        if (btn) {
-            const stationCard = btn.closest(".station-card");
-            if (stationCard) {
+    buttons.forEach((btn) => {
+        // Handle Station Cards (Grid)
+        const stationCard = btn.closest(".station-card");
+        if (stationCard) {
+            if (isPlaying) {
+                stationCard.classList.add("is-playing");
+                stationCard.classList.remove("is-error");
+            } else {
                 stationCard.classList.remove("is-playing");
                 if (isError) {
                     stationCard.classList.add("is-error");
-                    // Wait 2.5s showing the error state
+                    // Error animation sequence
                     setTimeout(() => {
-                        // Start fade out
                         stationCard.classList.add("is-fading-out");
-                        // After animation (300ms), remove from flow
                         setTimeout(() => {
                             const stationItem = stationCard.closest("li.station-item");
                             if (stationItem) {
-                                // Remove from selection if present
                                 const checkbox = stationCard.querySelector(".station-checkbox") as HTMLInputElement;
                                 if (checkbox && checkbox.checked) {
                                     checkbox.checked = false;
-                                    // Dispatch event so selection manager updates UI
                                     checkbox.dispatchEvent(new Event("change"));
                                 }
-                                // Permanently remove from DOM
                                 stationItem.remove();
                             }
                         }, 300);
@@ -39,12 +39,25 @@ export function stopPlayback(isError = false) {
             }
         }
 
-        // Also update sidebar items
-        const sidebarItem = document.querySelector(`.selected-item.is-playing`);
+        // Handle Sidebar Items (Selection)
+        // Note: Sidebar buttons have class .sidebar-play-btn and are inside .selected-item
+        const sidebarItem = btn.closest(".selected-item");
         if (sidebarItem) {
-            sidebarItem.classList.remove("is-playing");
+            if (isPlaying) {
+                sidebarItem.classList.add("is-playing");
+            } else {
+                sidebarItem.classList.remove("is-playing");
+            }
         }
+    });
+}
 
+export function stopPlayback(isError = false) {
+    audioPlayer.pause();
+    audioPlayer.src = "";
+
+    if (appState.currentPlayingId) {
+        updateUIState(appState.currentPlayingId, false, isError);
         appState.currentPlayingId = null;
     }
 }
@@ -65,18 +78,16 @@ export function handlePlayButtonClick(e: Event, explicitButton?: HTMLElement) {
     const streamUrl = button.dataset.stream;
     const id = button.dataset.id;
 
+    if (!id || !streamUrl) return;
+
     if (appState.currentPlayingId === id) {
         // Toggle Pause
         if (audioPlayer.paused) {
-            // Clear any previous error state
-            const stationCard = button.closest(".station-card");
-            if (stationCard) stationCard.classList.remove("is-error");
-
             audioPlayer.play().catch((err) => {
                 console.error("Playback failed", err);
                 stopPlayback(true);
             });
-            if (stationCard) stationCard.classList.add("is-playing");
+            updateUIState(id, true);
         } else {
             stopPlayback();
         }
@@ -85,20 +96,14 @@ export function handlePlayButtonClick(e: Event, explicitButton?: HTMLElement) {
         stopPlayback();
 
         // Play new
-        if (streamUrl && id) {
-            appState.currentPlayingId = id;
-            audioPlayer.src = streamUrl;
+        appState.currentPlayingId = id;
+        audioPlayer.src = streamUrl;
 
-            // Clear any previous error state on new item
-            const stationCard = button.closest(".station-card");
-            if (stationCard) stationCard.classList.remove("is-error");
+        audioPlayer.play().catch((err) => {
+            console.error("Playback failed", err);
+            stopPlayback(true);
+        });
 
-            audioPlayer.play().catch((err) => {
-                console.error("Playback failed", err);
-                stopPlayback(true);
-            });
-
-            if (stationCard) stationCard.classList.add("is-playing");
-        }
+        updateUIState(id, true);
     }
 }

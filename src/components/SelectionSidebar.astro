@@ -507,6 +507,9 @@
             order: -1;
             width: 52px;
             height: 52px;
+            min-width: 52px;
+            flex: 0 0 52px;
+            aspect-ratio: 1;
             margin-right: 0.75rem;
             border-radius: 50%;
             background: var(--accent);
@@ -514,9 +517,26 @@
             opacity: 1;
         }
 
+        :global(.mobile-selected-item .sidebar-play-btn .icon-play) {
+            display: block;
+        }
+
+        :global(.mobile-selected-item .sidebar-play-btn .icon-pause) {
+            display: none;
+        }
+
+        :global(.mobile-selected-item.is-playing .sidebar-play-btn .icon-play) {
+            display: none;
+        }
+
+        :global(.mobile-selected-item.is-playing .sidebar-play-btn .icon-pause) {
+            display: block;
+        }
+
         :global(.mobile-selected-item .sidebar-play-btn .svg-icon) {
             width: 28px;
             height: 28px;
+            flex: 0 0 28px;
         }
 
         :global(.mobile-selected-item .remove-btn) {

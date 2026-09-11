@@ -9,6 +9,7 @@ A minimalist web radio player that lets you discover and play thousands of radio
 - 🌍 **7,000+ Radio Stations** - Worldwide coverage with diverse genres
 - 🔍 **Smart Search** - Intelligent filtering by genre, country, codec, and bitrate
 - 📻 **Live Preview** - Play stations directly in your browser
+- 💾 **Persistent Selection** - Selected stations are saved in local storage and restored after page reloads
 - 💾 **Playlist Export** - Export your selection in M3U, M3U8, PLS, or JSON formats
 - 🔗 **Share Playlists** - Share your curated station lists with friends
 - 🎨 **Dark Mode** - Automatic theme switching
@@ -91,7 +92,7 @@ touch-radio-web/
 ### Playlist Management
 
 1. Click the heart icon on station cards to add to "My Selection"
-2. View selected stations in the sidebar
+2. View selected stations in the sidebar; your selection remains available after refreshing the page
 3. Export your playlist:
    - **M3U/M3U8** - For VLC, Winamp, iTunes
    - **PLS** - For older players

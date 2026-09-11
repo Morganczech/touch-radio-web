@@ -133,22 +133,23 @@
                 id="toplistcz1842519"
                 title="TOPlist"
             >
-                <noscript>
-                    <img
-                        src="https://toplist.cz/count.asp?id=1842519&logo=2&njs=1"
-                        border="0"
-                        alt="TOPlist"
-                        width="88"
-                        height="31"
-                    />
-                </noscript>
+                <img
+                    id="toplistcz1842519-image"
+                    src="https://toplist.cz/count.asp?id=1842519&logo=2"
+                    border="0"
+                    alt="TOPlist"
+                    width="88"
+                    height="31"
+                />
                 <script is:inline>
                     ((d, e, s) => {
-                        const counter = d.getElementById("toplistcz1842519");
-                        if (!counter) return;
+                        const image = d.getElementById(
+                            "toplistcz1842519-image",
+                        );
+                        if (!image) return;
 
-                        counter.innerHTML =
-                            '<img src="https://toplist.cz/count.asp?id=1842519&logo=2&http=' +
+                        image.src =
+                            "https://toplist.cz/count.asp?id=1842519&logo=2&http=" +
                             e(d.referrer) +
                             "&t=" +
                             e(d.title) +
@@ -159,8 +160,7 @@
                             "&he=" +
                             e(s.height) +
                             "&cd=" +
-                            e(s.colorDepth) +
-                            '" width="88" height="31" border="0" alt="TOPlist" />';
+                            e(s.colorDepth);
                     })(document, encodeURIComponent, window.screen);
                 </script>
             </a>

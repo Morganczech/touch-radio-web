@@ -1,0 +1,44 @@
+name: Update Stations
+
+on:
+  schedule:
+    # Run weekly on Sunday at 04:00 UTC.
+    - cron: "0 4 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-stations
+  cancel-in-progress: false
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch latest stations
+        run: npm run fetch:stations
+
+      - name: Normalize station data
+        run: npm run normalize:stations
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "chore(data): update stations list"
+          file_pattern: "src/data/*.json public/stations.json"
+          branch: main

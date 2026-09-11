@@ -195,8 +195,6 @@ export function updateUI() {
             selectionList.querySelectorAll(".sidebar-play-btn").forEach((btn) => {
                 btn.addEventListener("click", (e) => {
                     handlePlayButtonClick(e);
-                    // Re-render to update playing state
-                    updateUI();
                 });
             });
         }

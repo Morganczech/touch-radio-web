@@ -1,6 +1,8 @@
 import { appState } from "../state/appState";
+import { showToast } from "../utils/toast";
 
 export const audioPlayer = new Audio();
+audioPlayer.preload = "none";
 
 // Helper to update UI state for a specific station ID
 function updateUIState(id: string, isPlaying: boolean, isError = false) {
@@ -65,6 +67,7 @@ export function stopPlayback(isError = false) {
 // Handle audio errors/end
 audioPlayer.addEventListener("error", () => {
     stopPlayback(true);
+    showToast("Stanice není dostupná.");
 });
 audioPlayer.addEventListener("ended", () => {
     stopPlayback();
@@ -83,11 +86,12 @@ export function handlePlayButtonClick(e: Event, explicitButton?: HTMLElement) {
     if (appState.currentPlayingId === id) {
         // Toggle Pause
         if (audioPlayer.paused) {
+            updateUIState(id, true);
             audioPlayer.play().catch((err) => {
                 console.error("Playback failed", err);
                 stopPlayback(true);
+                showToast("Stanici se nepodařilo přehrát.");
             });
-            updateUIState(id, true);
         } else {
             stopPlayback();
         }
@@ -98,12 +102,12 @@ export function handlePlayButtonClick(e: Event, explicitButton?: HTMLElement) {
         // Play new
         appState.currentPlayingId = id;
         audioPlayer.src = streamUrl;
+        updateUIState(id, true);
 
         audioPlayer.play().catch((err) => {
             console.error("Playback failed", err);
             stopPlayback(true);
+            showToast("Stanici se nepodařilo přehrát.");
         });
-
-        updateUIState(id, true);
     }
 }

@@ -3,7 +3,7 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20.15.1"
+  NODE_VERSION = "22.12.0"
   NPM_FLAGS = "--no-audit"
 
 [[headers]]

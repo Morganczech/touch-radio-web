@@ -100,6 +100,12 @@ export function updateUI() {
             selectedStations.forEach((station: any) => {
                 const item = document.createElement("div");
                 item.className = "selected-item";
+                if (selectionList.id === "selection-list-mobile") {
+                    item.classList.add("mobile-selected-item");
+                    item.setAttribute("role", "button");
+                    item.setAttribute("tabindex", "0");
+                    item.setAttribute("aria-label", `Play ${station.name}`);
+                }
                 const flag = getFlag(station.country);
                 const isPlaying = appState.currentPlayingId === station.id;
                 if (isPlaying) {
@@ -131,6 +137,31 @@ export function updateUI() {
             `;
                 selectionList.appendChild(item);
             });
+
+            if (selectionList.id === "selection-list-mobile") {
+                selectionList.querySelectorAll(".mobile-selected-item").forEach((item) => {
+                    const stationItem = item as HTMLElement;
+                    const playButton = stationItem.querySelector(
+                        ".sidebar-play-btn",
+                    ) as HTMLElement | null;
+                    if (!playButton) return;
+
+                    const playStation = (event: Event) => {
+                        handlePlayButtonClick(event, playButton);
+                    };
+                    stationItem.addEventListener("click", (event) => {
+                        const target = event.target as HTMLElement;
+                        if (target.closest("button")) return;
+                        playStation(event);
+                    });
+                    stationItem.addEventListener("keydown", (event) => {
+                        if (event instanceof KeyboardEvent && (event.key === "Enter" || event.key === " ")) {
+                            event.preventDefault();
+                            playStation(event);
+                        }
+                    });
+                });
+            }
 
             // Add event listeners for remove buttons within this specific list
             selectionList.querySelectorAll(".remove-btn").forEach((btn) => {

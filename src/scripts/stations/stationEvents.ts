@@ -1,5 +1,5 @@
 import { appState } from "../state/appState";
-import { updateUI } from "../selection/selectionManager";
+import { persistSelection, updateUI } from "../selection/selectionManager";
 import { handlePlayButtonClick } from "../player/audioPlayer";
 
 // Track if listeners are attached to avoid duplicates
@@ -33,6 +33,7 @@ export function attachDynamicListeners() {
                 } else {
                     appState.selectedIds.delete(id);
                 }
+                persistSelection();
                 updateUI();
             }
         });

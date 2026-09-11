@@ -2,6 +2,35 @@ import { appState } from "../state/appState";
 import { getFlag } from "../utils/flags";
 import { handlePlayButtonClick, stopPlayback } from "../player/audioPlayer";
 
+const SELECTION_STORAGE_KEY = "touch-radio-selection";
+
+export function loadSelection() {
+    try {
+        const storedSelection = localStorage.getItem(SELECTION_STORAGE_KEY);
+        if (!storedSelection) return;
+
+        const selectedIds = JSON.parse(storedSelection);
+        if (Array.isArray(selectedIds)) {
+            selectedIds
+                .filter((id): id is string => typeof id === "string")
+                .forEach((id) => appState.selectedIds.add(id));
+        }
+    } catch (error) {
+        console.warn("Could not load saved station selection:", error);
+    }
+}
+
+export function persistSelection() {
+    try {
+        localStorage.setItem(
+            SELECTION_STORAGE_KEY,
+            JSON.stringify(Array.from(appState.selectedIds)),
+        );
+    } catch (error) {
+        console.warn("Could not save station selection:", error);
+    }
+}
+
 export function downloadFile(content: string, filename: string, type: string) {
     const blob = new Blob([content], { type: type });
     const url = URL.createObjectURL(blob);
@@ -116,6 +145,7 @@ export function updateUI() {
 
                         // Update State
                         appState.selectedIds.delete(idToRemove);
+                        persistSelection();
 
                         // Update UI (Recursive call effectively)
                         updateUI();
@@ -144,6 +174,8 @@ export function updateUI() {
 }
 
 export function initSelection() {
+    loadSelection();
+
     // Clear All buttons
     document.querySelectorAll(".js-clear-all-btn").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -154,6 +186,7 @@ export function initSelection() {
 
             // Clear all selections
             appState.selectedIds.clear();
+            persistSelection();
 
             // Uncheck all checkboxes
             document.querySelectorAll('.station-checkbox:checked').forEach((checkbox) => {

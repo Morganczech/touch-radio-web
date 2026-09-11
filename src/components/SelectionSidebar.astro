@@ -36,11 +36,13 @@
             >
                 <p class="empty-state">No stations selected</p>
             </div>
-            <div class="export-actions">
+            <details class="mobile-more-actions">
+                <summary>More actions</summary>
+                <div class="export-actions">
                 <button
                     id="share-playlist-btn-mobile"
                     disabled
-                    class="sidebar-btn share-btn js-share-playlist-btn"
+                    class="sidebar-btn share-btn mobile-share-btn js-share-playlist-btn"
                     title="Share this playlist with others"
                     >🔗 Share Playlist</button
                 >
@@ -68,9 +70,10 @@
                     id="export-pls-btn-mobile"
                     disabled
                     class="sidebar-btn js-export-pls-btn"
-                    title="Export playlist in PLS format">Export PLS</button
+                    title="Export playlist in PLS format">                    Export PLS</button
                 >
-            </div>
+                </div>
+            </details>
         </aside>
     </div>
 </div>
@@ -409,6 +412,10 @@
         border: 1px solid var(--border);
     }
 
+    .mobile-more-actions {
+        display: none;
+    }
+
     :global([data-theme="dark"] .selected-item) {
         background: rgba(255, 255, 255, 0.05);
     }
@@ -455,6 +462,77 @@
             opacity 0.2s,
             transform 0.2s,
             color 0.2s;
+    }
+
+    @media (max-width: 1024px) {
+        .mobile-more-actions {
+            display: block;
+            margin-top: 0.75rem;
+            border-top: 1px solid var(--border);
+            padding-top: 0.75rem;
+        }
+
+        .mobile-more-actions summary {
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            text-align: center;
+            user-select: none;
+        }
+
+        .mobile-more-actions .export-actions {
+            margin-top: 0.25rem;
+            padding-top: 0.5rem;
+            border-top: 0;
+        }
+
+        .mobile-share-btn {
+            display: none;
+        }
+
+        :global(.mobile-selected-item) {
+            min-height: 64px;
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        :global(.mobile-selected-item:focus-visible) {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        :global(.mobile-selected-item .sidebar-play-btn) {
+            order: -1;
+            width: 52px;
+            height: 52px;
+            margin-right: 0.75rem;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--bg);
+            opacity: 1;
+        }
+
+        :global(.mobile-selected-item .sidebar-play-btn .svg-icon) {
+            width: 28px;
+            height: 28px;
+        }
+
+        :global(.mobile-selected-item .remove-btn) {
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            font-size: 1.25rem;
+        }
+
+        :global(.mobile-selected-item .selected-item-name) {
+            font-size: 1rem;
+        }
+
+        :global(.mobile-selected-item .selected-item-meta) {
+            font-size: 0.8rem;
+        }
     }
 
     :global(.sidebar-play-btn:hover) {

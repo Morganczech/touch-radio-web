@@ -4,6 +4,18 @@ import { showToast } from "../utils/toast";
 export const audioPlayer = new Audio();
 audioPlayer.preload = "none";
 
+function updatePlaybackIcon(id: string, isPlaying: boolean) {
+    const buttons = document.querySelectorAll(`.play-btn[data-id="${id}"]`);
+    buttons.forEach((button) => {
+        const icon = button.querySelector(".selection-control-icon");
+        if (!icon) return;
+
+        icon.innerHTML = isPlaying
+            ? '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>'
+            : '<path d="M8 5v14l11-7z"></path>';
+    });
+}
+
 // Helper to update UI state for a specific station ID
 function updateUIState(id: string, isPlaying: boolean, isError = false) {
     // Find all play buttons for this ID (in grid AND sidebar(s))
@@ -52,6 +64,8 @@ function updateUIState(id: string, isPlaying: boolean, isError = false) {
             }
         }
     });
+
+    updatePlaybackIcon(id, isPlaying);
 }
 
 export function stopPlayback(isError = false) {

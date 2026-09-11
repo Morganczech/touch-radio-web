@@ -13,7 +13,7 @@ A minimalist web radio player that lets you discover and play thousands of radio
 - 🔗 **Share Playlists** - Share your curated station lists with friends
 - 🎨 **Dark Mode** - Automatic theme switching
 - 📱 **Responsive Design** - Works seamlessly on desktop and mobile
-- 🚫 **No Tracking** - Privacy-first, no analytics, no ads
+- 📊 **Privacy-conscious Analytics** - Cookie-free TOPlist visitor counting, no ads
 - ⚡ **Fast & Lightweight** - Static site generation for instant loading
 - 🌐 **PWA Ready** - Install as a standalone app
 

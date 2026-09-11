@@ -127,6 +127,45 @@
             </div>
         </div>
 
+        <div class="toplist-counter">
+            <a
+                href="https://www.toplist.cz"
+                id="toplistcz1842519"
+                title="TOPlist"
+            >
+                <noscript>
+                    <img
+                        src="https://toplist.cz/count.asp?id=1842519&logo=2&njs=1"
+                        border="0"
+                        alt="TOPlist"
+                        width="88"
+                        height="31"
+                    />
+                </noscript>
+                <script is:inline>
+                    ((d, e, s) => {
+                        const counter = d.getElementById("toplistcz1842519");
+                        if (!counter) return;
+
+                        counter.innerHTML =
+                            '<img src="https://toplist.cz/count.asp?id=1842519&logo=2&http=' +
+                            e(d.referrer) +
+                            "&t=" +
+                            e(d.title) +
+                            "&l=" +
+                            e(d.URL) +
+                            "&wi=" +
+                            e(s.width) +
+                            "&he=" +
+                            e(s.height) +
+                            "&cd=" +
+                            e(s.colorDepth) +
+                            '" width="88" height="31" border="0" alt="TOPlist" />';
+                    })(document, encodeURIComponent, window.screen);
+                </script>
+            </a>
+        </div>
+
         <div class="footer-info">
             <p class="footer-text">
                 Touch Radio &copy; {new Date().getFullYear()} • Open Source Project
@@ -271,6 +310,12 @@
         text-align: center;
         padding-top: 2rem;
         border-top: 1px solid var(--border);
+    }
+
+    .toplist-counter {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
     }
 
     .footer-text {

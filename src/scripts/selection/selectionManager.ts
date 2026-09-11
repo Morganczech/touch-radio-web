@@ -123,11 +123,10 @@ export function updateUI() {
                             title="Preview station"
                         >
                             <span class="play-icon-container">
-                                <svg class="svg-icon icon-play" viewBox="0 0 24 24" width="20" height="20">
-                                    <path d="M8 5v14l11-7z"></path>
-                                </svg>
-                                <svg class="svg-icon icon-pause" viewBox="0 0 24 24" width="20" height="20">
-                                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+                                <svg class="svg-icon selection-control-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    ${isPlaying
+                                        ? '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>'
+                                        : '<path d="M8 5v14l11-7z"></path>'}
                                 </svg>
                             </span>
                         </button>

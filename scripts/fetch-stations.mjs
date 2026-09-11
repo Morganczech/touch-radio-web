@@ -1,65 +1,53 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import dns from 'node:dns/promises';
 
 // Helper to get current directory in ESM
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.resolve(__dirname, '../src/data');
 const OUTPUT_FILE = path.join(DATA_DIR, 'stations.json');
+const API_BASE_URLS = [
+    'https://all.api.radio-browser.info',
+    'https://de1.api.radio-browser.info',
+];
 
-async function getBaseUrl() {
-    try {
-        // Resolve the list of available servers
-        const addresses = await dns.resolve4('all.api.radio-browser.info');
-        if (!addresses || addresses.length === 0) {
-            throw new Error('No servers found');
+async function fetchStationsFromEndpoint(pathname) {
+    let lastError;
+
+    for (const baseUrl of API_BASE_URLS) {
+        const url = `${baseUrl}${pathname}`;
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    'User-Agent': 'touch-radio-web/0.0.1'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            console.log(`Fetched data from ${baseUrl}`);
+            return response.json();
+        } catch (error) {
+            lastError = error;
+            console.warn(`Request to ${baseUrl} failed: ${error.message}`);
         }
-        // Pick a random server
-        const ip = addresses[Math.floor(Math.random() * addresses.length)];
-        console.log(`Resolved API server IP: ${ip}`);
-        // Use HTTP with IP as fallback if hostnames fail
-        return `http://${ip}`;
-    } catch (error) {
-        console.warn('DNS resolution failed, falling back to de1 mirror:', error.message);
-        return 'https://de1.api.radio-browser.info';
     }
+
+    throw lastError;
 }
 
 async function fetchStations() {
-    const baseUrl = await getBaseUrl();
-
     try {
         // Fetch top voted stations
-        const votedUrl = `${baseUrl}/json/stations/topvote/7500`;
-        console.log(`Fetching top voted stations from ${votedUrl}...`);
-        const votedResponse = await fetch(votedUrl, {
-            headers: {
-                'User-Agent': 'touch-radio-web/0.0.1'
-            }
-        });
-
-        if (!votedResponse.ok) {
-            throw new Error(`HTTP error! status: ${votedResponse.status}`);
-        }
-
-        const votedData = await votedResponse.json();
+        console.log('Fetching top voted stations...');
+        const votedData = await fetchStationsFromEndpoint('/json/stations/topvote/7500');
         console.log(`Fetched ${votedData.length} top voted stations.`);
 
         // Fetch top clicked stations
-        const clickedUrl = `${baseUrl}/json/stations/topclick/7500`;
-        console.log(`Fetching top clicked stations from ${clickedUrl}...`);
-        const clickedResponse = await fetch(clickedUrl, {
-            headers: {
-                'User-Agent': 'touch-radio-web/0.0.1'
-            }
-        });
-
-        if (!clickedResponse.ok) {
-            throw new Error(`HTTP error! status: ${clickedResponse.status}`);
-        }
-
-        const clickedData = await clickedResponse.json();
+        console.log('Fetching top clicked stations...');
+        const clickedData = await fetchStationsFromEndpoint('/json/stations/topclick/7500');
         console.log(`Fetched ${clickedData.length} top clicked stations.`);
 
         // Merge and deduplicate by stationuuid

@@ -143,6 +143,7 @@ const uniqueCodecs = [
 	import { initStations } from "../scripts/stations/stationFilter";
 	import {
 		initSelection,
+		persistSelection,
 		updateUI,
 	} from "../scripts/selection/selectionManager";
 	import { initDiscoveryBadges } from "../scripts/search/discoveryBadges";
@@ -175,6 +176,15 @@ const uniqueCodecs = [
 
 			// Filter broken stations and update state
 			appState.allStations = stationsData.filter((s: any) => !s.broken);
+			const availableStationIds = new Set(
+				appState.allStations.map((station: any) => station.id),
+			);
+			for (const selectedId of appState.selectedIds) {
+				if (!availableStationIds.has(selectedId)) {
+					appState.selectedIds.delete(selectedId);
+				}
+			}
+			persistSelection();
 
 			// Now initialize the filter system with loaded data
 			initStations(); // filtering happens here
@@ -188,6 +198,7 @@ const uniqueCodecs = [
 
 				if (validIds.length > 0) {
 					validIds.forEach((id) => appState.selectedIds.add(id));
+					persistSelection();
 					showToast(
 						`✓ Loaded ${validIds.length} station${validIds.length !== 1 ? "s" : ""} from shared playlist`,
 					);

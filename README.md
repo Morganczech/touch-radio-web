@@ -9,6 +9,7 @@ A minimalist web radio player that lets you discover and play thousands of radio
 - 🌍 **7,000+ Radio Stations** - Worldwide coverage with diverse genres
 - 🔍 **Smart Search** - Intelligent filtering by genre, country, codec, and bitrate
 - 📻 **Live Preview** - Play stations directly in your browser
+- 💾 **Persistent Selection** - Selected stations are saved in local storage and restored after page reloads
 - 💾 **Playlist Export** - Export your selection in M3U, M3U8, PLS, or JSON formats
 - 🔗 **Share Playlists** - Share your curated station lists with friends
 - 🎨 **Dark Mode** - Automatic theme switching
@@ -64,6 +65,9 @@ touch-radio-web/
 ├── scripts/            # Build scripts
 │   ├── fetch-stations.mjs      # Fetch stations from Radio Browser API
 │   └── normalize-stations.mjs  # Normalize station data
+├── .github/
+│   └── workflows/
+│       └── update-stations.yml  # Weekly station data refresh
 ├── src/
 │   ├── components/     # Astro components
 │   ├── data/          # Station data (JSON)
@@ -88,7 +92,7 @@ touch-radio-web/
 ### Playlist Management
 
 1. Click the heart icon on station cards to add to "My Selection"
-2. View selected stations in the sidebar
+2. View selected stations in the sidebar; your selection remains available after refreshing the page
 3. Export your playlist:
    - **M3U/M3U8** - For VLC, Winamp, iTunes
    - **PLS** - For older players
@@ -122,7 +126,7 @@ This fetches the top 7,500 voted and clicked stations, merges them, and normaliz
 
 ### Automated Updates
 
-The station list is automatically updated **daily at 4:00 AM UTC** via GitHub Actions. If you fork this repository, you must enable **Read and write permissions** in `Settings -> Actions -> General -> Workflow permissions` for the automation to work.
+The station list is automatically updated **weekly on Sunday at 4:00 AM UTC** via GitHub Actions. The workflow can also be started manually from the Actions tab. If you fork this repository, you must enable **Read and write permissions** in `Settings -> Actions -> General -> Workflow permissions` for the automation to work.
 
 ## 🤝 Contributing
 

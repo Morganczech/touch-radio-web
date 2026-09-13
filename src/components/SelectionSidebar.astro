@@ -2,12 +2,6 @@
 
 ---
 
-<!-- Floating Action Button (Mobile only) -->
-<button id="selection-fab" class="selection-fab" aria-label="Open selection">
-    <span class="fab-icon">🎵</span>
-    <span id="fab-count" class="fab-count js-selection-count">0</span>
-</button>
-
 <!-- Modal Overlay (Mobile only) -->
 <div id="selection-modal" class="selection-modal">
     <div class="modal-backdrop"></div>
@@ -18,39 +12,40 @@
         <aside class="selection-panel modal-panel">
             <div class="selection-header">
                 <h3>
-                    My Selection (<span
+                    Favorites (<span
                         id="selection-count-mobile"
-                        class="js-selection-count">0</span
+                        data-favorites-count>0</span
                     >)
                 </h3>
             </div>
+            <p class="bandwidth-line" data-selection-bandwidth>0 kbps combined</p>
             <button
                 id="clear-all-btn-mobile"
                 class="clear-all-btn modal-clear-btn js-clear-all-btn"
                 disabled
-                title="Remove all stations from selection">Clear All</button
+                title="Remove all favorites">Clear All</button
             >
             <div
                 id="selection-list-mobile"
                 class="selection-list js-selection-list"
             >
-                <p class="empty-state">No stations selected</p>
+                <p class="empty-state">No favorites yet — tap ♥ on a station</p>
             </div>
+            <button
+                id="share-playlist-btn-mobile"
+                disabled
+                class="sidebar-btn share-btn js-share-playlist-btn mobile-share-primary"
+                title="Copy a link to your favorites"
+                >Share Favorites Link</button
+            >
             <details class="mobile-more-actions">
                 <summary>More actions</summary>
                 <div class="export-actions">
                 <button
-                    id="share-playlist-btn-mobile"
-                    disabled
-                    class="sidebar-btn share-btn mobile-share-btn js-share-playlist-btn"
-                    title="Share this playlist with others"
-                    >🔗 Share Playlist</button
-                >
-                <button
                     id="export-btn-mobile"
                     disabled
                     class="sidebar-btn js-export-btn"
-                    title="Export selected stations in Touch Radio JSON format"
+                    title="Export favorites in Touch Radio JSON format"
                     >Export JSON</button
                 >
                 <button
@@ -70,7 +65,7 @@
                     id="export-pls-btn-mobile"
                     disabled
                     class="sidebar-btn js-export-pls-btn"
-                    title="Export playlist in PLS format">                    Export PLS</button
+                    title="Export playlist in PLS format">Export PLS</button
                 >
                 </div>
             </details>
@@ -82,33 +77,34 @@
 <aside class="selection-panel desktop-panel">
     <div class="selection-header">
         <h3>
-            My Selection (<span
+            Favorites (<span
                 id="selection-count-desktop"
-                class="js-selection-count">0</span
+                data-favorites-count>0</span
             >)
         </h3>
         <button
             id="clear-all-btn-desktop"
             class="clear-all-btn js-clear-all-btn"
             disabled
-            title="Remove all stations from selection">Clear All</button
+            title="Remove all favorites">Clear All</button
         >
     </div>
+    <p class="bandwidth-line" data-selection-bandwidth>0 kbps combined</p>
     <div id="selection-list-desktop" class="selection-list js-selection-list">
-        <p class="empty-state">No stations selected</p>
+        <p class="empty-state">No favorites yet — tap ♥ on a station</p>
     </div>
     <div class="export-actions">
         <button
             id="share-playlist-btn-desktop"
             disabled
             class="sidebar-btn share-btn js-share-playlist-btn"
-            title="Share this playlist with others">🔗 Share Playlist</button
+            title="Copy a link to your favorites">Share Favorites Link</button
         >
         <button
             id="export-btn-desktop"
             disabled
             class="sidebar-btn js-export-btn"
-            title="Export selected stations in Touch Radio JSON format"
+            title="Export favorites in Touch Radio JSON format"
             >Export JSON</button
         >
         <button
@@ -137,16 +133,17 @@
     .selection-panel {
         width: 320px;
         flex-shrink: 0;
-        background: var(--bg);
-        border: 1px solid var(--border);
-        border-radius: 12px;
+        background: var(--surface-low);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: var(--radius-md);
         padding: 1rem;
         position: sticky;
-        top: 1rem;
+        top: calc(var(--header-h) + 1rem);
         height: fit-content;
-        max-height: calc(100vh - 2rem);
+        max-height: calc(100vh - var(--header-h) - var(--player-h) - 2rem);
         display: flex;
         flex-direction: column;
+        scroll-margin-top: calc(var(--header-h) + 1rem);
     }
 
     .selection-header {
@@ -159,6 +156,18 @@
     .selection-header h3 {
         margin: 0;
         flex: 1;
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+    }
+
+    .bandwidth-line {
+        margin: 0.5rem 0 0;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        color: var(--primary-container);
     }
 
     .clear-all-btn {
@@ -170,10 +179,12 @@
         cursor: pointer;
         transition: color 0.2s;
         white-space: nowrap;
+        margin: 0;
     }
 
     .clear-all-btn:hover:not(:disabled) {
-        color: #e74c3c;
+        color: var(--error-strong);
+        border-color: transparent;
     }
 
     .clear-all-btn:disabled {
@@ -188,75 +199,17 @@
         margin-bottom: 0.5rem;
         padding: 0.5rem;
         border: 1px solid var(--border);
-        border-radius: 6px;
-        background: rgba(0, 0, 0, 0.02);
-    }
-
-    [data-theme="dark"] .modal-clear-btn {
-        background: rgba(255, 255, 255, 0.05);
+        border-radius: var(--radius);
+        background: var(--surface-container);
     }
 
     .modal-clear-btn:hover:not(:disabled) {
         background: rgba(231, 76, 60, 0.1);
-        border-color: #e74c3c;
+        border-color: var(--error-strong);
     }
 
-    /* ========================================
-       FLOATING ACTION BUTTON (Mobile)
-       ======================================== */
-    .selection-fab {
-        display: none; /* Hidden on desktop */
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        width: 64px;
-        height: 64px;
-        border-radius: 50%;
-        background: #3b82f6; /* Fixed blue accent color */
-        color: #ffffff; /* Always white text */
-        border: none;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        z-index: 999;
-        transition:
-            transform 0.2s,
-            box-shadow 0.2s;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2px;
-    }
-
-    .selection-fab:hover {
-        transform: scale(1.05);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-    }
-
-    .selection-fab:active {
-        transform: scale(0.95);
-    }
-
-    .fab-icon {
-        font-size: 1.5rem;
-        line-height: 1;
-    }
-
-    .fab-count {
-        font-size: 0.75rem;
-        font-weight: 700;
-        line-height: 1;
-    }
-
-    /* Hide FAB when no selection */
-    .selection-fab.hidden {
-        display: none;
-    }
-
-    /* ========================================
-       MODAL (Mobile)
-       ======================================== */
     .selection-modal {
-        display: none; /* Hidden by default */
+        display: none;
         position: fixed;
         top: 0;
         left: 0;
@@ -271,11 +224,8 @@
 
     .modal-backdrop {
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
         backdrop-filter: blur(4px);
     }
 
@@ -285,27 +235,21 @@
         left: 0;
         right: 0;
         max-height: 85vh;
-        background: var(--bg);
+        background: var(--surface);
         border-radius: 20px 20px 0 0;
+        border-top: 1px solid var(--border);
         animation: slideUp 0.3s ease-out;
+        padding-bottom: env(safe-area-inset-bottom);
     }
 
     @keyframes slideUp {
-        from {
-            transform: translateY(100%);
-        }
-        to {
-            transform: translateY(0);
-        }
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
     }
 
     @keyframes slideDown {
-        from {
-            transform: translateY(0);
-        }
-        to {
-            transform: translateY(100%);
-        }
+        from { transform: translateY(0); }
+        to { transform: translateY(100%); }
     }
 
     .modal-content.closing {
@@ -314,26 +258,28 @@
 
     .close-modal-btn {
         position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: none;
+        top: 0.75rem;
+        right: 0.75rem;
+        background: var(--surface-high);
         border: none;
-        font-size: 1.5rem;
-        color: var(--muted);
+        font-size: 1.35rem;
+        color: var(--on-surface);
         cursor: pointer;
         padding: 0;
         line-height: 1;
         z-index: 10;
-        transition: color 0.2s;
+        width: 48px;
+        height: 48px;
+        margin: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 2rem;
-        height: 2rem;
+        border-radius: var(--radius);
     }
 
     .close-modal-btn:hover {
         color: var(--text);
+        border-color: transparent;
     }
 
     .modal-panel {
@@ -342,22 +288,16 @@
         position: static;
         border: none;
         border-radius: 0;
+        background: transparent;
     }
 
-    /* Desktop sidebar - hidden on mobile */
     .desktop-panel {
         display: block;
     }
 
     @media (max-width: 1024px) {
-        /* Hide desktop sidebar */
         .desktop-panel {
             display: none;
-        }
-
-        /* Show FAB */
-        .selection-fab {
-            display: flex;
         }
     }
 
@@ -367,9 +307,9 @@
         gap: 0.5rem;
         margin-top: 1rem;
         overflow-y: auto;
-        max-height: 420px; /* ~7 items at ~60px each including gap */
+        max-height: 420px;
         min-height: 100px;
-        padding-right: 4px; /* Space for scrollbar */
+        padding-right: 4px;
     }
 
     .export-actions {
@@ -384,6 +324,11 @@
     .sidebar-btn {
         width: 100%;
         text-align: center;
+        margin: 0;
+        background: var(--surface-container);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        color: var(--on-surface);
     }
 
     .empty-state {
@@ -401,23 +346,19 @@
         }
     }
 
-    /* Helper styles for dynamically created elements inside selection list */
     :global(.selected-item) {
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 0.5rem;
-        background: rgba(0, 0, 0, 0.02);
-        border-radius: 6px;
-        border: 1px solid var(--border);
+        background: var(--surface-container);
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        flex-shrink: 0;
     }
 
     .mobile-more-actions {
         display: none;
-    }
-
-    :global([data-theme="dark"] .selected-item) {
-        background: rgba(255, 255, 255, 0.05);
     }
 
     :global(.selected-item-info) {
@@ -441,6 +382,7 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        font-family: var(--font-mono);
     }
 
     :global(.sidebar-play-btn) {
@@ -458,10 +400,7 @@
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        transition:
-            opacity 0.2s,
-            transform 0.2s,
-            color 0.2s;
+        transition: opacity 0.2s, transform 0.2s, color 0.2s;
     }
 
     @media (max-width: 1024px) {
@@ -475,10 +414,12 @@
         .mobile-more-actions summary {
             color: var(--muted);
             cursor: pointer;
-            font-size: 0.9rem;
-            padding: 0.5rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.85rem 0;
             text-align: center;
             user-select: none;
+            min-height: 48px;
         }
 
         .mobile-more-actions .export-actions {
@@ -491,95 +432,249 @@
             display: none;
         }
 
+        .mobile-share-primary {
+            width: 100%;
+            margin-top: 0.85rem;
+            min-height: 52px;
+            font-size: 1rem;
+        }
+
+        .modal-clear-btn {
+            min-height: 48px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .selection-list {
+            flex: 1 1 auto;
+            min-height: 0;
+            max-height: none;
+            gap: 0.85rem;
+            padding-bottom: 0.25rem;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal-panel {
+            display: flex;
+            flex-direction: column;
+            max-height: min(88vh, 900px);
+            padding: 1rem 1rem 1.25rem;
+            overflow: hidden;
+        }
+
+        .modal-content {
+            max-height: 92vh;
+            overflow: hidden;
+        }
+
+        /* Car / fat-finger layout: cards never shrink; actions stay inside */
         :global(.mobile-selected-item) {
-            min-height: 64px;
-            padding: 0.5rem 0.75rem;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            padding: 1rem;
+            min-height: auto;
+            height: auto;
+            flex: 0 0 auto;
+            flex-shrink: 0;
+            overflow: hidden;
+            cursor: default;
             touch-action: manipulation;
+            border-radius: var(--radius-md);
+            background: var(--surface-low);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        :global(.mobile-selected-item:focus-visible) {
-            outline: 3px solid var(--accent);
-            outline-offset: 2px;
+        :global(.mobile-selected-item.is-playing) {
+            border-color: rgba(0, 229, 255, 0.45);
+            box-shadow: var(--halo);
         }
 
-        :global(.mobile-selected-item .sidebar-play-btn) {
-            order: -1;
-            width: 52px;
-            height: 52px;
-            min-width: 52px;
-            flex: 0 0 52px;
-            aspect-ratio: 1;
-            margin-right: 0.75rem;
-            border-radius: 50%;
-            background: var(--accent);
-            color: var(--bg);
+        :global(.mobile-selected-item .msi-main) {
+            display: contents;
+        }
+
+        :global(.mobile-selected-item .msi-identity) {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            min-width: 0;
+            width: 100%;
+        }
+
+        :global(.mobile-selected-item .msi-flag) {
+            font-size: 1.5rem;
+            line-height: 1.2;
+            flex-shrink: 0;
+        }
+
+        :global(.mobile-selected-item .msi-copy) {
+            min-width: 0;
+            flex: 1;
+        }
+
+        :global(.mobile-selected-item .selected-item-name) {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.3;
+            white-space: normal;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        :global(.mobile-selected-item .selected-item-meta) {
+            margin-top: 0.25rem;
+            font-size: 0.8rem;
+            color: var(--on-surface-variant);
+        }
+
+        :global(.mobile-selected-item .msi-actions) {
+            display: grid;
+            grid-template-columns: 1fr minmax(96px, 0.38fr);
+            gap: 0.75rem;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        :global(.mobile-selected-item .msi-play) {
+            position: static;
+            z-index: auto;
+            width: 100%;
+            min-width: 0;
+            min-height: 64px;
+            height: 64px;
+            flex: none;
+            margin: 0;
+            padding: 0 1rem;
+            border-radius: var(--radius-md);
+            border: none;
+            background: var(--primary-container);
+            color: var(--on-primary);
             opacity: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.22);
+            transform: none;
         }
 
-        :global(.mobile-selected-item .sidebar-play-btn .svg-icon) {
+        :global(.mobile-selected-item .msi-play:hover),
+        :global(.mobile-selected-item .msi-play:active) {
+            transform: none;
+            opacity: 1;
+            color: var(--on-primary);
+        }
+
+        :global(.mobile-selected-item.is-playing .msi-play) {
+            background: var(--surface-high);
+            color: var(--primary-container);
+            box-shadow: inset 0 0 0 2px rgba(0, 229, 255, 0.45);
+        }
+
+        :global(.mobile-selected-item.is-playing .msi-play:hover),
+        :global(.mobile-selected-item.is-playing .msi-play:active) {
+            color: var(--primary-container);
+        }
+
+        :global(.mobile-selected-item .msi-play .play-icon-container) {
+            width: 28px;
+            height: 28px;
+        }
+
+        :global(.mobile-selected-item .msi-play .svg-icon) {
             width: 28px;
             height: 28px;
             flex: 0 0 28px;
             fill: currentColor;
-            visibility: visible;
         }
 
-        :global(.mobile-selected-item .remove-btn) {
-            width: 44px;
-            height: 44px;
-            padding: 0;
-            font-size: 1.25rem;
+        :global(.mobile-selected-item .msi-play-label) {
+            line-height: 1;
         }
 
-        :global(.mobile-selected-item .selected-item-name) {
+        :global(.mobile-selected-item .msi-remove) {
+            width: 100%;
+            min-width: 0;
+            min-height: 64px;
+            height: 64px;
+            padding: 0 0.75rem;
+            margin: 0;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 180, 171, 0.35);
+            background: rgba(147, 0, 10, 0.22);
+            color: var(--error);
             font-size: 1rem;
+            font-weight: 700;
+            line-height: 1;
+            transform: none;
         }
 
-        :global(.mobile-selected-item .selected-item-meta) {
-            font-size: 0.8rem;
+        :global(.mobile-selected-item .msi-remove:hover),
+        :global(.mobile-selected-item .msi-remove:active) {
+            transform: none;
+            background: rgba(147, 0, 10, 0.35);
+            border-color: var(--error);
+        }
+
+        :global(.mobile-selected-item .sidebar-btn),
+        :global(.mobile-more-actions .sidebar-btn) {
+            min-height: 48px;
+            font-size: 1rem;
         }
     }
 
     :global(.sidebar-play-btn:hover) {
         opacity: 1;
         transform: scale(1.1);
-        color: var(--accent);
+        color: var(--primary-container);
     }
 
     :global(.remove-btn) {
         background: none;
         border: none;
         cursor: pointer;
-        color: #e74c3c;
+        color: var(--error-strong);
         padding: 0.25rem;
         font-size: 1.1rem;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: transform 0.2s;
+        margin: 0;
     }
 
     :global(.remove-btn:hover) {
         transform: scale(1.1);
+        border-color: transparent;
     }
 
-    :global(.share-btn) {
-        background: var(--accent);
-        color: var(--bg);
+    :global(.sidebar-btn.share-btn) {
+        background: var(--primary-container) !important;
+        color: var(--on-primary) !important;
         font-weight: 600;
-        transition:
-            transform 0.2s,
-            opacity 0.2s;
+        border-color: transparent !important;
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
     }
 
-    :global(.share-btn:hover:not(:disabled)) {
+    :global(.sidebar-btn.share-btn:hover:not(:disabled)) {
         transform: translateY(-1px);
-        opacity: 0.9;
+        opacity: 0.95;
+        color: var(--on-primary) !important;
     }
 
-    :global(.share-btn:disabled) {
-        background: var(--border);
-        color: var(--muted);
+    :global(.sidebar-btn.share-btn:disabled) {
+        background: var(--surface-highest) !important;
+        color: var(--muted) !important;
+        box-shadow: none;
     }
 </style>

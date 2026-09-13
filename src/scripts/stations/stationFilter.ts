@@ -75,12 +75,16 @@ export function filterStations() {
     // Always apply backend-like pagination to prevent rendering massive lists
     stationsToRender = filteredStations.slice(0, appState.browseOffset);
 
+    const showingCount = stationsToRender.length;
+    const countPill = document.getElementById("stations-count-pill");
+    if (countPill) {
+        countPill.textContent = `Showing ${showingCount.toLocaleString("en-US")} of ${totalMatches.toLocaleString("en-US")}`;
+    }
+
     // Update Search Status
     if (searchStatus) {
         if (isSearchMode) {
             searchStatus.style.display = "block";
-            // Show "Showing X of Y results" if paginated, or just "Found Y results"
-            const showingCount = stationsToRender.length;
             if (totalMatches > showingCount) {
                 searchStatus.textContent = `Found ${totalMatches} matches — showing top ${showingCount}`;
             } else {
@@ -174,12 +178,16 @@ export function initStations() {
             const isExpanded = filtersPanel.classList.contains("expanded");
             if (isExpanded) {
                 filtersPanel.classList.remove("expanded");
-                toggleFiltersBtn.textContent = "Show filters";
+                const label = toggleFiltersBtn.querySelector("span:last-child");
+                if (label) label.textContent = "Show advanced filters";
+                else toggleFiltersBtn.textContent = "Show advanced filters";
                 toggleFiltersBtn.setAttribute("aria-expanded", "false");
                 filtersPanel.setAttribute("aria-hidden", "true");
             } else {
                 filtersPanel.classList.add("expanded");
-                toggleFiltersBtn.textContent = "Hide filters";
+                const label = toggleFiltersBtn.querySelector("span:last-child");
+                if (label) label.textContent = "Hide advanced filters";
+                else toggleFiltersBtn.textContent = "Hide advanced filters";
                 toggleFiltersBtn.setAttribute("aria-expanded", "true");
                 filtersPanel.setAttribute("aria-hidden", "false");
             }

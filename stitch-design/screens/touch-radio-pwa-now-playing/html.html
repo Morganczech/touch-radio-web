@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#111319;color:#e2e2eb;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'primary-fixed': '#9cf0ff', 'on-secondary-fixed-variant': '#005236', 'on-secondary': '#003824', 'outline': '#849396', 'error-container': '#93000a', 'on-primary': '#00363d', 'background': '#111319', 'on-error-container': '#ffdad6', 'on-surface': '#e2e2eb', 'on-tertiary-fixed-variant': '#2f2ebe', 'on-tertiary-container': '#4344d1', 'surface': '#111319', 'on-surface-variant': '#bac9cc', 'on-primary-fixed': '#001f24', 'primary-container': '#00e5ff', 'tertiary': '#edeaff', 'on-error': '#690005', 'outline-variant': '#3b494c', 'tertiary-container': '#ccccff', 'secondary-fixed': '#6ffbbe', 'surface-container-lowest': '#0c0e14', 'inverse-surface': '#e2e2eb', 'surface-bright': '#373940', 'on-tertiary': '#1000a9', 'surface-variant': '#33343b', 'error': '#ffb4ab', 'surface-container-low': '#191b22', 'tertiary-fixed-dim': '#c0c1ff', 'secondary-container': '#00a572', 'surface-tint': '#00daf3', 'inverse-on-surface': '#2e3037', 'surface-container': '#1e1f26', 'primary': '#c3f5ff', 'surface-dim': '#111319', 'on-primary-container': '#00626e', 'primary-fixed-dim': '#00daf3', 'on-primary-fixed-variant': '#004f58', 'secondary-fixed-dim': '#4edea3', 'on-tertiary-fixed': '#07006c', 'surface-container-highest': '#33343b', 'on-background': '#e2e2eb', 'tertiary-fixed': '#e1e0ff', 'secondary': '#4edea3', 'surface-container-high': '#282a30', 'inverse-primary': '#006875', 'on-secondary-fixed': '#002113', 'on-secondary-container': '#00311f' }, borderRadius: { 'DEFAULT': '0.25rem', 'lg': '0.5rem', 'xl': '0.75rem', 'full': '9999px' }, spacing: { 'gutter-desktop': '1.25rem', 'margin': '1rem', 'space-sm': '0.5rem', 'space-xs': '0.25rem', 'space-md': '0.75rem', 'margin-desktop': '2.5rem', 'space-lg': '1.25rem', 'space-xl': '2rem', 'gutter': '1rem' }, fontFamily: { 'title-card': ['Inter'], 'body-sm': ['Inter'], 'display-hero': ['Geist'], 'headline-sm': ['Geist'], 'display-hero-mobile': ['Geist'], 'label-badge': ['JetBrains Mono'], 'label-telemetry': ['JetBrains Mono'], 'headline-lg': ['Geist'], 'body-md': ['Inter'] }, fontSize: { 'title-card': ['15px', { lineHeight: '20px', letterSpacing: '-0.01em', fontWeight: '600' }], 'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0em', fontWeight: '400' }], 'display-hero': ['44px', { lineHeight: '52px', letterSpacing: '-0.03em', fontWeight: '700' }], 'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '-0.015em', fontWeight: '600' }], 'display-hero-mobile': ['30px', { lineHeight: '38px', letterSpacing: '-0.02em', fontWeight: '700' }], 'label-badge': ['10px', { lineHeight: '12px', letterSpacing: '0.06em', fontWeight: '600' }], 'label-telemetry': ['11px', { lineHeight: '14px', letterSpacing: '0.04em', fontWeight: '500' }], 'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.02em', fontWeight: '600' }], 'body-md': ['14px', { lineHeight: '22px', letterSpacing: '0em', fontWeight: '400' }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-fixed"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl pt-safe"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0"><button aria-label="Go Back" class="w-11 h-11 flex items-center justify-center rounded-xl text-on-surface hover:text-primary-container hover:bg-surface-container transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="Modern minimalist logo for Touch Radio internet radio streaming app, stylized soundwave forming an antenna or glowing radio frequency pulse in neon cyan and electric blue, dark theme friendly. Brand logo. - Primary color: #00e5ff - Font: geist - Mode: dark - Roundness: rounded-md" class="h-7 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1WMn6H_MFaBY7_-wmcRWp3IaY7iJudqenH72SmWSwhovhrmlfCj1Qvebb01xsbSsEX7Jh-KliBNDIXAAwYX_UTEeTgxPxG1OMvNQD2v6MC4HNsuNmBvpuU_ep4nV8uWhA5gckvgeKowijUUpO3J5z0MUG_eku53ge9080UhUbG9ekzCErU4idXnqEVVx2_UBYItaZ02ZhMnvKb6A_6yLbcjD3tTheAy7MgjQ6sQLD5YWswLkbu5criYI8s"/><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate ml-1">Full Player Drawer</h1></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Telemetry settings" class="w-11 h-11 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-primary-container hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">tune</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-10">
+<!-- Top Pull-Down Grabber & Modal Bar -->
+<div class="flex flex-col items-center pt-2 px-margin">
+<div class="w-12 h-1 rounded-full bg-surface-variant opacity-80 mb-3"></div>
+<div class="w-full flex items-center justify-between py-1">
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface active:scale-95 transition-all shadow-sm" onclick="history.back()">
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+<span class="font-body-sm text-body-sm font-semibold">Zpět do přehledu</span>
+</button>
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-low shadow-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span class="font-label-badge text-label-badge text-secondary tracking-wider">ŽIVÝ STREAM</span>
+</div>
+</div>
+</div>
+<!-- Main Player Stage Container -->
+<div class="flex flex-col px-margin mt-3 gap-space-md">
+<!-- Station Header Information Card -->
+<div class="flex items-center justify-between bg-surface-container-low rounded-xl p-space-md shadow-sm">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-container shadow-inner flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">radio</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<h2 class="font-title-card text-title-card text-on-surface truncate">Dance Wave!</h2>
+<span class="px-1.5 py-0.5 rounded bg-surface-container font-label-badge text-label-badge text-primary-fixed">FM 94.2</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">🇳🇱 Nizozemsko • 320 kbps MP3</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant active:rotate-180 transition-all duration-300" id="stream-refresh-btn">
+<span class="material-symbols-outlined text-[20px]">sync</span>
+</button>
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-primary-container active:scale-90 transition-transform" id="stream-fav-btn">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+</div>
+<!-- Centerpiece: Glowing Neon Artwork Visualizer -->
+<div class="relative w-full aspect-square max-w-[340px] mx-auto flex items-center justify-center my-1">
+<!-- Ambient Backlight Halo Glow -->
+<div class="absolute inset-4 rounded-full bg-primary-container opacity-20 blur-3xl animate-pulse"></div>
+<div class="absolute inset-10 rounded-full bg-secondary-container opacity-15 blur-2xl"></div>
+<!-- Circular Rotary Spectrum Ring Graphic -->
+<div class="relative w-full h-full rounded-full bg-surface-container-lowest p-3 flex items-center justify-center shadow-xl">
+<!-- Animated Circular Soundwave SVG Ring -->
+<svg class="absolute inset-0 w-full h-full transform -rotate-90 pointer-events-none" viewbox="0 0 100 100">
+<circle class="text-surface-variant opacity-40" cx="50" cy="50" fill="none" r="46" stroke="currentColor" stroke-width="1.5"></circle>
+<circle class="text-primary-container animate-spin" cx="50" cy="50" fill="none" id="pulse-ring" r="46" stroke="currentColor" stroke-dasharray="2 4" stroke-width="2.5" style="animation-duration: 26s;"></circle>
+<circle class="text-secondary opacity-60" cx="50" cy="50" fill="none" r="42" stroke="currentColor" stroke-dasharray="8 6" stroke-width="1"></circle>
+</svg>
+<!-- Main Album Art Display -->
+<div class="relative w-5/6 h-5/6 rounded-full overflow-hidden shadow-2xl flex items-center justify-center bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Cyberpunk vinyl record sleeve with glowing neon cyan wave pulses, turntable strobe patterns, and futuristic electronic club party lights on a pitch dark studio background, ultra-crisp audiophile synth aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGeVmd2dTL6wDAKmBbF7UUkiYdosMK1dXGRGgFpMRoMA2J2NokCI5y_6TatuYMYM8MeoMl3_7tcaJmKDa9jwdcsTDWVItyPyC0o7vnOoDuVVL_dkWbNgb1u0NGtdt0jPKbhOwBA7XOwHIlTrED-fXOFWF2Lt1TBuGkWDkyU0BHco9e_KcOgJylDfhdyzyp2_JfzLMXIEp3T61FHBOntNPL_TrSS4qPX3x4TZGEBT78vNYonWzNK_Jg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-surface-container-lowest/30"></div>
+<!-- Vinyl Center Label Hole -->
+<div class="absolute w-16 h-16 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-md">
+<div class="w-6 h-6 rounded-full bg-surface-tint opacity-80 flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-surface-container-lowest"></div>
+</div>
+</div>
+</div>
+<!-- Floating Format Pill Overlay -->
+<div class="absolute bottom-4 px-2.5 py-1 rounded-full bg-surface-container/90 backdrop-blur-md shadow-md flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface">STEREO 48 kHz</span>
+</div>
+</div>
+</div>
+<!-- Track Metadata Typography -->
+<div class="text-center flex flex-col items-center">
+<div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-low mb-1.5">
+<span class="material-symbols-outlined text-[14px] text-primary-container">graphic_eq</span>
+<span class="font-label-badge text-label-badge text-on-surface-variant uppercase tracking-wider">Dance / Electro Club</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Heldeep Radio 520</h3>
+<p class="font-body-md text-body-md text-primary font-medium mt-0.5">Oliver Heldens</p>
+</div>
+<!-- 20 Hz - 20 kHz Live Spectrum Visualizer Bar Graph -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between text-on-surface-variant font-label-badge text-label-badge">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">equalizer</span>
+          SPECTRUM ANALYZER
+        </span>
+<span class="text-outline">20 Hz — 20 kHz</span>
+</div>
+<!-- Realtime Audio Frequency Spectrum Bars -->
+<div class="h-10 w-full flex items-end justify-between gap-1 px-1" id="spectrum-bars">
+<div class="w-full bg-primary-container rounded-t-sm h-[35%] transition-all duration-150"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-[55%] transition-all duration-150"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-[75%] transition-all duration-150"></div>
+<div class="w-full bg-secondary rounded-t-sm h-[90%] transition-all duration-150"></div>
+<div class="w-full bg-secondary rounded-t-sm h-[60%] transition-all duration-150"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-[80%] transition-all duration-150"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-[95%] transition-all duration-150"></div>
+<div class="w-full bg-secondary rounded-t-sm h-[70%] transition-all duration-150"></div>
+<div class="w-full bg-secondary rounded-t-sm h-[85%] transition-all duration-150"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-[50%] transition-all duration-150"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-[65%] transition-all duration-150"></div>
+<div class="w-full bg-secondary rounded-t-sm h-[40%] transition-all duration-150"></div>
+<div class="w-full bg-secondary rounded-t-sm h-[85%] transition-all duration-150"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-[60%] transition-all duration-150"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-[75%] transition-all duration-150"></div>
+<div class="w-full bg-secondary rounded-t-sm h-[90%] transition-all duration-150"></div>
+<div class="w-full bg-secondary rounded-t-sm h-[65%] transition-all duration-150"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-[45%] transition-all duration-150"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-[30%] transition-all duration-150"></div>
+<div class="w-full bg-secondary rounded-t-sm h-[20%] transition-all duration-150"></div>
+</div>
+<!-- Telemetry Buffer Health Bar -->
+<div class="flex items-center justify-between pt-1 font-label-telemetry text-label-telemetry text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Buffer: 100% (4.8s stabilní)</span>
+</div>
+<span class="text-outline">0 packet drop</span>
+</div>
+</div>
+<!-- Transport Hero Controls -->
+<div class="flex items-center justify-around py-1 px-space-sm">
+<!-- Previous Station in Queue -->
+<button class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:text-primary-container active:scale-95 transition-all shadow-sm" title="Předchozí stanice">
+<span class="material-symbols-outlined text-[26px]">skip_previous</span>
+</button>
+<!-- Refresh Stream -->
+<button class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-90 transition-all shadow-sm" title="Restartovat stream">
+<span class="material-symbols-outlined text-[20px]">restart_alt</span>
+</button>
+<!-- BIG PLAY / PAUSE HERO BUTTON with Vibrant Cyan Glow -->
+<div class="relative flex items-center justify-center">
+<div class="absolute w-20 h-20 rounded-full bg-primary-container opacity-30 blur-lg"></div>
+<button aria-label="Pozastavit / Spustit přehrávání" class="relative w-18 h-18 p-4 rounded-full bg-primary-container text-on-primary-fixed hover:bg-primary-fixed-dim active:scale-95 transition-all shadow-xl flex items-center justify-center" id="main-play-btn">
+<span class="material-symbols-outlined text-[34px]" id="main-play-icon" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+</div>
+<!-- Stream Quality Switcher Pill Button -->
+<button class="h-10 px-2.5 rounded-full bg-surface-container-low flex items-center gap-1 text-on-surface-variant hover:text-primary-container active:scale-95 transition-all shadow-sm" id="stream-quality-btn" title="Přepnout kvalitu">
+<span class="material-symbols-outlined text-[16px] text-primary-container">high_quality</span>
+<span class="font-label-badge text-label-badge font-bold" id="quality-label">HQ 320k</span>
+</button>
+<!-- Next Station in Queue -->
+<button class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:text-primary-container active:scale-95 transition-all shadow-sm" title="Následující stanice">
+<span class="material-symbols-outlined text-[26px]">skip_next</span>
+</button>
+</div>
+<!-- Master Volume Slider & Sleep Timer Cockpit Card -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- Volume Row -->
+<div class="flex items-center gap-space-md">
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant active:scale-90 transition-transform" id="vol-mute-btn">
+<span class="material-symbols-outlined text-[20px]" id="vol-icon">volume_up</span>
+</button>
+<!-- Track & Thumb Range Control -->
+<div class="relative flex-1 flex items-center">
+<input class="w-full h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary-container" id="volume-slider" max="100" min="0" type="range" value="82"/>
+</div>
+<div class="w-14 text-right">
+<span class="font-label-telemetry text-label-telemetry text-on-surface" id="db-level">-4.2 dB</span>
+</div>
+</div>
+<!-- Sleep Timer Selector Bar -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">bedtime</span>
+<span>Časovač spánku:</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="timer-chip px-2.5 py-1 rounded-lg bg-surface-container font-label-badge text-label-badge text-on-surface-variant active:bg-surface-container-high transition-colors">15m</button>
+<button class="timer-chip px-2.5 py-1 rounded-lg bg-surface-container font-label-badge text-label-badge text-on-surface-variant active:bg-surface-container-high transition-colors">30m</button>
+<button class="timer-chip px-2.5 py-1 rounded-lg bg-surface-container-high text-primary font-label-badge text-label-badge shadow-inner">60m</button>
+<button class="timer-chip p-1 rounded-lg bg-surface-container text-on-surface-variant active:scale-95" title="Vypnuto">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Audio Tools & Metadata Accordion Actions -->
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Playlist Queue Drawer Trigger -->
+<button class="flex items-center justify-between p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-[0.98] transition-all shadow-sm text-left">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-[20px] text-primary-container">queue_music</span>
+<div class="truncate">
+<div class="font-body-sm text-body-sm font-semibold text-on-surface truncate">Výběr stanic</div>
+<div class="font-label-badge text-label-badge text-on-surface-variant">3 uloženo</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline">chevron_right</span>
+</button>
+<!-- Audio Codec Info & Metadata Pill -->
+<button class="flex items-center justify-between p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-[0.98] transition-all shadow-sm text-left">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-[20px] text-secondary">info</span>
+<div class="truncate">
+<div class="font-body-sm text-body-sm font-semibold text-on-surface truncate">Metadata stanice</div>
+<div class="font-label-badge text-label-badge text-on-surface-variant">Icecast v2.4</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline">open_in_new</span>
+</button>
+</div>
+<!-- Native PWA Floating Action Bar Dock -->
+<div class="flex items-center justify-around py-space-sm px-space-xs rounded-xl bg-surface-container-low shadow-md mt-1">
+<button class="flex flex-col items-center gap-0.5 text-primary-container active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-badge text-label-badge">Oblíbené</span>
+</button>
+<button class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[22px]">playlist_add</span>
+<span class="font-label-badge text-label-badge">Do výběru</span>
+</button>
+<button class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[22px]">share</span>
+<span class="font-label-badge text-label-badge">Sdílet</span>
+</button>
+<button class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[22px]">cast</span>
+<span class="font-label-badge text-label-badge">AirPlay / Cast</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  // Micro-interactions & Audio Engine Simulation
+  (function() {
+    let isPlaying = true;
+    const playBtn = document.getElementById('main-play-btn');
+    const playIcon = document.getElementById('main-play-icon');
+    const pulseRing = document.getElementById('pulse-ring');
+    const spectrumBars = document.querySelectorAll('#spectrum-bars > div');
+    const volumeSlider = document.getElementById('volume-slider');
+    const dbLevel = document.getElementById('db-level');
+    const volIcon = document.getElementById('vol-icon');
+    const volMuteBtn = document.getElementById('vol-mute-btn');
+    const qualityBtn = document.getElementById('stream-quality-btn');
+    const qualityLabel = document.getElementById('quality-label');
+
+    // Spectrum Bars Randomization Interval (Tactile live feedback)
+    let visualizerInterval = setInterval(() => {
+      if (isPlaying) {
+        spectrumBars.forEach(bar => {
+          const randomHeight = Math.floor(Math.random() * 85) + 15;
+          bar.style.height = `${randomHeight}%`;
+        });
+      }
+    }, 180);
+
+    // Play/Pause Micro-interaction
+    playBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playIcon.textContent = 'pause';
+        pulseRing.style.animationPlayState = 'running';
+      } else {
+        playIcon.textContent = 'play_arrow';
+        pulseRing.style.animationPlayState = 'paused';
+        spectrumBars.forEach(bar => bar.style.height = '10%');
+      }
+    });
+
+    // Volume Slider & dB Calculation
+    volumeSlider.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value);
+      if (val === 0) {
+        dbLevel.textContent = '-∞ dB';
+        volIcon.textContent = 'volume_off';
+      } else {
+        const dB = ((val - 100) * 0.4).toFixed(1);
+        dbLevel.textContent = `${dB} dB`;
+        volIcon.textContent = val < 40 ? 'volume_down' : 'volume_up';
+      }
+    });
+
+    // Mute Button Toggle
+    let previousVol = 82;
+    volMuteBtn.addEventListener('click', () => {
+      if (parseInt(volumeSlider.value) > 0) {
+        previousVol = volumeSlider.value;
+        volumeSlider.value = 0;
+        dbLevel.textContent = '-∞ dB';
+        volIcon.textContent = 'volume_off';
+      } else {
+        volumeSlider.value = previousVol;
+        const dB = ((previousVol - 100) * 0.4).toFixed(1);
+        dbLevel.textContent = `${dB} dB`;
+        volIcon.textContent = 'volume_up';
+      }
+    });
+
+    // Stream Quality Toggle
+    qualityBtn.addEventListener('click', () => {
+      if (qualityLabel.textContent.includes('320k')) {
+        qualityLabel.textContent = 'SAVER 128k';
+      } else {
+        qualityLabel.textContent = 'HQ 320k';
+      }
+    });
+
+    // Sleep Timer Selector Highlight
+    const timerChips = document.querySelectorAll('.timer-chip');
+    timerChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        timerChips.forEach(c => {
+          c.classList.remove('bg-surface-container-high', 'text-primary', 'shadow-inner');
+          c.classList.add('bg-surface-container', 'text-on-surface-variant');
+        });
+        chip.classList.remove('bg-surface-container', 'text-on-surface-variant');
+        chip.classList.add('bg-surface-container-high', 'text-primary', 'shadow-inner');
+      });
+    });
+  })();
+</script></main></body></html>

@@ -227,9 +227,9 @@
 
 <style>
     .app-footer {
-        margin-top: 4rem;
-        padding: 3rem 1rem 2rem;
-        background: var(--surface);
+        margin-top: 2rem;
+        padding: 2.5rem var(--gutter-desktop) calc(1.5rem + env(safe-area-inset-bottom));
+        background: var(--surface-lowest);
         border-top: 1px solid var(--border);
     }
 
@@ -244,14 +244,16 @@
     }
 
     .footer-title {
-        font-size: 1.5rem;
-        font-weight: 700;
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 600;
         margin-bottom: 0.5rem;
-        color: var(--text);
+        color: var(--on-surface);
+        letter-spacing: -0.02em;
     }
 
     .footer-subtitle {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         color: var(--muted);
         margin-bottom: 1.5rem;
     }
@@ -268,34 +270,36 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        padding: 0.65rem 1.25rem;
-        background: var(--bg);
+        padding: 0.6rem 1.1rem;
+        background: var(--surface-low);
         border: 1px solid var(--border);
-        border-radius: 8px;
-        color: var(--text);
-        font-size: 0.9rem;
+        border-radius: var(--radius);
+        color: var(--on-surface);
+        font-size: 0.85rem;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.2s ease;
+        margin: 0;
     }
 
     .share-btn:hover {
-        background: var(--surface-hover);
-        border-color: var(--accent);
+        background: var(--surface-container);
+        border-color: rgba(0, 229, 255, 0.35);
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        color: var(--primary);
     }
 
     .share-btn-primary {
-        background: var(--accent);
-        color: var(--bg);
-        border-color: var(--accent);
+        background: var(--primary-container);
+        color: var(--on-primary);
+        border-color: transparent;
     }
 
     .share-btn-primary:hover {
-        background: var(--accent);
-        opacity: 0.9;
-        border-color: var(--accent);
+        background: var(--primary-container);
+        opacity: 0.92;
+        border-color: transparent;
+        color: var(--on-primary);
     }
 
     .share-icon {
@@ -308,7 +312,7 @@
 
     .footer-info {
         text-align: center;
-        padding-top: 2rem;
+        padding-top: 1.5rem;
         border-top: 1px solid var(--border);
     }
 
@@ -319,13 +323,13 @@
     }
 
     .footer-text {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         color: var(--muted);
         margin: 0;
     }
 
     .footer-link {
-        color: var(--accent);
+        color: var(--primary-container);
         text-decoration: none;
         transition: opacity 0.2s;
     }
@@ -335,8 +339,12 @@
         text-decoration: underline;
     }
 
-    /* Mobile responsive */
     @media (max-width: 640px) {
+        .app-footer {
+            padding-left: var(--gutter);
+            padding-right: var(--gutter);
+        }
+
         .share-buttons {
             flex-direction: column;
             width: 100%;
@@ -346,10 +354,5 @@
             width: 100%;
             justify-content: center;
         }
-    }
-
-    /* Dark theme adjustments */
-    [data-theme="dark"] .share-btn-primary {
-        color: #ffffff;
     }
 </style>

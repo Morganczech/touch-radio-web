@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#111319;color:#e2e2eb;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'primary-fixed': '#9cf0ff', 'on-secondary-fixed-variant': '#005236', 'on-secondary': '#003824', 'outline': '#849396', 'error-container': '#93000a', 'on-primary': '#00363d', 'background': '#111319', 'on-error-container': '#ffdad6', 'on-surface': '#e2e2eb', 'on-tertiary-fixed-variant': '#2f2ebe', 'on-tertiary-container': '#4344d1', 'surface': '#111319', 'on-surface-variant': '#bac9cc', 'on-primary-fixed': '#001f24', 'primary-container': '#00e5ff', 'tertiary': '#edeaff', 'on-error': '#690005', 'outline-variant': '#3b494c', 'tertiary-container': '#ccccff', 'secondary-fixed': '#6ffbbe', 'surface-container-lowest': '#0c0e14', 'inverse-surface': '#e2e2eb', 'surface-bright': '#373940', 'on-tertiary': '#1000a9', 'surface-variant': '#33343b', 'error': '#ffb4ab', 'surface-container-low': '#191b22', 'tertiary-fixed-dim': '#c0c1ff', 'secondary-container': '#00a572', 'surface-tint': '#00daf3', 'inverse-on-surface': '#2e3037', 'surface-container': '#1e1f26', 'primary': '#c3f5ff', 'surface-dim': '#111319', 'on-primary-container': '#00626e', 'primary-fixed-dim': '#00daf3', 'on-primary-fixed-variant': '#004f58', 'secondary-fixed-dim': '#4edea3', 'on-tertiary-fixed': '#07006c', 'surface-container-highest': '#33343b', 'on-background': '#e2e2eb', 'tertiary-fixed': '#e1e0ff', 'secondary': '#4edea3', 'surface-container-high': '#282a30', 'inverse-primary': '#006875', 'on-secondary-fixed': '#002113', 'on-secondary-container': '#00311f' }, borderRadius: { 'DEFAULT': '0.25rem', 'lg': '0.5rem', 'xl': '0.75rem', 'full': '9999px' }, spacing: { 'gutter-desktop': '1.25rem', 'margin': '1rem', 'space-sm': '0.5rem', 'space-xs': '0.25rem', 'space-md': '0.75rem', 'margin-desktop': '2.5rem', 'space-lg': '1.25rem', 'space-xl': '2rem', 'gutter': '1rem' }, fontFamily: { 'title-card': ['Inter'], 'body-sm': ['Inter'], 'display-hero': ['Geist'], 'headline-sm': ['Geist'], 'display-hero-mobile': ['Geist'], 'label-badge': ['JetBrains Mono'], 'label-telemetry': ['JetBrains Mono'], 'headline-lg': ['Geist'], 'body-md': ['Inter'] }, fontSize: { 'title-card': ['15px', { lineHeight: '20px', letterSpacing: '-0.01em', fontWeight: '600' }], 'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0em', fontWeight: '400' }], 'display-hero': ['44px', { lineHeight: '52px', letterSpacing: '-0.03em', fontWeight: '700' }], 'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '-0.015em', fontWeight: '600' }], 'display-hero-mobile': ['30px', { lineHeight: '38px', letterSpacing: '-0.02em', fontWeight: '700' }], 'label-badge': ['10px', { lineHeight: '12px', letterSpacing: '0.06em', fontWeight: '600' }], 'label-telemetry': ['11px', { lineHeight: '14px', letterSpacing: '0.04em', fontWeight: '500' }], 'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.02em', fontWeight: '600' }], 'body-md': ['14px', { lineHeight: '22px', letterSpacing: '0em', fontWeight: '400' }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-fixed"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl pt-safe"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="Modern minimalist logo for Touch Radio internet radio streaming app, stylized soundwave forming an antenna or glowing radio frequency pulse in neon cyan and electric blue, dark theme friendly. Brand logo. - Primary color: #00e5ff - Font: geist - Mode: dark - Roundness: rounded-md" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1WMn6H_MFaBY7_-wmcRWp3IaY7iJudqenH72SmWSwhovhrmlfCj1Qvebb01xsbSsEX7Jh-KliBNDIXAAwYX_UTEeTgxPxG1OMvNQD2v6MC4HNsuNmBvpuU_ep4nV8uWhA5gckvgeKowijUUpO3J5z0MUG_eku53ge9080UhUbG9ekzCErU4idXnqEVVx2_UBYItaZ02ZhMnvKb6A_6yLbcjD3tTheAy7MgjQ6sQLD5YWswLkbu5criYI8s"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">Touch Radio</span><span class="px-1.5 py-0.5 rounded-full bg-secondary/10 text-secondary font-label-badge text-label-badge uppercase tracking-wider flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>3.4k LIVE</span></div><span class="font-label-telemetry text-label-telemetry text-on-surface-variant truncate">Discover</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Search global frequencies" class="w-11 h-11 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-primary-container hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">search</span></button><button aria-label="Telemetry settings" class="w-11 h-11 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-primary-container hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">tune</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-44 bg-surface min-h-screen"><div class="flex flex-col w-full px-margin space-y-space-md">
+<!-- Search & Filter Bar -->
+<div class="relative w-full">
+<div class="flex items-center gap-space-xs bg-surface-container-lowest rounded-xl p-1.5 shadow-md">
+<div class="flex items-center gap-2 flex-1 px-space-sm py-1.5">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+<input class="w-full bg-transparent text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none min-w-0" placeholder="Hledat stanici, žánr, frekvenci..." type="text"/>
+</div>
+<button aria-label="Filtrovat frekvence" class="w-9 h-9 flex items-center justify-center rounded-lg bg-surface-container text-on-surface-variant hover:text-primary-container active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Category & Mood Pills (Horizontal Scroll) -->
+<div class="w-full overflow-x-auto no-scrollbar -mx-margin px-margin pt-1 pb-1">
+<div class="flex items-center gap-space-xs min-w-max">
+<button class="px-3.5 py-1.5 rounded-full bg-primary-container text-on-primary-fixed font-title-card text-body-sm shadow-[0_0_12px_rgba(0,229,255,0.25)] active:scale-95 transition-transform flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-on-primary-fixed"></span>
+        Vše
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-title-card text-body-sm active:scale-95 transition-transform">
+        Synthwave
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-title-card text-body-sm active:scale-95 transition-transform">
+        Coffee &amp; Lofi
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-title-card text-body-sm active:scale-95 transition-transform">
+        Jazz
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-title-card text-body-sm active:scale-95 transition-transform">
+        Dance Wave
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-title-card text-body-sm active:scale-95 transition-transform">
+        BBC &amp; News
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-title-card text-body-sm active:scale-95 transition-transform">
+        Chillout
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-title-card text-body-sm active:scale-95 transition-transform">
+        Rock
+      </button>
+</div>
+</div>
+<!-- PWA Telemetry & Install Banner -->
+<div class="relative w-full rounded-2xl bg-surface-container-low p-space-md shadow-md overflow-hidden flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-xl bg-secondary-container/20 text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-card text-body-sm text-on-surface truncate">7,420+ stanic v éteru</span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface-variant truncate">Bez reklam, cookies a sledování</span>
+</div>
+</div>
+<button class="px-2.5 py-1.5 rounded-lg bg-surface-container-high text-secondary font-label-badge text-label-badge uppercase tracking-wider flex items-center gap-1 flex-shrink-0 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[14px]">install_mobile</span>
+      Na plochu
+    </button>
+</div>
+<!-- Section Header -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">Právě v éteru</h2>
+</div>
+<span class="font-label-telemetry text-label-telemetry text-primary-container">Hi-Res Audio (Lossless)</span>
+</div>
+<!-- Station List (Touch Cards) -->
+<div class="flex flex-col space-y-space-sm pb-6">
+<!-- Card 1: Active / Streaming -->
+<div class="relative w-full rounded-xl bg-surface-container p-space-md shadow-lg shadow-primary-container/10 overflow-hidden">
+<!-- Glow ambient backplate -->
+<div class="absolute inset-0 bg-gradient-to-r from-primary-container/10 via-transparent to-secondary/5 pointer-events-none"></div>
+<div class="relative flex items-center justify-between gap-space-md">
+<!-- Station Artwork & Core Info -->
+<div class="flex items-center gap-space-md min-w-0 flex-1">
+<div class="relative w-12 h-12 rounded-xl overflow-hidden bg-surface-container-lowest flex-shrink-0 shadow-md">
+<img class="w-full h-full object-cover" data-alt="Futuristic neon holographic record label cover art for Dance Wave radio with electric cyan and magenta glowing audio waveforms against dark carbon fiber." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7_sIeCQmmXK7TxRFmVhb6qI3int-Y7lDFNN7y1PAKj1XMwJNcD2uZwaOHutDnM_ysY1ilaChFjteykCdvGPPZM0OxlDMFUwVp7g7cjQyzSiL7Uu_UBqDD5Oj9Lp275H4RVm5Mc40KJseaFfpq9sFiML-T7eVmsz0sefh5snUfpdELX4MarlTQmczPSqiTYn93MVpU4HQCp9WQeiUt-Hj-n6lbHaNIQBPCVWdNuMmjLhV2vD1qQmGQ"/>
+<span class="absolute top-1 left-1 w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-card text-title-card text-primary truncate">Dance Wave!</span>
+<span class="font-body-sm text-body-sm" title="Netherlands">🇳🇱</span>
+</div>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-label-badge text-label-badge uppercase px-1 py-0.5 rounded bg-surface-container-highest text-secondary">320k MP3</span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface-variant truncate">Electronic / Club</span>
+</div>
+</div>
+</div>
+<!-- Touch Actions: Heart, Add, Playback -->
+<div class="flex items-center gap-1 flex-shrink-0">
+<button aria-label="Odebrat z oblíbených" class="w-8 h-8 rounded-lg flex items-center justify-center text-primary-container hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<button aria-label="Přidat do playlistu" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">playlist_add_check</span>
+</button>
+<button aria-label="Pozastavit stream" class="w-10 h-10 rounded-xl bg-primary-container text-on-primary-fixed flex items-center justify-center shadow-[0_0_16px_rgba(0,229,255,0.4)] active:scale-90 transition-transform ml-1">
+<!-- Animated Equalizer Bars instead of static icon -->
+<div class="flex items-end gap-0.5 h-4">
+<span class="w-1 h-3 bg-on-primary-fixed rounded-full animate-bounce"></span>
+<span class="w-1 h-4 bg-on-primary-fixed rounded-full animate-pulse"></span>
+<span class="w-1 h-2 bg-on-primary-fixed rounded-full animate-bounce"></span>
+</div>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2: Radio Paradise -->
+<div class="relative w-full rounded-xl bg-surface-container p-space-md hover:bg-surface-container-high transition-all shadow-sm">
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0 flex-1">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-surface-container-lowest flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Mellow tropical sunset radio artwork with palm trees and ocean gradients in moody indigo and sonic cyan tones, high fidelity album art." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA0ArHlyZML4AzIfVoscJGOGHjvENNb7mVCVMQzPDlalI_MVGImpoe0m4SadcZxp7Z_CW3Iao0FUt7sfbANlgRFnujgs165qciFN8yqqK8nZVMyWTrSTxgL5yC7oedfWyqgTGR1CmST8QDzPOASixEVeRt90Mp7oRhbehX09in3XiHKaIhFuLExwMnBjiS-gDoqcM4OVAcKmHyYyg0Ll5PEOppLYZz7QziTjyDqAmaF5GMOSp3XSQy"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-card text-title-card text-on-surface truncate">Radio Paradise</span>
+<span class="font-body-sm text-body-sm" title="United States">🇺🇸</span>
+</div>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-label-badge text-label-badge uppercase px-1 py-0.5 rounded bg-surface-container-highest text-primary-fixed">320k AAC</span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface-variant truncate">Eclectic / Mellow</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 flex-shrink-0">
+<button aria-label="Přidat do oblíbených" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<button aria-label="Přidat do playlistu" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">playlist_add</span>
+</button>
+<button aria-label="Spustit stream" class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface hover:text-primary-container flex items-center justify-center active:scale-90 transition-transform ml-1">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3: BBC World Service -->
+<div class="relative w-full rounded-xl bg-surface-container p-space-md hover:bg-surface-container-high transition-all shadow-sm">
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0 flex-1">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-surface-container-lowest flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Broadcasting microphone in studio with red on-air light reflecting on polished brass surface, BBC audio aesthetic, dark slate background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQBZlKfpghcBpjRDAph8XgrX6SI90HeWvQdDoaLQICLz9WMGkeEWVgqlUhDFBqm_DYDxLpwGp8s7C4NQZY45GnGJelP30y4of3SrlJXxafHCva8DHjnrixVpJU5TWfR6jsid8litjbaOqOveAdySP2Oifb0QzbKsxd-fF0lc72c6S9F86DHir6tx291V4W5Y67T-F3c_rpPor6UomUUgFSR0AH9m9BHcX3nPV_lZ40lBcUHqGV7Fyy"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-card text-title-card text-on-surface truncate">BBC World Service</span>
+<span class="font-body-sm text-body-sm" title="United Kingdom">🇬🇧</span>
+</div>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-label-badge text-label-badge uppercase px-1 py-0.5 rounded bg-surface-container-highest text-outline">128k MP3</span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface-variant truncate">News / Talk</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 flex-shrink-0">
+<button aria-label="Přidat do oblíbených" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<button aria-label="Přidat do playlistu" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">playlist_add</span>
+</button>
+<button aria-label="Spustit stream" class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface hover:text-primary-container flex items-center justify-center active:scale-90 transition-transform ml-1">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4: 101 SMOOTH JAZZ -->
+<div class="relative w-full rounded-xl bg-surface-container p-space-md hover:bg-surface-container-high transition-all shadow-sm">
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0 flex-1">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-surface-container-lowest flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Golden saxophone close up in a smoky dim jazz bar with moody cyan rim lighting and velvet textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRqO4CpHSE2HEeTd_e-rtoADz0g_nLA0UtUplZ_qqlGvrvvtyT1cOYYCTSfUti9Fi_MrTVk0Ya44s26a_tVlvYl6u-UvfK8wkL9OX_1zIn_PFeWslawaIVpt3GzfTNBUtCVgsPXAtAEiV_UP0hodfsSmBxxdbG_Jm1ufNG_CfPETULGmD3tYQ_oJ311w4wrweu2fWCDxGFoLdeyIS2gwW9dTXWcpZYZ0rw-klhkHnSM7LbcVM6JDYN"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-card text-title-card text-on-surface truncate">101 SMOOTH JAZZ</span>
+<span class="font-body-sm text-body-sm" title="United States">🇺🇸</span>
+</div>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-label-badge text-label-badge uppercase px-1 py-0.5 rounded bg-surface-container-highest text-outline">128k MP3</span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface-variant truncate">Smooth Jazz</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 flex-shrink-0">
+<button aria-label="Přidat do oblíbených" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<button aria-label="Přidat do playlistu" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">playlist_add</span>
+</button>
+<button aria-label="Spustit stream" class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface hover:text-primary-container flex items-center justify-center active:scale-90 transition-transform ml-1">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 5: France Info -->
+<div class="relative w-full rounded-xl bg-surface-container p-space-md hover:bg-surface-container-high transition-all shadow-sm">
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0 flex-1">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-surface-container-lowest flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Minimalist French broadcasting emblem on matte black textured surface with subtle electric blue accents and sleek geometric shapes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd3jMhCPi0UhkIyi9Jd2yyORtwtSW7pxGTzWkJHMfe30YZLkCUBxbzVhZVhDhg133TtT7GmaXhaHBW3iVbh3spvgrvqQFcExSWpS3nz7lyA-mtUICO-irdci9ucksMy75eYRUe1w-WNYrYIHox4cFnsrAiM8RK3dN75_vWDD9o9AAaoZfKfTzM0vb3hG4SdVUzjzuaLC6ohDFDPrDQcqKLShbiyRT9bQxiif__a8hmiGV7bceXCkbL"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-card text-title-card text-on-surface truncate">France Info</span>
+<span class="font-body-sm text-body-sm" title="France">🇫🇷</span>
+</div>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-label-badge text-label-badge uppercase px-1 py-0.5 rounded bg-surface-container-highest text-primary-fixed">192k AAC</span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface-variant truncate">News / Culture</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 flex-shrink-0">
+<button aria-label="Přidat do oblíbených" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<button aria-label="Přidat do playlistu" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">playlist_add</span>
+</button>
+<button aria-label="Spustit stream" class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface hover:text-primary-container flex items-center justify-center active:scale-90 transition-transform ml-1">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 6: Classic Vinyl HD -->
+<div class="relative w-full rounded-xl bg-surface-container p-space-md hover:bg-surface-container-high transition-all shadow-sm">
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0 flex-1">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-surface-container-lowest flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Macro photo of vintage turntable needle stylus gliding on a black vinyl disc with amber and cyan studio illumination." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLYT3MTePPqyls2ZEbdi1GsHtSZ4YpsJMmyFkUb1dUKLxd5SZnMbotYVHFqOBSfjIa6BblGpF0W0vRcYR4hKb7FYl44j0bROH8qboWf4pZCmxkaS2s050bkTodHyjPNLmg3cYqU4Ij_Ue46n-0wMJioimEiSWwtTddeUki3WaFwEMWQsr9b6zZrKf2RFZA5Y0mgX2DXeO_Wj30-Ogc1JDvghuqolvfLQrz78B4yWJfUavP21J1dpp1"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-card text-title-card text-on-surface truncate">Classic Vinyl HD</span>
+<span class="font-body-sm text-body-sm" title="United States">🇺🇸</span>
+</div>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-label-badge text-label-badge uppercase px-1 py-0.5 rounded bg-surface-container-highest text-secondary">320k MP3</span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface-variant truncate">Classic Rock</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 flex-shrink-0">
+<button aria-label="Přidat do oblíbených" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<button aria-label="Přidat do playlistu" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">playlist_add</span>
+</button>
+<button aria-label="Spustit stream" class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface hover:text-primary-container flex items-center justify-center active:scale-90 transition-transform ml-1">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for tactile button feedback & pill selection
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(10);
+      }
+    });
+  });
+</script></main><div class="fixed bottom-20 inset-x-0 z-40 px-margin pointer-events-none"><div class="pointer-events-auto bg-surface-container-high/90 backdrop-blur-2xl rounded-2xl p-space-sm shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0 flex-1"><div class="relative w-11 h-11 rounded-xl bg-surface-container-lowest flex-shrink-0 overflow-hidden flex items-center justify-center"><div class="w-full h-full bg-gradient-to-tr from-primary-fixed-dim/20 to-secondary/20 flex items-center justify-center"><span class="material-symbols-outlined text-primary-container text-[24px]">radio</span></div><span class="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-high animate-ping"></span><span class="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-high"></span></div><div class="flex flex-col min-w-0"><div class="flex items-center gap-1.5"><span class="font-title-card text-title-card text-on-surface truncate">Dance Wave!</span><span class="px-1 py-0.2 rounded bg-primary-container/15 text-primary-container font-label-badge text-[9px]">320K</span></div><div class="flex items-center gap-2"><div class="flex items-end gap-0.5 h-3"><span class="w-0.5 h-2 bg-primary-container animate-pulse rounded-full"></span><span class="w-0.5 h-3 bg-secondary rounded-full"></span><span class="w-0.5 h-1.5 bg-primary-container animate-pulse rounded-full"></span><span class="w-0.5 h-2.5 bg-secondary rounded-full"></span></div><span class="font-label-telemetry text-label-telemetry text-on-surface-variant truncate">Live Broadcast • Studio Master</span></div></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Playback Toggle" class="w-11 h-11 rounded-full bg-primary-container text-on-primary-fixed flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-[0_0_16px_rgba(0,229,255,0.35)]"><span class="material-symbols-outlined text-[24px]">pause</span></button><button aria-label="Expand Hi-Fi Drawer" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[24px]">keyboard_arrow_up</span></button></div></div></div><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-2xl" data-active-classes="text-primary-container font-title-card"><div class="flex justify-around items-center h-20 px-space-xs"><a aria-current="page" class="flex flex-col items-center justify-center gap-1 w-16 h-14 transition-colors text-primary-container font-title-card" data-path="discover" href="#"><span class="material-symbols-outlined text-[24px]">sensors</span><span class="font-label-telemetry text-label-telemetry">Discover</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-colors" data-path="countries" href="#"><span class="material-symbols-outlined text-[24px]">public</span><span class="font-label-telemetry text-label-telemetry">Countries</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-colors relative" data-path="favorites" href="#"><span class="material-symbols-outlined text-[24px]">favorite</span><span class="font-label-telemetry text-label-telemetry">Favorites</span><span class="absolute top-1 right-3 w-2 h-2 rounded-full bg-primary-container"></span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-colors" data-path="playlist-export" href="#"><span class="material-symbols-outlined text-[24px]">queue_music</span><span class="font-label-telemetry text-label-telemetry">Playlist</span></a></div></nav></body></html>

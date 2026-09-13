@@ -8,235 +8,246 @@ import SelectionSidebar from "../components/SelectionSidebar.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/station-item.css";
 
-// Filter valid stations first
 const allStations = stationsRaw.filter((s: any) => !s.broken);
-// No SSR station rendering - strictly client side
 
-// Extract unique values for filters
 const uniqueCountries = [
-	...new Set(allStations.map((s: any) => s.country).filter(Boolean)),
+  ...new Set(allStations.map((s: any) => s.country).filter(Boolean)),
 ].sort();
 const uniqueGenres = [
-	...new Set(allStations.flatMap((s: any) => s.tags || []).filter(Boolean)),
+  ...new Set(allStations.flatMap((s: any) => s.tags || []).filter(Boolean)),
 ].sort();
 const uniqueCodecs = [
-	...new Set(allStations.map((s: any) => s.codec).filter(Boolean)),
+  ...new Set(allStations.map((s: any) => s.codec).filter(Boolean)),
 ].sort();
 ---
 
 <BaseLayout>
-	<main>
-		<Hero />
-		<Filters
-			uniqueCountries={uniqueCountries}
-			uniqueGenres={uniqueGenres}
-			uniqueCodecs={uniqueCodecs}
-		/>
-		<section class="content-section">
-			<div class="section-header">
-				<h2>Available Stations</h2>
-				<p class="section-subtitle">
-					Select stations and export a playlist
-				</p>
-			</div>
-		</section>
-		<div class="content-wrapper">
-			<div class="main-content">
-				<StationGrid />
-			</div>
-			<SelectionSidebar />
-		</div>
-		<Footer />
-	</main>
+  <main>
+    <Hero />
+    <Filters
+      uniqueCountries={uniqueCountries}
+      uniqueGenres={uniqueGenres}
+      uniqueCodecs={uniqueCodecs}
+    />
+    <div class="content-wrapper" id="stations">
+      <div class="main-content">
+        <div class="section-header">
+          <div class="section-title-row">
+            <h2>Available Stations</h2>
+            <span class="count-pill" id="stations-count-pill">Loading…</span>
+          </div>
+        </div>
+        <StationGrid />
+      </div>
+      <div id="selection">
+        <SelectionSidebar />
+      </div>
+    </div>
+    <Footer />
+  </main>
 </BaseLayout>
 
 <style>
-	/* Section Headers */
-	.section-header {
-		margin-bottom: 3rem;
-	}
+  main {
+    max-width: 1680px;
+    margin: 0 auto;
+  }
 
-	.section-header h2 {
-		font-size: 1.5rem;
-		margin-bottom: 0.25rem;
-	}
+  .section-header {
+    margin-bottom: 1rem;
+    padding: 0 0.15rem;
+  }
 
-	.section-subtitle {
-		color: var(--muted);
-		font-size: 0.95rem;
-	}
+  .section-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
 
-	/* Original Layout */
-	.content-wrapper {
-		display: flex;
-		gap: 2rem;
-		align-items: flex-start;
-	}
+  .section-title-row h2 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
 
-	.main-content {
-		flex: 1;
-		min-width: 0; /* Prevents overflow in flex items */
-	}
+  .count-pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    background: var(--surface-high);
+    color: var(--on-surface-variant);
+  }
 
-	@media (max-width: 1024px) {
-		.content-wrapper {
-			flex-direction: column;
-		}
-	}
+  .content-wrapper {
+    display: flex;
+    gap: var(--gutter-desktop);
+    align-items: flex-start;
+    padding: 0 var(--gutter-desktop) 2rem;
+  }
 
-	/* Scroll to Top Button */
-	.scroll-to-top {
-		position: fixed;
-		bottom: 2rem;
-		right: 2rem;
-		width: 48px;
-		height: 48px;
-		border-radius: 50%;
-		background: var(--bg);
-		border: 2px solid var(--border);
-		color: var(--text);
-		font-size: 1.5rem;
-		cursor: pointer;
-		opacity: 0;
-		visibility: hidden;
-		transition:
-			opacity 0.3s,
-			visibility 0.3s,
-			transform 0.2s;
-		z-index: 998;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	}
+  .main-content {
+    flex: 1;
+    min-width: 0;
+  }
 
-	.scroll-to-top.visible {
-		opacity: 1;
-		visibility: visible;
-	}
+  @media (max-width: 1024px) {
+    .content-wrapper {
+      flex-direction: column;
+      padding: 0 var(--gutter) 2rem;
+    }
+  }
 
-	.scroll-to-top:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-	}
+  .scroll-to-top {
+    position: fixed;
+    bottom: calc(var(--player-h) + 1.5rem);
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--surface-container);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 1.25rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.2s;
+    z-index: 55;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
 
-	.scroll-to-top:active {
-		transform: translateY(-2px);
-	}
+  .scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+  }
 
-	/* Mobile: Position above FAB */
-	@media (max-width: 1024px) {
-		.scroll-to-top {
-			bottom: 9rem; /* Above FAB (FAB is at 2rem, FAB height 64px + gap) */
-		}
-	}
+  .scroll-to-top:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 229, 255, 0.35);
+    color: var(--primary-container);
+  }
+
+  @media (max-width: 1024px) {
+    .scroll-to-top {
+      bottom: calc(var(--player-h) + var(--mobile-nav-h) + 1rem);
+      right: 1rem;
+    }
+  }
 </style>
 
-<!-- Scroll to Top Button -->
-<button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">
-	↑
-</button>
+<button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">↑</button>
 
-<style></style>
 <script>
-	import { appState } from "../scripts/state/appState";
-	import { initStations } from "../scripts/stations/stationFilter";
-	import {
-		initSelection,
-		persistSelection,
-		updateUI,
-	} from "../scripts/selection/selectionManager";
-	import { initDiscoveryBadges } from "../scripts/search/discoveryBadges";
-	import { initSearchPlaceholder } from "../scripts/search/searchPlaceholder";
-	import { initKeyboardShortcuts } from "../scripts/search/keyboardShortcuts";
+  import { appState } from "../scripts/state/appState";
+  import { initStations } from "../scripts/stations/stationFilter";
+  import {
+    initSelection,
+    updateUI,
+  } from "../scripts/selection/selectionManager";
+  import {
+    loadFavorites,
+    persistFavorites,
+    syncFavoriteUI,
+  } from "../scripts/favorites/favoritesManager";
+  import { initDiscoveryBadges } from "../scripts/search/discoveryBadges";
+  import { initSearchPlaceholder } from "../scripts/search/searchPlaceholder";
+  import { initKeyboardShortcuts } from "../scripts/search/keyboardShortcuts";
+  import { initMobileNav } from "../scripts/nav/mobileNav";
 
-	// Initialize State Source of Truth
-	// Start empty to avoid bundling massive JSON. Data will be fetched.
-	appState.allStations = [];
+  appState.allStations = [];
 
-	document.addEventListener("DOMContentLoaded", async () => {
-		initSelection(); // Init selection logic (reading localStorage)
-		initDiscoveryBadges();
-		initSearchPlaceholder();
-		initKeyboardShortcuts();
+  document.addEventListener("DOMContentLoaded", async () => {
+    loadFavorites();
+    initSelection();
+    initMobileNav();
+    syncFavoriteUI();
+    initDiscoveryBadges();
+    initSearchPlaceholder();
+    initKeyboardShortcuts();
 
-		// Check if we have shared URL params before fetching, just to be ready
-		const { parseShareUrl } = await import(
-			"../scripts/utils/sharePlaylist"
-		);
-		const { showToast } = await import("../scripts/utils/toast");
-		const sharedIds = parseShareUrl();
+    const { parseShareUrl } = await import("../scripts/utils/sharePlaylist");
+    const { showToast } = await import("../scripts/utils/toast");
+    const sharedIds = parseShareUrl();
 
-		// Dynamic Fetch of Stations Data (~1MB uncompressed)
-		// This prevents the data from being bundled into the initial JS, improving LCP/TBT significantly.
-		try {
-			const response = await fetch("/stations.json");
-			if (!response.ok) throw new Error("Failed to load stations");
-			const stationsData = await response.json();
+    try {
+      const response = await fetch("/stations.json");
+      if (!response.ok) throw new Error("Failed to load stations");
+      const stationsData = await response.json();
 
-			// Filter broken stations and update state
-			appState.allStations = stationsData.filter((s: any) => !s.broken);
-			const availableStationIds = new Set(
-				appState.allStations.map((station: any) => station.id),
-			);
-			for (const selectedId of appState.selectedIds) {
-				if (!availableStationIds.has(selectedId)) {
-					appState.selectedIds.delete(selectedId);
-				}
-			}
-			persistSelection();
+      appState.allStations = stationsData.filter((s: any) => !s.broken);
+      const availableStationIds = new Set(
+        appState.allStations.map((station: any) => station.id),
+      );
+      for (const favoriteId of appState.favoriteIds) {
+        if (!availableStationIds.has(favoriteId)) {
+          appState.favoriteIds.delete(favoriteId);
+        }
+      }
+      persistFavorites();
+      syncFavoriteUI();
 
-			// Now initialize the filter system with loaded data
-			initStations(); // filtering happens here
+      const headerCount = document.getElementById("header-station-count");
+      if (headerCount) {
+        headerCount.textContent = `${appState.allStations.length.toLocaleString("en-US")}+`;
+      }
 
-			// Handle Shared Playlist logic after data is loaded
-			if (sharedIds && sharedIds.length > 0) {
-				// Validate that all IDs exist in our stations
-				const validIds = sharedIds.filter((id) =>
-					appState.allStations.some((s) => s.id === id),
-				);
+      initStations();
 
-				if (validIds.length > 0) {
-					validIds.forEach((id) => appState.selectedIds.add(id));
-					persistSelection();
-					showToast(
-						`✓ Loaded ${validIds.length} station${validIds.length !== 1 ? "s" : ""} from shared playlist`,
-					);
+      if (sharedIds && sharedIds.length > 0) {
+        const validIds = sharedIds.filter((id) =>
+          appState.allStations.some((s) => s.id === id),
+        );
 
-					// Clean URL
-					const url = new URL(window.location.href);
-					url.searchParams.delete("playlist");
-					window.history.replaceState({}, "", url.toString());
-				}
-			}
+        if (validIds.length > 0) {
+          appState.favoriteIds.clear();
+          validIds.forEach((id) => appState.favoriteIds.add(id));
+          persistFavorites();
+          syncFavoriteUI();
+          updateUI();
+          showToast(
+            `✓ Loaded ${validIds.length} favorite${validIds.length !== 1 ? "s" : ""} from shared link`,
+          );
 
-			// Update UI with stations
-			updateUI();
-		} catch (error) {
-			console.error("Error loading stations:", error);
-			showToast("Failed to load stations. Please refresh.");
-		}
+          const url = new URL(window.location.href);
+          url.searchParams.delete("playlist");
+          window.history.replaceState({}, "", url.toString());
 
-		// Scroll to Top Button
-		const scrollToTopBtn = document.getElementById("scroll-to-top");
+          const { openFavoritesSheet } = await import(
+            "../scripts/selection/selectionManager"
+          );
+          openFavoritesSheet();
+        }
+      }
 
-		if (scrollToTopBtn) {
-			// Show/hide button based on scroll position
-			window.addEventListener("scroll", () => {
-				if (window.scrollY > 300) {
-					scrollToTopBtn.classList.add("visible");
-				} else {
-					scrollToTopBtn.classList.remove("visible");
-				}
-			});
+      updateUI();
+    } catch (error) {
+      console.error("Error loading stations:", error);
+      showToast("Failed to load stations. Please refresh.");
+    }
 
-			// Scroll to top on click
-			scrollToTopBtn.addEventListener("click", () => {
-				window.scrollTo({
-					top: 0,
-					behavior: "smooth",
-				});
-			});
-		}
-	});
+    const scrollToTopBtn = document.getElementById("scroll-to-top");
+    if (scrollToTopBtn) {
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+          scrollToTopBtn.classList.add("visible");
+        } else {
+          scrollToTopBtn.classList.remove("visible");
+        }
+      });
+      scrollToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+  });
 </script>

@@ -1,23 +1,24 @@
 # Touch Radio
 
-A minimalist web radio player that lets you discover and play thousands of radio stations worldwide. Built with Astro, featuring smart search, playlist export, and a clean, ad-free experience.
+A minimalist web radio player for discovering and listening to thousands of stations worldwide. Built with Astro — smart search, favorites with share/export, a mobile-first player, and a clean ad-free experience.
 
 ![Touch Radio](public/og-image.png)
 
-## ✨ Features
+## Features
 
-- 🌍 **7,000+ Radio Stations** - Worldwide coverage with diverse genres
-- 🔍 **Smart Search** - Intelligent filtering by genre, country, codec, and bitrate
-- 📻 **Live Preview** - Play stations directly in your browser
-- 💾 **Playlist Export** - Export your selection in M3U, M3U8, PLS, or JSON formats
-- 🔗 **Share Playlists** - Share your curated station lists with friends
-- 🎨 **Dark Mode** - Automatic theme switching
-- 📱 **Responsive Design** - Works seamlessly on desktop and mobile
-- 📊 **Privacy-conscious Analytics** - Cookie-free TOPlist visitor counting, no ads
-- ⚡ **Fast & Lightweight** - Static site generation for instant loading
-- 🌐 **PWA Ready** - Install as a standalone app
+- **7,000+ radio stations** — worldwide coverage across genres
+- **Smart search** — filter by genre, country, codec, and bitrate
+- **Live playback** — stream in the browser with dock + Now Playing drawer
+- **Favorites** — save stations with ♥ (stored in `localStorage`, no login)
+- **Share & export** — share a favorites link, or export M3U / M3U8 / PLS / JSON
+- **Sleep timer** — 5–120 minutes with countdown and fade-out before stop
+- **Media Session** — lock-screen / OS media controls where supported
+- **Light & dark theme** — Hi-Fi dark by default, toggle persists locally
+- **Responsive PWA** — installable; works on desktop and mobile
+- **Privacy-conscious** — cookie-free TOPlist visitor counting, no ads
+- **Fast & static** — Astro SSG for quick loads
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -46,121 +47,120 @@ Visit `http://localhost:4321` to see the app in action.
 ### Build for Production
 
 ```bash
-# Build the site
+# Build the site (also refreshes station data via prebuild)
 npm run build
 
 # Preview the build
 npm run preview
 ```
 
-## 📦 Project Structure
+## Project Structure
 
 ```
 touch-radio-web/
-├── public/              # Static assets
-│   ├── og-image.png    # Social media preview
-│   ├── icons/          # PWA icons
-│   └── manifest.json   # PWA manifest
-├── scripts/            # Build scripts
-│   ├── fetch-stations.mjs      # Fetch stations from Radio Browser API
-│   └── normalize-stations.mjs  # Normalize station data
+├── public/                 # Static assets, PWA icons, manifest
+├── scripts/                # Build-time station fetch / normalize
 ├── src/
-│   ├── components/     # Astro components
-│   ├── data/          # Station data (JSON)
-│   ├── layouts/       # Page layouts
-│   ├── pages/         # Routes
-│   ├── scripts/       # Client-side JavaScript
-│   └── styles/        # Global styles
+│   ├── components/         # UI (header, hero, grid, player, favorites)
+│   ├── data/               # Station JSON
+│   ├── layouts/            # Base layout + theme bootstrap
+│   ├── pages/              # Routes
+│   ├── scripts/            # Client logic (player, favorites, filters)
+│   └── styles/             # Design tokens + station cards
 └── package.json
 ```
 
-## 🎯 Usage
+## Usage
 
-### Search & Filter
+### Search & filter
 
-- **Text Search**: Type station name, genre, or keywords
-- **Smart Filters**: Use dropdowns for country, genre, and codec
-- **Smart Search Syntax**: 
-  - `jazz 128 us mp3` - Find US jazz stations with 128kbps MP3
-  - `rock germany` - Find German rock stations
-  - `classical 320` - Find high-quality classical stations
+- **Text search** — station name, genre, or keywords
+- **Filters** — country, genre, codec
+- **Smart search syntax**:
+  - `jazz 128 us mp3` — US jazz, ~128 kbps MP3
+  - `rock germany` — German rock
+  - `classical 320` — high-bitrate classical
 
-### Playlist Management
+### Favorites
 
-1. Click the heart icon on station cards to add to "My Selection"
-2. View selected stations in the sidebar
-3. Export your playlist:
-   - **M3U/M3U8** - For VLC, Winamp, iTunes
-   - **PLS** - For older players
-   - **JSON** - Touch Radio format
-4. Share your playlist via URL
+1. Tap **♥** on a station card to save it
+2. Open **Favorites** (sidebar on desktop, bottom nav / header on mobile)
+3. Play, remove, or **Share Favorites Link** (URL with `?playlist=…`)
+4. Export as **M3U / M3U8 / PLS / JSON**
 
-### Keyboard Shortcuts
+Opening a shared link loads those stations into Favorites.
 
-- `Ctrl/Cmd + K` - Focus search
-- `Esc` - Clear search
+### Player
 
-## 🛠️ Technology Stack
+- Use the bottom **dock** for play / pause / prev / next / volume
+- On mobile, tap the dock (or the up chevron) to open **Now Playing**
+- Set a **Sleep timer** there — countdown shows in the dock; audio fades in the last minute, then the stream disconnects
 
-- **Framework**: [Astro](https://astro.build/) - Static site generator
+### Keyboard shortcuts
+
+- `Ctrl/Cmd + K` — focus search
+- `Esc` — clear search
+
+## Technology Stack
+
+- **Framework**: [Astro](https://astro.build/)
 - **Language**: TypeScript
-- **Styling**: Vanilla CSS with CSS custom properties
-- **Data Source**: [Radio Browser API](https://www.radio-browser.info/)
-- **Deployment**: Netlify (or any static host)
+- **Styling**: Vanilla CSS with design tokens (light/dark)
+- **Fonts**: Geist, Inter, JetBrains Mono
+- **Data**: [Radio Browser API](https://www.radio-browser.info/)
+- **Deploy**: Netlify (or any static host)
 
-## 📡 Data Source
+## Data Source
 
-Station data is fetched from the [Radio Browser API](https://www.radio-browser.info/), a community-driven database of radio stations. The data is fetched at build time and stored locally for fast access.
+Station data comes from the [Radio Browser API](https://www.radio-browser.info/). It is fetched at build time and stored locally for fast access.
 
-### Update Station Data
+### Update station data
 
 ```bash
 npm run fetch:stations
 ```
 
-This fetches the top 7,500 voted and clicked stations, merges them, and normalizes the data.
+This fetches the top voted/clicked stations, merges them, and normalizes the data.
 
-### Automated Updates
+### Automated updates
 
-The station list is automatically updated **daily at 4:00 AM UTC** via GitHub Actions. If you fork this repository, you must enable **Read and write permissions** in `Settings -> Actions -> General -> Workflow permissions` for the automation to work.
+The station list is updated **daily at 4:00 AM UTC** via GitHub Actions. On a fork, enable **Read and write permissions** under `Settings → Actions → General → Workflow permissions`.
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome — feel free to open a Pull Request.
 
-### Development Workflow
+### Development workflow
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'add: amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+3. Commit (`git commit -m 'add: amazing feature'`)
+4. Push and open a Pull Request
 
-### Commit Convention
+### Commit convention
 
-We use semantic commit messages:
-- `add:` - New features
-- `update:` - Updates to existing features
-- `fix:` - Bug fixes
-- `refactor:` - Code refactoring
-- `docs:` - Documentation changes
-- `chore:` - Maintenance tasks
+- `add:` — new features
+- `update:` — updates to existing features
+- `fix:` — bug fixes
+- `refactor:` — code refactoring
+- `docs:` — documentation
+- `chore:` — maintenance
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT — see the [LICENSE](LICENSE) file.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-- [Radio Browser](https://www.radio-browser.info/) - For providing the station database
-- [Astro](https://astro.build/) - For the amazing framework
+- [Radio Browser](https://www.radio-browser.info/) — station database
+- [Astro](https://astro.build/) — framework
 - All radio stations and broadcasters
 
-## 📧 Contact
+## Contact
 
 - GitHub: [@Morganczech](https://github.com/Morganczech)
-- Project Link: [https://github.com/Morganczech/touch-radio-web](https://github.com/Morganczech/touch-radio-web)
+- Project: [https://github.com/Morganczech/touch-radio-web](https://github.com/Morganczech/touch-radio-web)
 
 ---
 
-**Touch Radio** - Discover radio, your way. 🎵
+**Touch Radio** — Discover radio, your way.

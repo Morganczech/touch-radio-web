@@ -1,0 +1,56 @@
+[
+  {
+    "title": "obrazek.png",
+    "name": "projects/9933267623240241827/screens/16508938752895736378",
+    "deviceType": null,
+    "width": "1856",
+    "height": "4374",
+    "files": {
+      "screenshot": "screens/obrazek-png/screenshot.png"
+    }
+  },
+  {
+    "title": "Touch Radio Logo",
+    "name": "projects/9933267623240241827/screens/9a449d1ed58e4100a69ac7dbc5d5b00d",
+    "deviceType": null,
+    "width": "512",
+    "height": "512",
+    "files": {
+      "screenshot": "screens/touch-radio-logo/screenshot.png",
+      "html": "screens/touch-radio-logo/logo.svg"
+    }
+  },
+  {
+    "title": "Touch Radio PWA - Discover & Stanice",
+    "name": "projects/9933267623240241827/screens/8a0e4dd1962b4b15952b50f20ea386f7",
+    "deviceType": "MOBILE",
+    "width": "780",
+    "height": "1940",
+    "files": {
+      "screenshot": "screens/touch-radio-pwa-discover-stanice/screenshot.png",
+      "html": "screens/touch-radio-pwa-discover-stanice/html.html"
+    }
+  },
+  {
+    "title": "Touch Radio PWA - Now Playing Přehrávač",
+    "name": "projects/9933267623240241827/screens/bf2a83bc3c7e46fcb1df69f12e55dd6f",
+    "deviceType": "MOBILE",
+    "width": "780",
+    "height": "2294",
+    "files": {
+      "screenshot": "screens/touch-radio-pwa-now-playing/screenshot.png",
+      "html": "screens/touch-radio-pwa-now-playing/html.html"
+    }
+  },
+  {
+    "title": "Touch Radio - Desktop Discover & Player",
+    "name": "projects/9933267623240241827/screens/e1a58bfc01684dccafa5eabc08a885e5",
+    "deviceType": "DESKTOP",
+    "width": "2560",
+    "height": "2984",
+    "files": {
+      "screenshot": "screens/touch-radio-desktop-discover-player/screenshot.png",
+      "html": "screens/touch-radio-desktop-discover-player/html.html"
+    }
+  }
+]

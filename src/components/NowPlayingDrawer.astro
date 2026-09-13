@@ -1,0 +1,620 @@
+---
+
+---
+
+<div
+  id="now-playing-drawer"
+  class="now-playing-drawer"
+  aria-hidden="true"
+  role="dialog"
+  aria-label="Now playing"
+>
+  <div class="npd-backdrop" data-close-now-playing></div>
+  <div class="npd-sheet">
+    <div class="npd-grabber" aria-hidden="true"></div>
+
+    <div class="npd-topbar">
+      <button type="button" class="npd-chip" data-close-now-playing>
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
+        </svg>
+        Back to browse
+      </button>
+      <span class="npd-live" data-player-live hidden>
+        <span class="pulse-live npd-live-dot" aria-hidden="true"></span>
+        LIVE STREAM
+      </span>
+    </div>
+
+    <div class="npd-station-card">
+      <div class="npd-station-left">
+        <img data-player-art class="npd-station-art" src="/logo.svg" alt="" width="40" height="40" />
+        <div class="npd-station-copy">
+          <strong data-player-name>Select a station</strong>
+          <span data-player-meta>Browse and press play to start streaming</span>
+        </div>
+      </div>
+      <div class="npd-station-actions">
+        <button type="button" id="drawer-favorite" class="npd-icon-btn" data-player-favorite aria-label="Toggle favorite" aria-pressed="false">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="npd-art-stage">
+      <div class="npd-halo" aria-hidden="true"></div>
+      <div class="npd-ring">
+        <img data-player-art class="npd-hero-art" src="/logo.svg" alt="" />
+        <div class="npd-format-pill">
+          <span class="npd-format-dot" aria-hidden="true"></span>
+          <span data-player-quality>—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="npd-track">
+      <span class="npd-genre" data-player-genre>LIVE RADIO</span>
+      <h2 data-player-name>Select a station</h2>
+      <p data-player-meta>Browse and press play to start streaming</p>
+    </div>
+
+    <div class="npd-spectrum" aria-hidden="true">
+      <div class="npd-spectrum-head">
+        <span>SPECTRUM</span>
+        <span>20 Hz — 20 kHz</span>
+      </div>
+      <div class="npd-bars" id="drawer-viz">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="npd-transport">
+      <button type="button" id="drawer-prev" class="npd-transport-btn" aria-label="Previous">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M6 6h2v12H6zm3.5 6 8.5 6V6z"></path></svg>
+      </button>
+      <button type="button" id="drawer-play" class="npd-play" data-player-play aria-label="Play" disabled>
+        <svg class="icon-play" viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M8 5v14l11-7z"></path></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+      </button>
+      <button type="button" id="drawer-next" class="npd-transport-btn" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path></svg>
+      </button>
+    </div>
+
+    <div class="npd-volume">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"></path></svg>
+      <input type="range" id="drawer-volume" min="0" max="1" step="0.01" value="1" aria-label="Volume" />
+    </div>
+
+    <div class="npd-sleep">
+      <div class="npd-sleep-copy">
+        <span class="npd-sleep-label">Sleep timer</span>
+        <span class="npd-sleep-hint">Fades out in the last minute</span>
+      </div>
+      <div class="npd-sleep-controls">
+        <select id="sleep-timer-select" aria-label="Sleep timer duration">
+          <option value="0">Off</option>
+          <option value="5">5 minutes</option>
+          <option value="10">10 minutes</option>
+          <option value="15">15 minutes</option>
+          <option value="30">30 minutes</option>
+          <option value="45">45 minutes</option>
+          <option value="60">1 hour</option>
+          <option value="90">1.5 hours</option>
+          <option value="120">2 hours</option>
+        </select>
+        <span class="npd-sleep-remaining" data-sleep-countdown hidden></span>
+      </div>
+    </div>
+
+    <div class="npd-quick">
+      <button type="button" class="npd-quick-card" id="drawer-open-selection">
+        <strong>Favorites</strong>
+        <span><span data-favorites-count>0</span> saved</span>
+      </button>
+      <button type="button" class="npd-quick-card" data-close-now-playing>
+        <strong>Back to stations</strong>
+        <span>Continue browsing</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .now-playing-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+  }
+
+  .now-playing-drawer.is-open {
+    pointer-events: auto;
+  }
+
+  .npd-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .now-playing-drawer.is-open .npd-backdrop {
+    opacity: 1;
+  }
+
+  .npd-sheet {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 8vh;
+    background: var(--background);
+    border-radius: 20px 20px 0 0;
+    border-top: 1px solid var(--border);
+    transform: translateY(105%);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow-y: auto;
+    padding: 0.5rem var(--gutter) calc(1.25rem + env(safe-area-inset-bottom));
+    max-width: 560px;
+    margin: 0 auto;
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.45);
+  }
+
+  .now-playing-drawer.is-open .npd-sheet {
+    transform: translateY(0);
+  }
+
+  @media (min-width: 1025px) {
+    .npd-sheet {
+      top: auto;
+      max-height: min(92vh, 820px);
+      border-radius: 16px 16px 0 0;
+    }
+  }
+
+  .npd-grabber {
+    width: 48px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--surface-highest);
+    margin: 0.35rem auto 0.85rem;
+  }
+
+  .npd-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .npd-chip,
+  .npd-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-full);
+    background: var(--surface-low);
+    border: none;
+    color: var(--on-surface-variant);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .npd-chip:hover {
+    color: var(--on-surface);
+    border-color: transparent;
+  }
+
+  .npd-live {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--secondary);
+  }
+
+  .npd-live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--secondary);
+  }
+
+  .npd-station-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--surface-low);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 1rem;
+  }
+
+  .npd-station-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  .npd-station-art {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: var(--surface-highest);
+  }
+
+  .npd-station-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .npd-station-copy strong {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .npd-station-copy span {
+    font-size: 0.75rem;
+    color: var(--on-surface-variant);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .npd-icon-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--surface-container);
+    color: var(--outline);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .npd-icon-btn[data-active="true"] {
+    color: var(--primary-container);
+  }
+
+  .npd-art-stage {
+    position: relative;
+    width: min(100%, 320px);
+    aspect-ratio: 1;
+    margin: 0.5rem auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .npd-halo {
+    position: absolute;
+    inset: 12%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.28), transparent 70%);
+    filter: blur(18px);
+    opacity: 0.45;
+  }
+
+  .now-playing-drawer[data-active="true"] .npd-halo {
+    opacity: 1;
+    animation: pulse-live 3s ease-in-out infinite;
+  }
+
+  .npd-ring {
+    position: relative;
+    width: 86%;
+    height: 86%;
+    border-radius: 50%;
+    padding: 0.65rem;
+    background: var(--surface-lowest);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06), 0 0 0 1px rgba(0, 229, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .npd-hero-art {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--surface-high);
+  }
+
+  .npd-format-pill {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-full);
+    background: color-mix(in srgb, var(--surface-container) 90%, transparent);
+    backdrop-filter: blur(8px);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .npd-format-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--secondary);
+  }
+
+  .npd-track {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .npd-genre {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--primary-container);
+    background: var(--surface-low);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    margin-bottom: 0.45rem;
+  }
+
+  .npd-track h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .npd-track p {
+    margin: 0.35rem 0 0;
+    color: var(--on-surface-variant);
+    font-size: 0.9rem;
+  }
+
+  .npd-spectrum {
+    background: var(--surface-low);
+    border-radius: var(--radius-md);
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .npd-spectrum-head {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--on-surface-variant);
+    margin-bottom: 0.5rem;
+  }
+
+  .npd-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 40px;
+  }
+
+  .npd-bars span {
+    flex: 1;
+    height: 12%;
+    border-radius: 2px;
+    background: var(--primary-container);
+    opacity: 0.35;
+    min-height: 3px;
+  }
+
+  .now-playing-drawer[data-active="true"] .npd-bars.is-css-fallback span,
+  .now-playing-drawer[data-active="true"] .npd-bars:not(.is-live-spectrum) span {
+    opacity: 1;
+    animation: wave-bar 1s ease-in-out infinite;
+  }
+
+  .now-playing-drawer[data-active="true"] .npd-bars.is-live-spectrum span {
+    opacity: 1;
+    animation: none;
+  }
+
+  .now-playing-drawer[data-active="true"] .npd-bars span:nth-child(4n+1) {
+    animation-duration: 0.75s;
+    animation-delay: 0s;
+  }
+  .now-playing-drawer[data-active="true"] .npd-bars span:nth-child(4n+2) {
+    animation-duration: 0.95s;
+    animation-delay: 0.1s;
+  }
+  .now-playing-drawer[data-active="true"] .npd-bars span:nth-child(4n+3) {
+    animation-duration: 0.85s;
+    animation-delay: 0.22s;
+  }
+  .now-playing-drawer[data-active="true"] .npd-bars span:nth-child(4n+4) {
+    animation-duration: 1.1s;
+    animation-delay: 0.05s;
+  }
+
+  .npd-transport {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .npd-transport-btn {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--on-surface-variant);
+  }
+
+  .npd-transport-btn:hover {
+    color: var(--on-surface);
+    background: var(--surface-high);
+    border-color: transparent;
+  }
+
+  .npd-play {
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--primary-container);
+    color: var(--on-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 28px rgba(0, 229, 255, 0.3);
+  }
+
+  .npd-play .icon-pause {
+    display: none;
+  }
+
+  .now-playing-drawer[data-active="true"] .npd-play .icon-play {
+    display: none;
+  }
+
+  .now-playing-drawer[data-active="true"] .npd-play .icon-pause {
+    display: block;
+  }
+
+  .npd-volume {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--on-surface-variant);
+    margin-bottom: 1rem;
+  }
+
+  .npd-volume input {
+    flex: 1;
+    accent-color: var(--primary-container);
+  }
+
+  .npd-sleep {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    background: var(--surface-low);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .npd-sleep-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+
+  .npd-sleep-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--on-surface);
+  }
+
+  .npd-sleep-hint {
+    font-size: 0.7rem;
+    color: var(--on-surface-variant);
+  }
+
+  .npd-sleep-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+  }
+
+  .npd-sleep-controls select {
+    margin: 0;
+    min-width: 9.5rem;
+    padding: 0.45rem 0.65rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface-container);
+    color: var(--on-surface);
+    font-size: 0.85rem;
+  }
+
+  .npd-sleep-remaining {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+
+  .npd-sleep-remaining[data-fading="true"] {
+    color: var(--secondary);
+  }
+
+  .npd-quick {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+
+  .npd-quick-card {
+    text-align: left;
+    padding: 0.85rem;
+    margin: 0;
+    border-radius: var(--radius-md);
+    background: var(--surface-low);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .npd-quick-card strong {
+    font-size: 0.85rem;
+  }
+
+  .npd-quick-card span {
+    font-size: 0.75rem;
+    color: var(--on-surface-variant);
+  }
+
+  .npd-quick-card:hover {
+    border-color: rgba(0, 229, 255, 0.3);
+    color: var(--on-surface);
+  }
+</style>

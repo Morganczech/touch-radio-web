@@ -1,84 +1,149 @@
 ---
 const { title, description } = Astro.props;
 import SEO from "../components/SEO.astro";
+import AppHeader from "../components/AppHeader.astro";
+import PlayerDock from "../components/PlayerDock.astro";
+import NowPlayingDrawer from "../components/NowPlayingDrawer.astro";
+import MobileNav from "../components/MobileNav.astro";
 import "../styles/global.css";
 
-// Supports weights 100-900
+import "@fontsource-variable/geist";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
+import "@fontsource/jetbrains-mono/500.css";
+import "@fontsource/jetbrains-mono/600.css";
 ---
 
-<html lang="cs">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+    <SEO title={title} description={description} />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#111319" id="meta-theme-color" />
+    <meta name="color-scheme" content="dark light" />
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("touch-radio-theme");
+          var theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: light)").matches
+                ? "light"
+                : "dark";
+          document.documentElement.setAttribute("data-theme", theme);
+          var meta = document.getElementById("meta-theme-color");
+          if (meta) {
+            meta.setAttribute(
+              "content",
+              theme === "light" ? "#eef1f4" : "#111319",
+            );
+          }
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body class="app-shell">
+    <AppHeader />
+    <slot />
+    <PlayerDock />
+    <NowPlayingDrawer />
+    <MobileNav />
+    <script>
+      function applyTheme(theme: "light" | "dark") {
+        const html = document.documentElement;
+        html.setAttribute("data-theme", theme);
+        try {
+          localStorage.setItem("touch-radio-theme", theme);
+        } catch (_) {}
+        const meta = document.getElementById("meta-theme-color");
+        meta?.setAttribute("content", theme === "light" ? "#eef1f4" : "#111319");
+        const toggle = document.getElementById("theme-toggle");
+        if (toggle) {
+          const isDark = theme === "dark";
+          toggle.setAttribute(
+            "aria-label",
+            isDark ? "Theme is dark (Hi-Fi mode)" : "Theme is light",
+          );
+          toggle.title = isDark ? "Switch to light mode" : "Switch to dark mode";
+        }
+      }
 
-        <!-- SEO Component with all metadata -->
-        <SEO title={title} description={description} />
+      const themeToggle = document.getElementById("theme-toggle");
+      themeToggle?.addEventListener("click", () => {
+        const current =
+          document.documentElement.getAttribute("data-theme") === "light"
+            ? "light"
+            : "dark";
+        applyTheme(current === "dark" ? "light" : "dark");
+      });
 
-        <!-- PWA Manifest -->
-        <link rel="manifest" href="/manifest.json" />
+      // Sync control labels with current theme
+      const initial =
+        document.documentElement.getAttribute("data-theme") === "light"
+          ? "light"
+          : "dark";
+      applyTheme(initial);
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch((error) => {
+            console.warn("Service worker registration failed:", error);
+          });
+        });
+      }
+    </script>
+    <script>
+      import {
+        handlePlayButtonClick,
+        playRelativeInSelection,
+      } from "../scripts/player/audioPlayer";
+      import { initPlayerUI, closeNowPlayingDrawer } from "../scripts/player/playerUI";
+      import { initMediaSession } from "../scripts/player/mediaSession";
+      import { appState } from "../scripts/state/appState";
+      import { toggleFavorite, syncFavoriteUI } from "../scripts/favorites/favoritesManager";
 
-        <!-- Favicons and Icons -->
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      document.addEventListener("DOMContentLoaded", () => {
+        initPlayerUI();
+        initMediaSession();
 
-        <!-- Theme Color -->
-        <meta name="theme-color" content="#3b82f6" />
-    </head>
-    <body>
-        <div
-            style="display: flex; justify-content: flex-end; padding-bottom: 1rem;"
-        >
-            <button id="theme-toggle" aria-label="Toggle theme"
-                >Toggle Theme</button
-            >
-        </div>
-        <slot />
-        <script>
-            const themeToggle = document.getElementById("theme-toggle");
+        const onPlayClick = (e: Event) => {
+          const btn = e.currentTarget as HTMLElement;
+          if (!btn.dataset.id) return;
+          handlePlayButtonClick(e, btn);
+        };
 
-            // Determine current theme
-            function getCurrentTheme() {
-                const htmlTheme =
-                    document.documentElement.getAttribute("data-theme");
-                if (htmlTheme) return htmlTheme;
+        document.getElementById("dock-play")?.addEventListener("click", onPlayClick);
+        document.getElementById("drawer-play")?.addEventListener("click", onPlayClick);
+        document.getElementById("dock-prev")?.addEventListener("click", () => playRelativeInSelection(-1));
+        document.getElementById("dock-next")?.addEventListener("click", () => playRelativeInSelection(1));
+        document.getElementById("drawer-prev")?.addEventListener("click", () => playRelativeInSelection(-1));
+        document.getElementById("drawer-next")?.addEventListener("click", () => playRelativeInSelection(1));
 
-                return window.matchMedia("(prefers-color-scheme: dark)").matches
-                    ? "dark"
-                    : "light";
-            }
+        document.getElementById("drawer-favorite")?.addEventListener("click", () => {
+          const id = appState.currentPlayingId;
+          if (!id) return;
+          toggleFavorite(id);
+          syncFavoriteUI(id);
+          (window as any).__touchRadioSyncPlayerUI?.();
+        });
 
-            // Apply theme
-            function setTheme(theme: string) {
-                document.documentElement.setAttribute("data-theme", theme);
-            }
-
-            if (themeToggle) {
-                themeToggle.addEventListener("click", () => {
-                    const current = getCurrentTheme();
-                    const next = current === "dark" ? "light" : "dark";
-                    setTheme(next);
-                });
-            }
-        </script>
-        <script>
-            if ("serviceWorker" in navigator) {
-                window.addEventListener("load", () => {
-                    navigator.serviceWorker.register("/sw.js").catch((error) => {
-                        console.warn("Service worker registration failed:", error);
-                    });
-                });
-            }
-        </script>
-    </body>
+        document.getElementById("drawer-open-selection")?.addEventListener("click", async () => {
+          closeNowPlayingDrawer();
+          const { openFavoritesSheet } = await import(
+            "../scripts/selection/selectionManager"
+          );
+          openFavoritesSheet();
+        });
+      });
+    </script>
+  </body>
 </html>

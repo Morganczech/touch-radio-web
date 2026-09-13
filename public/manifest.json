@@ -4,8 +4,8 @@
     "description": "Discover and play thousands of radio stations worldwide. Minimalist web radio player with smart search and playlist export.",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#3b82f6",
+    "background_color": "#111319",
+    "theme_color": "#111319",
     "icons": [
         {
             "src": "/icons/icon-192.png",

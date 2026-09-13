@@ -2,6 +2,8 @@
 
 A minimalist web radio player for discovering and listening to thousands of stations worldwide. Built with Astro — smart search, favorites with share/export, a mobile-first player, and a clean ad-free experience.
 
+**Live:** [https://touchradio.eu](https://touchradio.eu)
+
 ![Touch Radio](public/og-image.png)
 
 ## Features

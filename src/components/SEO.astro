@@ -8,7 +8,7 @@ interface Props {
 
 const {
     title = "Touch Radio | Free Web Radio Player",
-    description = "Discover and play thousands of radio stations worldwide. Touch Radio is a free, minimalist web radio player with smart search, playlist export, and no ads. Listen now!",
+    description = "Discover radio, your way. Browse 7000+ stations worldwide, save favorites, share and export playlists — free, ad-free, no tracking.",
     image = "/og-image.png",
     type = "website",
 } = Astro.props;
@@ -18,6 +18,8 @@ const canonicalURL = new URL(
     Astro.site || Astro.url.origin,
 );
 const ogImageURL = new URL(image, Astro.site || Astro.url.origin);
+const imageAlt =
+    "Touch Radio — Discover radio, your way. 7000+ stations, favorites, share and export, no ads.";
 ---
 
 <!-- Primary Meta Tags -->
@@ -28,12 +30,16 @@ const ogImageURL = new URL(image, Astro.site || Astro.url.origin);
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type} />
+<meta property="og:site_name" content="Touch Radio" />
+<meta property="og:locale" content="en_US" />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImageURL} />
+<meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={imageAlt} />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
@@ -41,6 +47,7 @@ const ogImageURL = new URL(image, Astro.site || Astro.url.origin);
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImageURL} />
+<meta name="twitter:image:alt" content={imageAlt} />
 
 <!-- JSON-LD Structured Data -->
 <script
@@ -51,12 +58,13 @@ const ogImageURL = new URL(image, Astro.site || Astro.url.origin);
         name: "Touch Radio",
         description: description,
         url: canonicalURL.toString(),
+        image: ogImageURL.toString(),
         applicationCategory: "MultimediaApplication",
         operatingSystem: "Any",
         offers: {
             "@type": "Offer",
             price: "0",
-            priceCurrency: "USD",
+            priceCurrency: "EUR",
         },
         browserRequirements: "Requires JavaScript. Requires HTML5.",
     })}

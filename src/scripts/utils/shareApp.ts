@@ -10,7 +10,7 @@ interface ShareData {
 
 const SHARE_DATA: ShareData = {
     title: "Touch Radio",
-    text: "Discover Touch Radio - Free web radio player with 7000+ stations worldwide. No ads, no tracking!",
+    text: "Discover radio, your way — 7000+ stations, favorites, share & export. Free, no ads.",
     url: typeof window !== 'undefined' ? window.location.origin : ''
 };
 

@@ -1,7 +1,7 @@
 {
     "name": "Touch Radio",
     "short_name": "Touch Radio",
-    "description": "Discover and play thousands of radio stations worldwide. Minimalist web radio player with smart search and playlist export.",
+    "description": "Discover radio, your way. Browse 7000+ stations worldwide with favorites, share and export — free and ad-free.",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#141721",

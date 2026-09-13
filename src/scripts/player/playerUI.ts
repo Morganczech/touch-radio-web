@@ -123,10 +123,167 @@ export function openNowPlayingDrawer() {
 export function closeNowPlayingDrawer() {
   const drawer = document.getElementById("now-playing-drawer");
   if (!drawer) return;
+  const sheet = drawer.querySelector(".npd-sheet") as HTMLElement | null;
+  const backdrop = drawer.querySelector(".npd-backdrop") as HTMLElement | null;
+  if (sheet) {
+    sheet.style.transform = "";
+    sheet.style.transition = "";
+  }
+  if (backdrop) {
+    backdrop.style.opacity = "";
+    backdrop.style.transition = "";
+  }
   drawer.classList.remove("is-open");
   drawer.setAttribute("aria-hidden", "true");
   document.body.classList.remove("drawer-open");
   unlockBodyScroll();
+}
+
+/** Mobile bottom-sheet: swipe down to dismiss (handle always; body only at scroll top). */
+function initDrawerSwipeDismiss() {
+  const drawer = document.getElementById("now-playing-drawer");
+  const sheet = drawer?.querySelector(".npd-sheet") as HTMLElement | null;
+  const backdrop = drawer?.querySelector(".npd-backdrop") as HTMLElement | null;
+  if (!drawer || !sheet) return;
+
+  const DISMISS_PX = 96;
+  const DISMISS_VELOCITY = 0.55;
+
+  let tracking = false;
+  let dragging = false;
+  let fromHandle = false;
+  let startY = 0;
+  let startX = 0;
+  let offsetY = 0;
+  let lastY = 0;
+  let lastT = 0;
+  let velocity = 0;
+  let pointerId: number | null = null;
+
+  const clearInlineMotion = () => {
+    sheet.style.transform = "";
+    sheet.style.transition = "";
+    if (backdrop) {
+      backdrop.style.opacity = "";
+      backdrop.style.transition = "";
+    }
+  };
+
+  const snapClosed = () => {
+    sheet.style.transition = "transform 0.22s ease-in";
+    sheet.style.transform = "translateY(105%)";
+    if (backdrop) {
+      backdrop.style.transition = "opacity 0.22s ease-in";
+      backdrop.style.opacity = "0";
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      sheet.removeEventListener("transitionend", finish);
+      clearInlineMotion();
+      closeNowPlayingDrawer();
+    };
+    sheet.addEventListener("transitionend", finish);
+    window.setTimeout(finish, 280);
+  };
+
+  const snapOpen = () => {
+    sheet.style.transition = "transform 0.28s cubic-bezier(0.22, 1, 0.36, 1)";
+    sheet.style.transform = "translateY(0)";
+    if (backdrop) {
+      backdrop.style.transition = "opacity 0.28s ease";
+      backdrop.style.opacity = "1";
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      sheet.removeEventListener("transitionend", finish);
+      clearInlineMotion();
+    };
+    sheet.addEventListener("transitionend", finish);
+    window.setTimeout(finish, 320);
+  };
+
+  const endGesture = () => {
+    if (!tracking && !dragging) return;
+    const shouldClose =
+      dragging && (offsetY >= DISMISS_PX || (offsetY > 40 && velocity >= DISMISS_VELOCITY));
+
+    tracking = false;
+    dragging = false;
+    fromHandle = false;
+    pointerId = null;
+
+    if (shouldClose) snapClosed();
+    else if (offsetY > 0) snapOpen();
+    else clearInlineMotion();
+
+    offsetY = 0;
+    velocity = 0;
+  };
+
+  sheet.addEventListener("pointerdown", (e) => {
+    if (!drawer.classList.contains("is-open")) return;
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+
+    const target = e.target as Element | null;
+    if (target?.closest("input, select, textarea, button, a, label")) return;
+
+    fromHandle = Boolean(target?.closest("[data-drawer-drag]"));
+    if (!fromHandle && sheet.scrollTop > 0) return;
+
+    tracking = true;
+    dragging = false;
+    startY = e.clientY;
+    startX = e.clientX;
+    offsetY = 0;
+    lastY = e.clientY;
+    lastT = e.timeStamp;
+    velocity = 0;
+    pointerId = e.pointerId;
+  });
+
+  sheet.addEventListener("pointermove", (e) => {
+    if (!tracking || (pointerId !== null && e.pointerId !== pointerId)) return;
+
+    const dy = e.clientY - startY;
+    const dx = e.clientX - startX;
+
+    if (!dragging) {
+      if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+        tracking = false;
+        return;
+      }
+      if (dy < 10) return;
+      if (!fromHandle && sheet.scrollTop > 0) {
+        tracking = false;
+        return;
+      }
+      dragging = true;
+      sheet.setPointerCapture(e.pointerId);
+      sheet.style.transition = "none";
+      if (backdrop) backdrop.style.transition = "none";
+    }
+
+    offsetY = Math.max(0, dy);
+    const dt = Math.max(1, e.timeStamp - lastT);
+    velocity = (e.clientY - lastY) / dt;
+    lastY = e.clientY;
+    lastT = e.timeStamp;
+
+    sheet.style.transform = `translateY(${offsetY}px)`;
+    if (backdrop) {
+      backdrop.style.opacity = String(Math.max(0, 1 - offsetY / 340));
+    }
+  });
+
+  sheet.addEventListener("pointerup", endGesture);
+  sheet.addEventListener("pointercancel", endGesture);
+  sheet.addEventListener("lostpointercapture", () => {
+    if (tracking || dragging) endGesture();
+  });
 }
 
 export function toggleNowPlayingDrawer() {
@@ -159,18 +316,46 @@ export function initPlayerUI() {
 
   const volume = document.getElementById("dock-volume") as HTMLInputElement | null;
   const drawerVolume = document.getElementById("drawer-volume") as HTMLInputElement | null;
-  const syncVolumeInputs = (value: number) => {
-    audioPlayer.volume = value;
-    if (volume) volume.value = String(value);
-    if (drawerVolume) drawerVolume.value = String(value);
+  const muteBtns = document.querySelectorAll<HTMLButtonElement>("[data-volume-mute]");
+  let lastVolume = audioPlayer.volume > 0 ? audioPlayer.volume : 1;
+
+  const syncMuteButtons = (value: number) => {
+    const muted = value <= 0.001;
+    muteBtns.forEach((btn) => {
+      btn.setAttribute("aria-pressed", muted ? "true" : "false");
+      btn.setAttribute("aria-label", muted ? "Unmute" : "Mute");
+    });
   };
+
+  const syncVolumeInputs = (value: number) => {
+    const v = Math.max(0, Math.min(1, value));
+    audioPlayer.volume = v;
+    if (v > 0.001) lastVolume = v;
+    if (volume) volume.value = String(v);
+    if (drawerVolume) drawerVolume.value = String(v);
+    syncMuteButtons(v);
+  };
+
   volume?.addEventListener("input", () => syncVolumeInputs(Number(volume.value)));
   drawerVolume?.addEventListener("input", () =>
     syncVolumeInputs(Number(drawerVolume.value)),
   );
+
+  muteBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (audioPlayer.volume > 0.001) {
+        lastVolume = audioPlayer.volume;
+        syncVolumeInputs(0);
+      } else {
+        syncVolumeInputs(lastVolume > 0.001 ? lastVolume : 1);
+      }
+    });
+  });
+
   syncVolumeInputs(audioPlayer.volume || 1);
 
   initSleepTimer();
+  initDrawerSwipeDismiss();
 
   (window as any).__touchRadioSyncDock = syncPlayerUI;
   (window as any).__touchRadioSyncPlayerUI = syncPlayerUI;

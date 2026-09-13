@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="g" x1="7.68" y1="7.68" x2="56.32" y2="56.32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00E5FF"/>
+      <stop offset="0.5" stop-color="#3B82F6"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="32" cy="32" r="16.213333333333335" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#00E5FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" fill="#141721"/>
+  <circle cx="32" cy="32" r="16.213333333333335" fill="url(#glow)"/>
+  <line x1="19.84" y1="28.96" x2="19.84" y2="35.040000000000006" stroke="url(#g)" stroke-width="3.0400000000000005" stroke-linecap="round"/><line x1="25.92" y1="23.893333333333334" x2="25.92" y2="40.10666666666667" stroke="url(#g)" stroke-width="3.0400000000000005" stroke-linecap="round"/><line x1="32" y1="18.826666666666668" x2="32" y2="45.17333333333334" stroke="url(#g)" stroke-width="3.6479999999999997" stroke-linecap="round"/><line x1="38.08" y1="24.906666666666666" x2="38.08" y2="39.093333333333334" stroke="url(#g)" stroke-width="3.0400000000000005" stroke-linecap="round"/><line x1="44.160000000000004" y1="29.973333333333336" x2="44.160000000000004" y2="34.02666666666667" stroke="url(#g)" stroke-width="3.0400000000000005" stroke-linecap="round"/>
+  
+</svg>
